@@ -16,6 +16,8 @@
     },
     "path-intellisense.mappings": {
       "@/": "${workspaceRoot}/web/src/"
-    }
+    },
+    "editor.minimap.maxColumn": 400,
+    "vetur.format.defaultFormatter.html": "prettier"
   }
 }
