@@ -1,0 +1,21 @@
+{
+  "folders": [
+    {
+      "path": "./"
+    }
+  ],
+  "settings": {
+    "workbench.colorCustomizations": {
+      "titleBar.activeBackground": "#00aeff",
+      "titleBar.inactiveBackground": "#00aeff",
+      "titleBar.activeForeground": "#fff",
+      "titleBar.inactiveForeground": "#fff",
+      "selection.background": "#ff5f38",
+      "list.hoverBackground": "#00aeff",
+      "list.focusBackground": "#00aeff"
+    },
+    "path-intellisense.mappings": {
+      "@/": "${workspaceRoot}/web/src/"
+    }
+  }
+}
