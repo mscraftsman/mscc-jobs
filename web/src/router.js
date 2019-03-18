@@ -21,17 +21,17 @@ export default new Router({
     {
       path: "/jobs",
       name: "jobs",
-      component: () => import("./views/Home.vue")
+      component: () => import("./views/Jobs.vue")
     },
     {
-      path: "/jobs/id",
+      path: "/jobs/:id",
       name: "jobsSingle",
-      component: () => import("./views/Home.vue")
+      component: () => import("./views/Job.vue")
     },
     {
       path: "/company/:id",
       name: "companySingle",
-      component: () => import("./views/Home.vue")
+      component: () => import("./views/Company.vue")
     },
     {
       path: "/submit-job",

@@ -3,16 +3,13 @@
     <div class="container__fw grid__layout">
       <nav class="side__menu">
         <ul>
-          <li>
-            <router-link to="/" class="home">Jobs In Tech</router-link>
-          </li>
-          <li>
-            <router-link :to="{name: 'about'}">About</router-link>
-          </li>
-          <li>
-            <router-link :to="{name: 'jobs'}">Jobs</router-link>
+          <li v-for="(item, index) in items" :key="index">
+            <router-link :class="item.class" :to="{ name: item.path }">{{item.name}}</router-link>
           </li>
         </ul>
+        <button class="mobile__menu__button" @click="activateMobileMenu">
+          <img src="@/assets/img/menu.svg" alt>
+        </button>
       </nav>
       <div class="logo">
         <router-link to="/" class="logo-img">
@@ -26,12 +23,42 @@
         >Submit A Job</router-link>
       </div>
     </div>
+    <MobileMenu :items="items"/>
   </header>
 </template>
 
 <script>
+import MobileMenu from "@/components/shared/MobileMenu";
+
 export default {
-  name: "Navigation"
+  name: "Navigation",
+  components: {
+    MobileMenu
+  },
+  data() {
+    return {
+      items: [
+        {
+          name: "Jobs In Tech",
+          path: "home",
+          class: "home"
+        },
+        {
+          name: "About",
+          path: "about"
+        },
+        {
+          name: "Jobs",
+          path: "jobs"
+        }
+      ]
+    };
+  },
+  methods: {
+    activateMobileMenu() {
+      this.$store.dispatch("shared/setMenuStatus");
+    }
+  }
 };
 </script>
 
@@ -43,6 +70,7 @@ export default {
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 10;
 
   .grid__layout {
     display: grid;
@@ -75,6 +103,15 @@ export default {
           }
         }
       }
+    }
+
+    .mobile__menu__button {
+      height: 60px;
+      border: 0;
+      background: transparent;
+      padding-top: 10px;
+      width: 60px;
+      display: none;
     }
   }
 
@@ -109,6 +146,15 @@ export default {
       .button__global {
         padding-left: 15px;
         padding-right: 15px;
+      }
+    }
+
+    .side__menu {
+      ul {
+        display: none;
+      }
+      .mobile__menu__button {
+        display: block;
       }
     }
   }

@@ -1,15 +1,22 @@
 <template>
   <div id="app">
+    <SiteHeader/>
     <router-view :key="$route.path"/>
+    <SiteFooter/>
   </div>
 </template>
 
 <script>
 import "normalize-css";
+import SiteHeader from "@/components/shared/SiteHeader.vue";
+import SiteFooter from "@/components/shared/SiteFooter.vue";
 
 export default {
   name: "App",
-  components: {}
+  components: {
+    SiteHeader,
+    SiteFooter
+  }
 };
 </script>
 
@@ -21,7 +28,7 @@ export default {
 
 #app,
 body {
-  font-family: var(--font-Poppins);
+  font-family: var(--font-Poppins), Helvetica;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -30,5 +37,9 @@ body {
   max-width: 1400px;
   padding: 0 10px;
   margin: 0 auto;
+}
+
+.body__container {
+  margin-top: 60px;
 }
 </style>
