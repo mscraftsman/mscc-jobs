@@ -3,7 +3,7 @@ import getters from "./getters";
 import mutations from "./mutations";
 
 const state = {
-  jobs: [
+  jobsRow: [
     {
       colour: "#004a8f",
       featured: false,
@@ -174,7 +174,8 @@ const state = {
       ]
     }
   ],
-  jobsGroupedByCompany: []
+  jobs: [],
+  jobsGroupedByCompanyId: []
 };
 
 const namespaced = true;

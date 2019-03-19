@@ -16,6 +16,9 @@ export default {
   components: {
     SiteHeader,
     SiteFooter
+  },
+  beforeMount() {
+    this.$store.dispatch("jobs/getJobsFromApi");
   }
 };
 </script>
