@@ -1,8 +1,8 @@
 <template>
   <div id="app" class="theme-global">
-    <SiteHeader/>
-    <router-view :key="$route.path"/>
-    <SiteFooter/>
+    <SiteHeader />
+    <router-view :key="$route.path" />
+    <SiteFooter />
   </div>
 </template>
 
