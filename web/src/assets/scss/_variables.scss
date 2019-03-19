@@ -30,6 +30,15 @@
 
 .theme-global {
   //////////////////////////////
+  /// Header
+  /////////////////////////////
+
+  --header-background-color: var(--color-white);
+  --header-box-shadow-color: rgba(31, 32, 65, 0.05);
+  --header-text-color: var(--color-light);
+  --header-text-color-dark: var(--color-dark);
+
+  //////////////////////////////
   /// Buttons
   /////////////////////////////
 
@@ -57,22 +66,4 @@
 }
 
 .theme-dark {
-  // Spacing
-  --gutter: 20px;
-
-  // Colours
-  --color-dark: #393939;
-  --color-light: #838383;
-  --color-gray-light: #e5e5e5;
-  --color-red: #e30101;
-  --color-blue: #0198c0;
-  --color-yellow: #ffe401;
-  --color-green: #308701;
-  --color-white: #ffffff;
-  --color-bg: #f4f4f6;
-  --color-black: #1e1e1e;
-
-  //fonts
-  --font-Roboto: "Roboto", sans-serif;
-  --font-Poppins: "Poppins", sans-serif;
 }

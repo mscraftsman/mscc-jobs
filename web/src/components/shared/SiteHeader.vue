@@ -4,26 +4,29 @@
       <nav class="side__menu">
         <ul>
           <li v-for="(item, index) in items" :key="index">
-            <router-link :class="item.class" :to="{ name: item.path }">{{item.name}}</router-link>
+            <router-link :class="item.class" :to="{ name: item.path }">{{
+              item.name
+            }}</router-link>
           </li>
         </ul>
         <button class="mobile__menu__button" @click="activateMobileMenu">
-          <img src="@/assets/img/menu.svg" alt>
+          <img src="@/assets/img/menu.svg" alt />
         </button>
       </nav>
       <div class="logo">
         <router-link to="/" class="logo-img">
-          <img src="@/assets/img/logo.svg" alt="Jobs In Tech logo">
+          <img src="@/assets/img/logo.svg" alt="Jobs In Tech logo" />
         </router-link>
       </div>
       <div class="submit__job">
         <router-link
           class="submit__job__button button__global yellow"
-          :to="{name: 'submitJob'}"
-        >Submit A Job</router-link>
+          :to="{ name: 'submitJob' }"
+          >Submit A Job</router-link
+        >
       </div>
     </div>
-    <MobileMenu :items="items"/>
+    <MobileMenu :items="items" />
   </header>
 </template>
 
@@ -65,8 +68,8 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  background: var(--color-white);
-  box-shadow: 0px 5px 20px rgba(31, 32, 65, 0.05);
+  background: var(--header-background-color);
+  box-shadow: 0px 5px 20px var(--header-box-shadow-color);
   position: fixed;
   top: 0;
   width: 100%;
@@ -93,13 +96,13 @@ export default {
         margin-right: calc(var(--gutter) + 10px);
 
         a {
-          color: var(--color-light);
+          color: var(--header-text-color);
           text-transform: uppercase;
           text-decoration: none;
 
           &.home {
             font-weight: 700;
-            color: var(--color-dark);
+            color: var(--header-text-color-dark);
           }
         }
       }
