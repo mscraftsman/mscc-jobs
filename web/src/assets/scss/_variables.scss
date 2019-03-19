@@ -63,6 +63,22 @@
   --button-border-color-outline: var(--color-blue);
   --button-box-shadow-color-outline: rgba(1, 152, 192, 0.58);
   --button-box-shadow-color-outline-hover: rgba(1, 152, 192, 0.9);
+
+  //////////////////////////////
+  /// Social
+  /////////////////////////////
+
+  --social-icon-background-color: var(--color-blue);
+
+  //////////////////////////////
+  /// Footer
+  /////////////////////////////
+
+  --footer-background-color: var(--color-black);
+  --footer-border-color: rgba(255, 255, 255, 0.2);
+  --footer-title-color: var(--color-white);
+  --footer-subtitle-color: rgba(255, 255, 255, 0.5);
+  --footer-text-color: var(--color-white);
 }
 
 .theme-dark {
