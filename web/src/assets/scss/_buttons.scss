@@ -5,11 +5,12 @@
   padding-right: 30px;
   display: inline-flex;
   align-items: center;
-  color: var(--color-dark);
+  color: var(--button-text-color);
+  background: var(--button-background-color);
+  box-shadow: 0px 4px 18px var(--button-box-shadow-color);
   text-decoration: none;
   font-weight: 700;
   text-transform: uppercase;
-  box-shadow: 0px 4px 18px rgba(255, 228, 0, 0.7);
   transition: all 0.3s ease-in-out;
   border: 0;
 
@@ -41,28 +42,28 @@
 
   &:hover {
     transform: scale(1.05);
-    box-shadow: 0px 4px 25px rgba(255, 228, 0, 0.9);
+    box-shadow: 0px 4px 25px var(--button-box-shadow-color-hover);
   }
 
   &.yellow {
-    background: var(--color-yellow);
+    background: var(--button-background-color-primary);
   }
 
   &.blue {
-    background: var(--color-blue);
-    color: var(--color-white);
-    box-shadow: 0px 4px 12px rgba(1, 152, 192, 0.58);
+    background: var(--button-background-color-secondary);
+    color: var(--button-text-color-secondary);
+    box-shadow: 0px 4px 12px var(--button-box-shadow-color-secondary);
 
     &:hover {
-      box-shadow: 0px 4px 25px rgba(1, 152, 192, 0.9);
+      box-shadow: 0px 4px 25px var(--button-box-shadow-color-secondary-hover);
     }
   }
 
   &.outline {
     &.blue {
       background: transparent;
-      color: var(--color-blue);
-      border: 1px solid var(--color-blue);
+      color: var(--button-text-color-outline);
+      border: 1px solid var(--button-border-color-outline);
       box-shadow: none;
     }
   }

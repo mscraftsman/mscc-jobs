@@ -2,17 +2,17 @@
   <div class="social__icons">
     <div class="icon facebook">
       <a :href="facebook" target="_blank">
-        <img src="@/assets/img/social-twitter.svg" alt>
+        <img src="@/assets/img/social-twitter.svg" alt />
       </a>
     </div>
     <div class="icon twitter">
       <a :href="twitter" target="_blank">
-        <img src="@/assets/img/social-facebook.svg" alt>
+        <img src="@/assets/img/social-facebook.svg" alt />
       </a>
     </div>
     <div class="icon linkedin">
       <a :href="linkedin" target="_blank">
-        <img src="@/assets/img/social-linkedin.svg" alt>
+        <img src="@/assets/img/social-linkedin.svg" alt />
       </a>
     </div>
   </div>
@@ -53,7 +53,7 @@ export default {
       justify-content: center;
       width: 40px;
       height: 40px;
-      background: var(--color-yellow);
+      background: var(--social-icon-background-color);
       border-radius: 50px;
       transition: all 0.2s ease-in-out;
 

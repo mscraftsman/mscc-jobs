@@ -3,7 +3,7 @@
     <div class="container__fw">
       <div class="upper__section">
         <div class="logo__wrapper">
-          <img src="@/assets/img/logo-white.svg" alt>
+          <img src="@/assets/img/logo-white.svg" alt />
         </div>
         <div class="logo">
           <h3>Mauritius Software Craftsmanship Community</h3>
@@ -12,22 +12,22 @@
 
         <div class="social__media">
           <a href="#" class="icon">
-            <img src="@/assets/img/social/twitter.svg" alt>
+            <img src="@/assets/img/social/twitter.svg" alt />
           </a>
           <a href="#" class="icon">
-            <img src="@/assets/img/social/facebook.svg" alt>
+            <img src="@/assets/img/social/facebook.svg" alt />
           </a>
           <a href="#" class="icon">
-            <img src="@/assets/img/social/linkedin.svg" alt>
+            <img src="@/assets/img/social/linkedin.svg" alt />
           </a>
           <a href="#" class="icon">
-            <img src="@/assets/img/social/github.svg" alt>
+            <img src="@/assets/img/social/github.svg" alt />
           </a>
           <a href="#" class="icon">
-            <img src="@/assets/img/social/googleplus.svg" alt>
+            <img src="@/assets/img/social/googleplus.svg" alt />
           </a>
           <a href="#" class="icon">
-            <img src="@/assets/img/social/yt.svg" alt>
+            <img src="@/assets/img/social/yt.svg" alt />
           </a>
         </div>
       </div>
@@ -36,7 +36,7 @@
         <nav class="footer__nav">
           <ul>
             <li v-for="(item, index) in items" :key="index">
-              <router-link :to="item.path">{{item.text}}</router-link>
+              <router-link :to="item.path">{{ item.text }}</router-link>
             </li>
           </ul>
         </nav>
@@ -44,8 +44,9 @@
         <div class="signature">
           Crafted with
           <span>
-            <img src="@/assets/img/heart.svg" alt>
-          </span> in Mauritius
+            <img src="@/assets/img/heart.svg" alt />
+          </span>
+          in Mauritius
         </div>
       </div>
     </div>
@@ -85,12 +86,12 @@ export default {
 
 <style lang="scss" scoped>
 footer {
-  background: var(--color-black);
+  background: var(--footer-background-color);
   padding: calc(var(--gutter) * 2) 0;
 
   .upper__section {
     text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid var(--footer-border-color);
     padding-bottom: var(--gutter);
 
     .logo__wrapper {
@@ -105,13 +106,13 @@ footer {
 
       h3 {
         text-transform: uppercase;
-        color: var(--color-white);
+        color: var(--footer-title-color);
         font-size: 16px;
         margin: 0;
       }
 
       h4 {
-        color: rgba(255, 255, 255, 0.5);
+        color: var(--footer-subtitle-color);
         text-transform: uppercase;
         font-style: normal;
         font-weight: 300;
@@ -159,7 +160,7 @@ footer {
 
           a {
             margin-right: var(--gutter);
-            color: var(--color-white);
+            color: var(--footer-text-color);
             font-style: normal;
             font-weight: 300;
             font-size: 13px;
@@ -172,7 +173,7 @@ footer {
 
     .signature {
       text-align: right;
-      color: var(--color-white);
+      color: var(--footer-text-color);
       font-size: 13px;
     }
   }
