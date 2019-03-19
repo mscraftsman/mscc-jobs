@@ -1,5 +1,5 @@
 <template>
-  <div class="body__container">
+  <div class="body__container company-profile__view">
     <div class="header__section" style="background: url('/img/jobs/companies/lsldigital-bg.jpg')">
       <div class="container__fw">
         <h2>Mauritius Commercial Bank</h2>
@@ -9,42 +9,52 @@
       <div class="container__fw">
         <div class="block__content">
           <div class="company__logo">
-            <img src="/img/jobs/companies/lsldigital.svg" alt class="logo">
+            <img src="/img/jobs/companies/mcb.jpg" alt class="logo">
           </div>
           <div class="company__details">
             <div class="data">
               <label>Founded</label>
-              <div class="data__content">Baie Du Tombeau</div>
+              <div class="data__content">2015</div>
             </div>
 
             <div class="data">
               <label>Phone</label>
-              <div class="data__content">Baie Du Tombeau</div>
+              <div class="data__content">(230) 5642 1233</div>
             </div>
 
             <div class="data">
               <label>Company Size</label>
-              <div class="data__content">Baie Du Tombeau</div>
-            </div>
-
-            <div class="data">
-              <label>Type</label>
-              <div class="data__content">Baie Du Tombeau</div>
+              <div class="data__content">500+ employees</div>
             </div>
 
             <div class="data">
               <label>Industry</label>
-              <div class="data__content">Baie Du Tombeau</div>
+              <div class="data__content">Fintech</div>
             </div>
 
             <div class="data">
               <label>Website</label>
-              <div class="data__content">Baie Du Tombeau</div>
+              <div class="data__content">
+                <a href="/">
+                  www.lsl.digital
+                  <img src="@/assets/img/external-link.svg" alt class="logo">
+                </a>
+              </div>
             </div>
 
             <div class="data">
               <label>Address</label>
-              <div class="data__content">Baie Du Tombeau</div>
+              <div class="data__content">
+                8, Rue baie des Oursins
+                Baie du Tombeau, 7CU0092
+              </div>
+            </div>
+
+            <div class="data">
+              <label>Social</label>
+              <div class="data__content">
+                <SocialComponent/>
+              </div>
             </div>
           </div>
         </div>
@@ -54,7 +64,7 @@
       <div class="container__fw">
         <div class="about__location__block">
           <div class="about">
-            <div class="block__content">
+            <div class="block__content company__description">
               <h3>About Company</h3>
               <div class="body__content">
                 <p>LSL Digital was created out of need to fulfill the growing demand of La Sentinelle for development and infrastructure support.</p>
@@ -67,7 +77,24 @@
           <div class="location">
             <div class="block__content">
               <h3>Location</h3>
-              <div class="body__content">some location</div>
+              <div class="body__content">
+                <GmapMap
+                  :center="position"
+                  :zoom="15"
+                  map-type-id="terrain"
+                  style="width: 100%; height: 300px"
+                >
+                  <GmapMarker :position="position"/>
+                </GmapMap>
+                <button class="open__maps">
+                  Open in Google Maps
+                  <img
+                    class="icon"
+                    src="@/assets/img/external-link-dark.svg"
+                    alt
+                  >
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -75,7 +102,9 @@
     </section>
     <section class="open__position">
       <div class="container__fw">
-        <h2>Open positions</h2>
+        <h2 class="sub__heading">Open positions</h2>
+
+        <div class="jobs__by-company"></div>
       </div>
     </section>
   </div>
@@ -83,7 +112,20 @@
 
 
 <script>
-export default {};
+import SocialComponent from "@/components/shared/SocialComponent";
+export default {
+  components: {
+    SocialComponent
+  },
+  data() {
+    return {
+      position: {
+        lat: -20.2452272,
+        lng: 57.4896214
+      }
+    };
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -129,29 +171,51 @@ export default {};
 
     .company__logo {
       .logo {
-        width: 90%;
+        width: 80%;
       }
     }
 
     .company__details {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 75px;
+      grid-column-gap: var(--gutter);
 
       .data {
         label {
           color: var(--color-light);
           text-transform: uppercase;
           font-weight: 500;
-          font-size: 11px;
+          font-size: 14px;
           margin-bottom: 5px;
         }
 
         .data__content {
           font-family: var(--font-Roboto);
-          font-weight: 300;
+          font-weight: 500;
+
+          a {
+            color: var(--color-blue);
+            text-decoration: none;
+            border-bottom: 1px solid var(--color-blue);
+            padding-bottom: 4px;
+
+            img {
+              position: relative;
+              top: 3px;
+            }
+          }
         }
       }
     }
+  }
+}
+
+.about__location {
+  .about__location__block {
+    display: grid;
+    grid-template-columns: 1fr 0.5fr;
+    grid-column-gap: var(--gutter);
   }
 }
 </style>

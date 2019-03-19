@@ -2,11 +2,63 @@
   background: var(--color-white);
   box-shadow: 0px -2px 25px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  padding: var(--gutter);
   margin-bottom: var(--gutter);
+
+  --padding: 0 calc(var(--gutter) * 1.5);
+
+  padding: calc(var(--gutter) * 1.5) 0;
+
+  &.company__description {
+    min-height: 458px;
+  }
 
   h3 {
     margin: 0;
     margin-bottom: var(--gutter);
+    color: var(--color-dark);
+    font-size: 18px;
+    padding: var(--padding);
   }
+
+  .body__content {
+    padding: var(--padding);
+
+    .open__maps {
+      width: 100%;
+      height: 50px;
+      background: var(--color-yellow);
+      color: var(--color-dark);
+      text-align: right;
+      border: 0;
+      font-weight: 500;
+      padding: 0 var(--gutter);
+
+      .icon {
+        height: 20px;
+        position: relative;
+        top: 3px;
+      }
+    }
+  }
+
+  p {
+    font-family: var(--font-Roboto);
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 30px;
+    color: var(--color-dark);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.sub__heading {
+  font-family: var(--font-Poppins);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: normal;
 }
