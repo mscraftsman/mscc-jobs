@@ -42,4 +42,10 @@ body {
 .body__container {
   margin-top: 60px;
 }
+
+.job-listing__view,
+.company-profile__view {
+  background: var(--color-bg);
+  padding-bottom: calc(var(--gutter) * 2);
+}
 </style>

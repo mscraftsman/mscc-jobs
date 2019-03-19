@@ -7,6 +7,7 @@ import actions from "./actions";
 
 // Modules
 import shared from "./shared/index";
+import jobs from "./jobs/index";
 
 Vue.use(Vuex);
 
@@ -20,7 +21,8 @@ const state = {
 export default new Vuex.Store({
   state,
   modules: {
-    shared
+    shared,
+    jobs
   },
   getters,
   mutations,
