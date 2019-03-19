@@ -28,7 +28,7 @@
   --font-Poppins: "Poppins", sans-serif;
 }
 
-.theme-global {
+.theme-default {
   //////////////////////////////
   /// Header
   /////////////////////////////
@@ -82,4 +82,54 @@
 }
 
 .theme-dark {
+  //////////////////////////////
+  /// Header
+  /////////////////////////////
+
+  --header-background-color: var(--color-black);
+  --header-box-shadow-color: rgba(31, 32, 65, 0.05);
+  --header-text-color: var(--color-light);
+  --header-text-color-dark: var(--color-white);
+
+  //////////////////////////////
+  /// Buttons
+  /////////////////////////////
+
+  // Buttons Base
+  --button-text-color: var(--color-dark);
+  --button-background-color: transparent;
+  --button-box-shadow-color: rgba(255, 228, 0, 0.7);
+  --button-box-shadow-color-hover: rgba(255, 228, 0, 0.9);
+
+  // Buttons Primary
+  --button-background-color-primary: var(--color-yellow);
+
+  // Buttons Secondary
+  --button-background-color-secondary: var(--color-blue);
+  --button-text-color-secondary: var(--color-white);
+  --button-box-shadow-color-secondary: rgba(1, 152, 192, 0.58);
+  --button-box-shadow-color-secondary-hover: rgba(1, 152, 192, 0.9);
+
+  // Buttons outline
+  --button-background-color-outline: transparent;
+  --button-text-color-outline: var(--color-blue);
+  --button-border-color-outline: var(--color-blue);
+  --button-box-shadow-color-outline: rgba(1, 152, 192, 0.58);
+  --button-box-shadow-color-outline-hover: rgba(1, 152, 192, 0.9);
+
+  //////////////////////////////
+  /// Social
+  /////////////////////////////
+
+  --social-icon-background-color: var(--color-blue);
+
+  //////////////////////////////
+  /// Footer
+  /////////////////////////////
+
+  --footer-background-color: var(--color-black);
+  --footer-border-color: rgba(255, 255, 255, 0.2);
+  --footer-title-color: var(--color-white);
+  --footer-subtitle-color: rgba(255, 255, 255, 0.5);
+  --footer-text-color: var(--color-white);
 }

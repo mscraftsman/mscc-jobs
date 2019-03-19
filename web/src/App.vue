@@ -1,8 +1,11 @@
 <template>
-  <div id="app" class="theme-global">
+  <div id="app" :class="themes[currentTheme]">
     <SiteHeader />
     <router-view :key="$route.path" />
     <SiteFooter />
+    <div class="theme-switcher" @click="switchTheme()">
+      {{ themes[currentTheme] }}
+    </div>
   </div>
 </template>
 
@@ -16,6 +19,24 @@ export default {
   components: {
     SiteHeader,
     SiteFooter
+  },
+  data() {
+    return {
+      currentTheme: 0,
+      // themes: ['theme-default', 'theme-dark', 'theme-terminal']
+      themes: ['theme-default', 'theme-dark']
+    }
+  },
+  methods: {
+    switchTheme() {
+      let total = this.themes.length - 1;
+      if (this.currentTheme === total) {
+        this.currentTheme = 0
+      } else {
+        this.currentTheme++;
+      }
+
+    }
   }
 };
 </script>
@@ -47,5 +68,17 @@ body {
 .company-profile__view {
   background: var(--color-bg);
   padding-bottom: calc(var(--gutter) * 2);
+}
+
+.theme-switcher {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.5);
+  color: black;
+  padding: 2px 5px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 0 5px 0 0;
 }
 </style>
