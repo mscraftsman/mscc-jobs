@@ -1,56 +1,78 @@
 <template>
   <div class="body__container company-profile__view">
     <transition name="fade" mode="out-in">
-      <LoaderComponent v-if="loading"/>
+      <LoaderComponent v-if="loading" />
       <div v-else>
         <div
           class="header__section"
-          :style="'background: url(/img/jobs/companies/' + company.backgroundImage + ')'"
+          :style="
+            'background: url(/img/jobs/companies/' +
+              company.backgroundImage +
+              ')'
+          "
         >
           <div class="container__fw">
-            <h2 v-if="company.name">{{company.name}}</h2>
+            <h2 v-if="company.name">{{ company.name }}</h2>
           </div>
         </div>
         <section class="company__information">
           <div class="container__fw">
             <div class="block__content">
               <div class="company__logo">
-                <img src="/img/jobs/companies/mcb.jpg" alt class="logo">
+                <img src="/img/jobs/companies/mcb.jpg" alt class="logo" />
               </div>
               <div class="company__details">
                 <div class="data">
                   <label>Founded</label>
-                  <div class="data__content" v-if="company.founded">{{company.founded}}</div>
+                  <div class="data__content" v-if="company.founded">
+                    {{ company.founded }}
+                  </div>
                 </div>
 
                 <div class="data">
                   <label>Phone</label>
-                  <div class="data__content" v-if="company.phone">{{company.phone}}</div>
+                  <div class="data__content" v-if="company.phone">
+                    {{ company.phone }}
+                  </div>
                 </div>
 
                 <div class="data">
                   <label>Company Size</label>
-                  <div class="data__content" v-if="company.size">{{company.size}}</div>
+                  <div class="data__content" v-if="company.size">
+                    {{ company.size }}
+                  </div>
                 </div>
 
                 <div class="data">
                   <label>Industry</label>
-                  <div class="data__content" v-if="company.industry">{{company.industry}}</div>
+                  <div class="data__content" v-if="company.industry">
+                    {{ company.industry }}
+                  </div>
                 </div>
 
                 <div class="data">
                   <label>Website</label>
                   <div class="data__content">
-                    <a v-if="company.website" :href="company.website" target="_blank">
-                      {{company.website}}
-                      <img src="@/assets/img/external-link.svg" alt class="logo">
+                    <a
+                      v-if="company.website"
+                      :href="company.website"
+                      target="_blank"
+                    >
+                      {{ company.website }}
+                      <img
+                        src="@/assets/img/external-link.svg"
+                        alt
+                        class="logo"
+                      />
                     </a>
                   </div>
                 </div>
 
                 <div class="data">
                   <label>Address</label>
-                  <div class="data__content" v-if="company.address">{{company.address}}</div>
+                  <div class="data__content" v-if="company.address">
+                    {{ company.address }}
+                  </div>
                 </div>
 
                 <div class="data">
@@ -73,7 +95,11 @@
               <div class="about">
                 <div class="block__content company__description">
                   <h3>About Company</h3>
-                  <div class="body__content" v-if="company.about" v-html="company.about"></div>
+                  <div
+                    class="body__content"
+                    v-if="company.about"
+                    v-html="company.about"
+                  ></div>
                 </div>
               </div>
 
@@ -82,21 +108,29 @@
                   <h3>Location</h3>
                   <div class="body__content">
                     <GmapMap
-                      v-if="company.location && company.location.lat && company.location.lng"
+                      v-if="
+                        company.location &&
+                          company.location.lat &&
+                          company.location.lng
+                      "
                       :center="company.location"
                       :zoom="15"
                       map-type-id="terrain"
                       style="width: 100%; height: 300px"
                     >
-                      <GmapMarker :position="company.location"/>
+                      <GmapMarker :position="company.location" />
                     </GmapMap>
-                    <a class="open__maps" :href="getMapsURL(company.location)" target="_blank">
+                    <a
+                      class="open__maps"
+                      :href="getMapsURL(company.location)"
+                      target="_blank"
+                    >
                       Open in Google Maps
                       <img
                         class="icon"
                         src="@/assets/img/external-link-dark.svg"
                         alt
-                      >
+                      />
                     </a>
                   </div>
                 </div>
@@ -110,17 +144,19 @@
 
             <div
               class="jobs__by-company"
-              v-if="getJobsByCompanyId(companyId) && getJobsByCompanyId(companyId).length"
+              v-if="
+                getJobsByCompanyId(companyId) &&
+                  getJobsByCompanyId(companyId).length
+              "
             >
               <template v-for="(job, index) in getJobsByCompanyId(companyId)">
-                <JobBlock :jobData="job" :key="index"/>
+                <JobBlock :jobData="job" :key="index" />
               </template>
             </div>
 
             <div class="jobs__by-company no__vacancies" v-else>
               <h4>
-                No vacancies available
-                at the moment
+                No vacancies available at the moment
               </h4>
             </div>
           </div>
@@ -199,7 +235,7 @@ export default {
 <style lang="scss" scoped>
 .header__section {
   padding: calc(var(--gutter) * 5) 0 calc(var(--gutter) * 11);
-  background: var(--color-dark);
+  background: var(--company-background-color);
   background-position: center center !important;
   background-size: cover !important;
   text-align: center;

@@ -1,7 +1,7 @@
 <template>
   <div class="body__container job-single__view">
     <transition name="fade" mode="out-in">
-      <LoaderComponent v-if="loading"/>
+      <LoaderComponent v-if="loading" />
       <div v-else>
         <section class="job__single">
           <div class="container__fw">
@@ -11,40 +11,56 @@
                 <div class="block__content">
                   <div class="body__content job__details__logo">
                     <div class="job__details">
-                      <h2>{{jobData.job.name}}</h2>
+                      <h2>{{ jobData.job.name }}</h2>
 
                       <div class="row-1">
                         <div class="data__cell">
                           <label>Type</label>
-                          <div class="data__content">{{jobData.job.type}}</div>
+                          <div class="data__content">
+                            {{ jobData.job.type }}
+                          </div>
                         </div>
                         <div class="data__cell">
                           <label>Pay (Monthly)</label>
-                          <div class="data__content">{{jobData.job.pay}}</div>
+                          <div class="data__content">{{ jobData.job.pay }}</div>
                         </div>
                         <div class="data__cell">
                           <label>Seniority Level</label>
-                          <div class="data__content">{{jobData.job.seniority_level}}</div>
+                          <div class="data__content">
+                            {{ jobData.job.seniority_level }}
+                          </div>
                         </div>
                         <div class="data__cell">
                           <label>Job Functions</label>
-                          <div class="data__content">{{jobData.job.functions}}</div>
+                          <div class="data__content">
+                            {{ jobData.job.functions }}
+                          </div>
                         </div>
                         <div class="data__cell">
                           <label>Start</label>
-                          <div class="data__content">{{jobData.job.startDesc}}</div>
+                          <div class="data__content">
+                            {{ jobData.job.startDesc }}
+                          </div>
                         </div>
                         <div class="data__cell">
                           <label>Duration</label>
-                          <div class="data__content">{{jobData.job.durationDesc}}</div>
+                          <div class="data__content">
+                            {{ jobData.job.durationDesc }}
+                          </div>
                         </div>
                       </div>
 
                       <div class="row-2">
                         <div class="tags white__bg">
                           <ul>
-                            <li v-for="(tag, index) in jobData.tags" :key="index">
-                              <router-link :to="{ name: 'jobs', query: {tag: tag.url}}">{{tag.name}}</router-link>
+                            <li
+                              v-for="(tag, index) in jobData.tags"
+                              :key="index"
+                            >
+                              <router-link
+                                :to="{ name: 'jobs', query: { tag: tag.url } }"
+                                >{{ tag.name }}</router-link
+                              >
                             </li>
                           </ul>
                         </div>
@@ -53,9 +69,15 @@
                     <div class="company__logo">
                       <router-link
                         class="logo"
-                        :to="{name: 'companySingle', params: { id: jobData.company.id}}"
+                        :to="{
+                          name: 'companySingle',
+                          params: { id: jobData.company.id }
+                        }"
                       >
-                        <img :src="'/img/jobs/companies/' + jobData.company.logo" alt>
+                        <img
+                          :src="'/img/jobs/companies/' + jobData.company.logo"
+                          alt
+                        />
                       </router-link>
                     </div>
                   </div>
@@ -68,22 +90,34 @@
 
                 <div class="block__content">
                   <h3>Responsibilities</h3>
-                  <div class="body__content" v-html="jobData.job.responsibilities"></div>
+                  <div
+                    class="body__content"
+                    v-html="jobData.job.responsibilities"
+                  ></div>
                 </div>
 
                 <div class="block__content">
                   <h3>Requirements</h3>
-                  <div class="body__content" v-html="jobData.job.requirements"></div>
+                  <div
+                    class="body__content"
+                    v-html="jobData.job.requirements"
+                  ></div>
                 </div>
 
                 <div class="block__content">
                   <h3>Benefits</h3>
-                  <div class="body__content" v-html="jobData.job.benefits"></div>
+                  <div
+                    class="body__content"
+                    v-html="jobData.job.benefits"
+                  ></div>
                 </div>
 
                 <div class="block__content">
                   <h3>Apply for this job</h3>
-                  <form @submit.prevent="validateJobApplication" autocomplete="off">
+                  <form
+                    @submit.prevent="validateJobApplication"
+                    autocomplete="off"
+                  >
                     <div class="body__content apply__grid__layout">
                       <InputText
                         label="First Name"
@@ -174,7 +208,10 @@
 
                       <!-- CV upload -->
                       <div :class="['input__block', 'full']">
-                        <label>Upload your curriculum vitae (.doc, .docx, .pdf or .rtf )</label>
+                        <label
+                          >Upload your curriculum vitae (.doc, .docx, .pdf or
+                          .rtf )</label
+                        >
 
                         <div class="upload__options">
                           <div class="upload__cv__button">
@@ -183,12 +220,12 @@
                               type="file"
                               ref="cv_upload"
                               v-on:change="handleCVUpload()"
-                            >
+                            />
                             <label
                               for="cv_upload"
                               class="upload__pc__button button__global blue override__visbility"
                             >
-                              <img src="@/assets/img/pc.svg" class="icon">
+                              <img src="@/assets/img/pc.svg" class="icon" />
                               <span class="text">From Device</span>
                             </label>
                           </div>
@@ -197,7 +234,7 @@
                             type="button"
                             class="upload__pc__button button__global blue override__visbility"
                           >
-                            <img src="@/assets/img/drive.svg" class="icon">
+                            <img src="@/assets/img/drive.svg" class="icon" />
                             <span class="text">Google Drive</span>
                           </button>
 
@@ -205,7 +242,7 @@
                             type="button"
                             class="upload__pc__button button__global blue override__visbility"
                           >
-                            <img src="@/assets/img/dropbox.svg" class="icon">
+                            <img src="@/assets/img/dropbox.svg" class="icon" />
                             <span class="text">Dropbox</span>
                           </button>
                         </div>
@@ -216,11 +253,16 @@
                         </div>
 
                         <div
-                          :class="['input__block', 'full', 'response__message', 'error__upload__wrapper']"
+                          :class="[
+                            'input__block',
+                            'full',
+                            'response__message',
+                            'error__upload__wrapper'
+                          ]"
                         >
                           <div class="icon__wrapper">
                             <div class="icon">
-                              <img src="@/assets/img/error_white.svg" alt>
+                              <img src="@/assets/img/error_white.svg" alt />
                             </div>
                           </div>
                           <div class="message">
@@ -238,7 +280,7 @@
                               required
                               id="accept__job__conditions"
                               v-model="applicationData.agree"
-                            >
+                            />
                             <label for="accept__job__conditions">
                               <span></span>
                             </label>
@@ -246,7 +288,9 @@
                           <label
                             class="checkbox__text"
                             for="accept__job__conditions"
-                          >I accept that my data is being transmitted etc..</label>
+                            >I accept that my data is being transmitted
+                            etc..</label
+                          >
                         </div>
                       </div>
 
@@ -270,10 +314,17 @@
                         </button>
                       </div>
 
-                      <div :class="['input__block', 'full', 'response__message', 'success']">
+                      <div
+                        :class="[
+                          'input__block',
+                          'full',
+                          'response__message',
+                          'success'
+                        ]"
+                      >
                         <div class="icon__wrapper">
                           <div class="icon">
-                            <img src="@/assets/img/success.svg" alt>
+                            <img src="@/assets/img/success.svg" alt />
                           </div>
                         </div>
                         <div class="message">
@@ -282,10 +333,17 @@
                         </div>
                       </div>
 
-                      <div :class="['input__block', 'full', 'response__message', 'error']">
+                      <div
+                        :class="[
+                          'input__block',
+                          'full',
+                          'response__message',
+                          'error'
+                        ]"
+                      >
                         <div class="icon__wrapper">
                           <div class="icon">
-                            <img src="@/assets/img/error_white.svg" alt>
+                            <img src="@/assets/img/error_white.svg" alt />
                           </div>
                         </div>
                         <div class="message">
@@ -300,8 +358,15 @@
                 <div class="block__content">
                   <h3>Apply for this job</h3>
                   <div class="body__content">
-                    <a href="/" class="submit__job__button button__global blue override__visbility">
-                      <img class="icon" src="@/assets/img/external-link-light.svg" alt>
+                    <a
+                      href="/"
+                      class="submit__job__button button__global blue override__visbility"
+                    >
+                      <img
+                        class="icon"
+                        src="@/assets/img/external-link-light.svg"
+                        alt
+                      />
                       <div class="text">Apply on website</div>
                     </a>
                   </div>
@@ -448,7 +513,7 @@ export default {
       font-size: 36px;
       line-height: normal;
       margin-top: 0;
-      color: var(--color-dark);
+      color: var(--block-text-color);
     }
 
     label {
