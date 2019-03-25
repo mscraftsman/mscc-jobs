@@ -177,14 +177,22 @@
                         <label>Upload your curriculum vitae (.doc, .docx, .pdf or .rtf )</label>
 
                         <div class="upload__options">
-                          <button
-                            type="button"
-                            class="upload__pc__button button__global blue override__visbility"
-                          >
-                            <img src="@/assets/img/pc.svg" class="icon">
-                            <span class="text">From Device</span>
-                          </button>
-                          
+                          <div class="upload__cv__button">
+                            <input
+                              id="cv_upload"
+                              type="file"
+                              ref="cv_upload"
+                              v-on:change="handleCVUpload()"
+                            >
+                            <label
+                              for="cv_upload"
+                              class="upload__pc__button button__global blue override__visbility"
+                            >
+                              <img src="@/assets/img/pc.svg" class="icon">
+                              <span class="text">From Device</span>
+                            </label>
+                          </div>
+
                           <button
                             type="button"
                             class="upload__pc__button button__global blue override__visbility"
@@ -192,7 +200,7 @@
                             <img src="@/assets/img/drive.svg" class="icon">
                             <span class="text">Google Drive</span>
                           </button>
-                          
+
                           <button
                             type="button"
                             class="upload__pc__button button__global blue override__visbility"
@@ -205,6 +213,20 @@
                         <div class="file__name">
                           File name:
                           <span>SomeFileName.pdf</span>
+                        </div>
+
+                        <div
+                          :class="['input__block', 'full', 'response__message', 'error__upload__wrapper']"
+                        >
+                          <div class="icon__wrapper">
+                            <div class="icon">
+                              <img src="@/assets/img/error_white.svg" alt>
+                            </div>
+                          </div>
+                          <div class="message">
+                            <h4>Upload Error</h4>
+                            <p>File size is above 5 Mb.</p>
+                          </div>
                         </div>
                       </div>
                       <!-- CV upload -->
@@ -239,7 +261,7 @@
                           </div>
                           <span class="text">Submit Application</span>
                         </button>
-                        
+
                         <button
                           type="reset"
                           class="reset__application__button button__global yellow override__visbility"
@@ -263,7 +285,7 @@
                       <div :class="['input__block', 'full', 'response__message', 'error']">
                         <div class="icon__wrapper">
                           <div class="icon">
-                            <img src="@/assets/img/success.svg" alt>
+                            <img src="@/assets/img/error_white.svg" alt>
                           </div>
                         </div>
                         <div class="message">
@@ -472,6 +494,12 @@ export default {
   button {
     margin-right: calc(var(--gutter) / 2);
   }
+
+  .upload__cv__button {
+    input[type="file"] {
+      display: none;
+    }
+  }
 }
 
 .file__name {
@@ -644,6 +672,27 @@ export default {
       .icon {
         background: var(--color-red);
         box-shadow: 0 10px 20px var(--response-background-error-icon-shadow);
+      }
+    }
+  }
+
+  &.error__upload__wrapper {
+    background-color: var(--response-background-error);
+    grid-template-columns: 50px 1fr;
+
+    .icon__wrapper {
+      .icon {
+        width: 50px;
+        height: 50px;
+        background: var(--color-red);
+        box-shadow: 0 10px 20px var(--response-background-error-icon-shadow);
+      }
+    }
+
+    .message {
+      h4 {
+        font-size: 20px;
+        color: var(--color-red);
       }
     }
   }
