@@ -10,12 +10,12 @@
       @click="openLowerSection()"
     >
       <div class="logo">
-        <router-link :to="{ name: 'companySingle', params: { id: jobData.company.url }  }">
+        <router-link :to="{ name: 'companySingle', params: { id: jobData.company.id }  }">
           <div class="logo__outer">
             <img
               :src="'/img/jobs/companies/' + jobData.company.logo"
               alt
-              v-if="jobData.hasLogo && jobData.company.url"
+              v-if="jobData.hasLogo && jobData.company.id"
             >
             <div class="company__initial" v-else>
               <span>{{getCompanyInitial(jobData.company.name)}}</span>
@@ -24,14 +24,18 @@
         </router-link>
       </div>
       <div class="title__company">
-        <router-link
-          :to="{ name: 'jobsSingle', params: { id: jobData.job.url }  }"
-          class="title"
-        >{{jobData.job.name}}</router-link>
-        <router-link
-          :to="{ name: 'companySingle', params: { id: jobData.company.url }  }"
-          class="company"
-        >{{jobData.company.name}}</router-link>
+        <div>
+          <router-link
+            :to="{ name: 'jobsSingle', params: { id: jobData.id }  }"
+            class="title"
+          >{{jobData.job.name}}</router-link>
+        </div>
+        <div>
+          <router-link
+            :to="{ name: 'companySingle', params: { id: jobData.company.id }  }"
+            class="company"
+          >{{jobData.company.name}}</router-link>
+        </div>
       </div>
       <div class="tags">
         <ul>
@@ -43,7 +47,7 @@
       <div class="time">20 hours ago</div>
       <div class="apply__button">
         <ButtonComponent
-          :to="{ name: 'jobsSingle', params: { id: jobData.job.url }  }"
+          :to="{ name: 'jobsSingle', params: { id: jobData.id }  }"
           color="yellow"
           classStyle="apply__job__button"
           text="Apply"
@@ -55,58 +59,56 @@
         />
       </div>
     </div>
-    <transition name="showLower" mode="out-in">
-      <div class="lower__section" v-if="state">
-        <div class="row-1">
-          <div class="data__cell">
-            <label>Type</label>
-            <div class="data__content">{{jobData.job.type}}</div>
-          </div>
-          <div class="data__cell">
-            <label>Pay (Monthly)</label>
-            <div class="data__content">{{jobData.job.pay}}</div>
-          </div>
-          <div class="data__cell">
-            <label>Seniority Level</label>
-            <div class="data__content">{{jobData.job.seniority_level}}</div>
-          </div>
-          <div class="data__cell">
-            <label>Job Functions</label>
-            <div class="data__content">{{jobData.job.functions}}</div>
+    <div :class="['lower__section', {'active' : state}]">
+      <div class="row-1">
+        <div class="data__cell">
+          <label>Type</label>
+          <div class="data__content">{{jobData.job.type}}</div>
+        </div>
+        <div class="data__cell">
+          <label>Pay (Monthly)</label>
+          <div class="data__content">{{jobData.job.pay}}</div>
+        </div>
+        <div class="data__cell">
+          <label>Seniority Level</label>
+          <div class="data__content">{{jobData.job.seniority_level}}</div>
+        </div>
+        <div class="data__cell">
+          <label>Job Functions</label>
+          <div class="data__content">{{jobData.job.functions}}</div>
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="data__cell">
+          <label>About this job</label>
+          <div class="data__content">{{jobData.job.summary}}</div>
+        </div>
+        <div class="data__cell">
+          <div class="tags white__bg">
+            <ul>
+              <li v-for="(tag, index) in jobData.tags" :key="index">
+                <router-link :to="{ name: 'jobs', query: {tag: tag.url}}">{{tag.name}}</router-link>
+              </li>
+            </ul>
           </div>
         </div>
-        <div class="row-2">
-          <div class="data__cell">
-            <label>About this job</label>
-            <div class="data__content">{{jobData.job.summary}}</div>
-          </div>
-          <div class="data__cell">
-            <div class="tags white__bg">
-              <ul>
-                <li v-for="(tag, index) in jobData.tags" :key="index">
-                  <router-link :to="{ name: 'jobs', query: {tag: tag.url}}">{{tag.name}}</router-link>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="data__cell">
-            <div class="apply__button">
-              <ButtonComponent
-                :to="{ name: 'jobsSingle', params: { id: jobData.job.url }  }"
-                color="yellow"
-                classStyle="apply__job__button"
-                text="Apply"
-                :iconOnDesktop="false"
-                :iconOnMobile="false"
-                :textOnMobile="true"
-                :textOnDesktop="true"
-                icon="/img/utils/icon-bold.svg"
-              />
-            </div>
+        <div class="data__cell">
+          <div class="apply__button">
+            <ButtonComponent
+              :to="{ name: 'jobsSingle', params: { id: jobData.id }  }"
+              color="yellow"
+              classStyle="apply__job__button"
+              text="Apply"
+              :iconOnDesktop="false"
+              :iconOnMobile="false"
+              :textOnMobile="true"
+              :textOnDesktop="true"
+              icon="/img/utils/icon-bold.svg"
+            />
           </div>
         </div>
       </div>
-    </transition>
+    </div>
   </div>
 </template>
 
@@ -324,8 +326,17 @@ export default {
 
   .lower__section {
     background: var(--color-white);
-    padding: calc(var(--gutter) / 1) calc(var(--gutter) / 1)
-      calc(var(--gutter) / 1) var(--gutter);
+    padding: 0 calc(var(--gutter) / 1);
+
+    max-height: 0px;
+    overflow: hidden;
+    transition: all 0.2s ease-in-out;
+
+    &.active {
+      max-height: 1000px;
+      padding: calc(var(--gutter) / 1) calc(var(--gutter) / 1)
+        calc(var(--gutter) / 1) var(--gutter);
+    }
 
     label {
       color: var(--color-light);

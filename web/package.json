@@ -15,8 +15,11 @@
     "normalize.css": "^8.0.1",
     "npm": "^6.9.0",
     "register-service-worker": "^1.5.2",
+    "vee-validate": "^2.2.0",
     "vue": "^2.6.6",
     "vue-router": "^3.0.1",
+    "vue-search-select": "^2.8.3",
+    "vue2-editor": "^2.6.6",
     "vue2-google-maps": "^0.10.6",
     "vuex": "^3.0.1"
   },

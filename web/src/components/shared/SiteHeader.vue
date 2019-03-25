@@ -4,29 +4,30 @@
       <nav class="side__menu">
         <ul>
           <li v-for="(item, index) in items" :key="index">
-            <router-link :class="item.class" :to="{ name: item.path }">{{
+            <router-link :class="item.class" :to="{ name: item.path }">
+              {{
               item.name
-            }}</router-link>
+              }}
+            </router-link>
           </li>
         </ul>
         <button class="mobile__menu__button" @click="activateMobileMenu">
-          <img src="@/assets/img/menu.svg" alt />
+          <img src="@/assets/img/menu.svg" alt>
         </button>
       </nav>
       <div class="logo">
         <router-link to="/" class="logo-img">
-          <img src="@/assets/img/logo.svg" alt="Jobs In Tech logo" />
+          <img src="@/assets/img/logo.svg" alt="Jobs In Tech logo">
         </router-link>
       </div>
       <div class="submit__job">
         <router-link
           class="submit__job__button button__global yellow"
           :to="{ name: 'submitJob' }"
-          >Submit A Job</router-link
-        >
+        >Submit A Job</router-link>
       </div>
     </div>
-    <MobileMenu :items="items" />
+    <MobileMenu :items="items"/>
   </header>
 </template>
 
@@ -73,7 +74,7 @@ export default {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 10;
+  z-index: 20;
 
   .grid__layout {
     display: grid;

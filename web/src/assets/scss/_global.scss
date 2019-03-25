@@ -32,6 +32,10 @@
       border: 0;
       font-weight: 500;
       padding: 0 var(--gutter);
+      display: flex;
+      text-decoration: none;
+      align-items: center;
+      justify-content: flex-end;
 
       .icon {
         height: 20px;
@@ -61,4 +65,12 @@
   font-weight: 500;
   font-size: 36px;
   line-height: normal;
+}
+
+@media (max-width: 1024px) {
+  .block__content {
+    &.company__description {
+      min-height: initial;
+    }
+  }
 }

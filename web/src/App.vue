@@ -65,9 +65,14 @@ body {
 }
 
 .job-listing__view,
-.company-profile__view {
+.company-profile__view,
+.job-single__view {
   background: var(--color-bg);
   padding-bottom: calc(var(--gutter) * 2);
+}
+
+.job-single__view {
+  padding-top: var(--gutter);
 }
 
 .theme-switcher {
@@ -80,5 +85,14 @@ body {
   cursor: pointer;
   user-select: none;
   border-radius: 0 5px 0 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
