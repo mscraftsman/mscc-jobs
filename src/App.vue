@@ -66,12 +66,14 @@ body {
 
 .job-listing__view,
 .company-profile__view,
-.job-single__view {
+.job-single__view,
+.submit__a__job__view {
   background: var(--color-bg);
   padding-bottom: calc(var(--gutter) * 2);
 }
 
-.job-single__view {
+.job-single__view,
+.submit__a__job__view {
   padding-top: var(--gutter);
 }
 

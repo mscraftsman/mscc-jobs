@@ -15,7 +15,7 @@ export default new Router({
     {
       path: "/about",
       name: "about",
-      component: () => import("./views/Home.vue")
+      component: () => import("./views/About.vue")
     },
     {
       path: "/jobs",
@@ -35,12 +35,12 @@ export default new Router({
     {
       path: "/submit-job",
       name: "submitJob",
-      component: () => import("./views/Home.vue")
+      component: () => import("./views/SubmitAJob.vue")
     },
     {
       path: "/terms-conditions",
       name: "termsAndConditions",
-      component: () => import("./views/Home.vue")
+      component: () => import("./views/About.vue")
     }
   ],
   scrollBehavior(to, from, savedPosition) {
