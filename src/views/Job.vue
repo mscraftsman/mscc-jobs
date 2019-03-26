@@ -1,7 +1,7 @@
 <template>
   <div class="body__container job-single__view">
     <transition name="fade" mode="out-in">
-      <LoaderComponent v-if="loading" />
+      <LoaderComponent v-if="loading"/>
       <div v-else>
         <section class="job__single">
           <div class="container__fw">
@@ -11,56 +11,40 @@
                 <div class="block__content">
                   <div class="body__content job__details__logo">
                     <div class="job__details">
-                      <h2>{{ jobData.job.name }}</h2>
+                      <h2>{{jobData.job.name}}</h2>
 
                       <div class="row-1">
                         <div class="data__cell">
                           <label>Type</label>
-                          <div class="data__content">
-                            {{ jobData.job.type }}
-                          </div>
+                          <div class="data__content">{{jobData.job.type}}</div>
                         </div>
                         <div class="data__cell">
                           <label>Pay (Monthly)</label>
-                          <div class="data__content">{{ jobData.job.pay }}</div>
+                          <div class="data__content">{{jobData.job.pay}}</div>
                         </div>
                         <div class="data__cell">
                           <label>Seniority Level</label>
-                          <div class="data__content">
-                            {{ jobData.job.seniority_level }}
-                          </div>
+                          <div class="data__content">{{jobData.job.seniority_level}}</div>
                         </div>
                         <div class="data__cell">
                           <label>Job Functions</label>
-                          <div class="data__content">
-                            {{ jobData.job.functions }}
-                          </div>
+                          <div class="data__content">{{jobData.job.functions}}</div>
                         </div>
                         <div class="data__cell">
                           <label>Start</label>
-                          <div class="data__content">
-                            {{ jobData.job.startDesc }}
-                          </div>
+                          <div class="data__content">{{jobData.job.startDesc}}</div>
                         </div>
                         <div class="data__cell">
                           <label>Duration</label>
-                          <div class="data__content">
-                            {{ jobData.job.durationDesc }}
-                          </div>
+                          <div class="data__content">{{jobData.job.durationDesc}}</div>
                         </div>
                       </div>
 
                       <div class="row-2">
                         <div class="tags white__bg">
                           <ul>
-                            <li
-                              v-for="(tag, index) in jobData.tags"
-                              :key="index"
-                            >
-                              <router-link
-                                :to="{ name: 'jobs', query: { tag: tag.url } }"
-                                >{{ tag.name }}</router-link
-                              >
+                            <li v-for="(tag, index) in jobData.tags" :key="index">
+                              <router-link :to="{ name: 'jobs', query: {tag: tag.url}}">{{tag.name}}</router-link>
                             </li>
                           </ul>
                         </div>
@@ -69,15 +53,9 @@
                     <div class="company__logo">
                       <router-link
                         class="logo"
-                        :to="{
-                          name: 'companySingle',
-                          params: { id: jobData.company.id }
-                        }"
+                        :to="{name: 'companySingle', params: { id: jobData.company.id}}"
                       >
-                        <img
-                          :src="'/img/jobs/companies/' + jobData.company.logo"
-                          alt
-                        />
+                        <img :src="'/img/jobs/companies/' + jobData.company.logo" alt>
                       </router-link>
                     </div>
                   </div>
@@ -90,34 +68,22 @@
 
                 <div class="block__content">
                   <h3>Responsibilities</h3>
-                  <div
-                    class="body__content"
-                    v-html="jobData.job.responsibilities"
-                  ></div>
+                  <div class="body__content" v-html="jobData.job.responsibilities"></div>
                 </div>
 
                 <div class="block__content">
                   <h3>Requirements</h3>
-                  <div
-                    class="body__content"
-                    v-html="jobData.job.requirements"
-                  ></div>
+                  <div class="body__content" v-html="jobData.job.requirements"></div>
                 </div>
 
                 <div class="block__content">
                   <h3>Benefits</h3>
-                  <div
-                    class="body__content"
-                    v-html="jobData.job.benefits"
-                  ></div>
+                  <div class="body__content" v-html="jobData.job.benefits"></div>
                 </div>
 
-                <div class="block__content">
+                <div class="block__content" v-if="jobData.job.applyOnUrl === false">
                   <h3>Apply for this job</h3>
-                  <form
-                    @submit.prevent="validateJobApplication"
-                    autocomplete="off"
-                  >
+                  <form @submit.prevent="validateJobApplication" autocomplete="off">
                     <div class="body__content apply__grid__layout">
                       <InputText
                         label="First Name"
@@ -208,10 +174,7 @@
 
                       <!-- CV upload -->
                       <div :class="['input__block', 'full']">
-                        <label
-                          >Upload your curriculum vitae (.doc, .docx, .pdf or
-                          .rtf )</label
-                        >
+                        <label>Upload your curriculum vitae (.doc, .docx, .pdf or .rtf )</label>
 
                         <div class="upload__options">
                           <div class="upload__cv__button">
@@ -219,13 +182,13 @@
                               id="cv_upload"
                               type="file"
                               ref="cv_upload"
-                              v-on:change="handleCVUpload()"
-                            />
+                              @change="handleCVUpload()"
+                            >
                             <label
                               for="cv_upload"
-                              class="upload__pc__button button__global blue override__visbility"
+                              class="upload__pc__button button__global blue override__visbility not__block"
                             >
-                              <img src="@/assets/img/pc.svg" class="icon" />
+                              <img src="@/assets/img/pc.svg" class="icon">
                               <span class="text">From Device</span>
                             </label>
                           </div>
@@ -234,7 +197,7 @@
                             type="button"
                             class="upload__pc__button button__global blue override__visbility"
                           >
-                            <img src="@/assets/img/drive.svg" class="icon" />
+                            <img src="@/assets/img/drive.svg" class="icon">
                             <span class="text">Google Drive</span>
                           </button>
 
@@ -242,32 +205,35 @@
                             type="button"
                             class="upload__pc__button button__global blue override__visbility"
                           >
-                            <img src="@/assets/img/dropbox.svg" class="icon" />
+                            <img src="@/assets/img/dropbox.svg" class="icon">
                             <span class="text">Dropbox</span>
                           </button>
                         </div>
 
-                        <div class="file__name">
+                        <div class="file__name" v-if="CVInformation.fileName !== null">
                           File name:
-                          <span>SomeFileName.pdf</span>
+                          <span>{{CVInformation.fileName}}</span>
+                        </div>
+
+                        <div class="upload__in__progress" v-if="CVUploadStatus.uploading">
+                          <div class="icon">
+                            <div class="loading"></div>
+                          </div>
+                          <div class="text">Upload in progress</div>
                         </div>
 
                         <div
-                          :class="[
-                            'input__block',
-                            'full',
-                            'response__message',
-                            'error__upload__wrapper'
-                          ]"
+                          :class="['input__block', 'full', 'response__message', 'error__upload__wrapper']"
+                          v-if="this.CVUploadStatus.error"
                         >
                           <div class="icon__wrapper">
                             <div class="icon">
-                              <img src="@/assets/img/error_white.svg" alt />
+                              <img src="@/assets/img/error_white.svg" alt>
                             </div>
                           </div>
                           <div class="message">
                             <h4>Upload Error</h4>
-                            <p>File size is above 5 Mb.</p>
+                            <p>{{this.CVUploadStatus.error}}</p>
                           </div>
                         </div>
                       </div>
@@ -280,7 +246,7 @@
                               required
                               id="accept__job__conditions"
                               v-model="applicationData.agree"
-                            />
+                            >
                             <label for="accept__job__conditions">
                               <span></span>
                             </label>
@@ -288,9 +254,7 @@
                           <label
                             class="checkbox__text"
                             for="accept__job__conditions"
-                            >I accept that my data is being transmitted
-                            etc..</label
-                          >
+                          >I accept that my data is being transmitted etc..</label>
                         </div>
                       </div>
 
@@ -299,6 +263,7 @@
                           type="button"
                           class="submit__application__button button__global green override__visbility"
                           @click="validateJobApplication()"
+                          :disabled="applicationData.agree === false"
                         >
                           <div class="icon">
                             <div class="loading"></div>
@@ -309,22 +274,19 @@
                         <button
                           type="reset"
                           class="reset__application__button button__global yellow override__visbility"
+                          @click="resetForm()"
                         >
                           <span class="text">Reset</span>
                         </button>
                       </div>
 
                       <div
-                        :class="[
-                          'input__block',
-                          'full',
-                          'response__message',
-                          'success'
-                        ]"
+                        :class="['input__block', 'full', 'response__message', 'success']"
+                        v-if="submitStatus.success"
                       >
                         <div class="icon__wrapper">
                           <div class="icon">
-                            <img src="@/assets/img/success.svg" alt />
+                            <img src="@/assets/img/success.svg" alt>
                           </div>
                         </div>
                         <div class="message">
@@ -334,16 +296,12 @@
                       </div>
 
                       <div
-                        :class="[
-                          'input__block',
-                          'full',
-                          'response__message',
-                          'error'
-                        ]"
+                        :class="['input__block', 'full', 'response__message', 'error']"
+                        v-if="submitStatus.error"
                       >
                         <div class="icon__wrapper">
                           <div class="icon">
-                            <img src="@/assets/img/error_white.svg" alt />
+                            <img src="@/assets/img/error_white.svg" alt>
                           </div>
                         </div>
                         <div class="message">
@@ -355,18 +313,14 @@
                   </form>
                 </div>
 
-                <div class="block__content">
+                <div class="block__content" v-if="jobData.job.applyOnUrl === true">
                   <h3>Apply for this job</h3>
                   <div class="body__content">
                     <a
-                      href="/"
+                      :href="jobData.job.applyUrl"
                       class="submit__job__button button__global blue override__visbility"
                     >
-                      <img
-                        class="icon"
-                        src="@/assets/img/external-link-light.svg"
-                        alt
-                      />
+                      <img class="icon" src="@/assets/img/external-link-light.svg" alt>
                       <div class="text">Apply on website</div>
                     </a>
                   </div>
@@ -377,8 +331,26 @@
               <div class="sidebar__block">
                 <div class="block__content">
                   <h3>Tech Stack</h3>
-                  <div class="body__content"></div>
+                  <div class="body__content">
+                    <div class="tech__stack__icons">
+                      <div
+                        class="tech__block"
+                        v-for="(tech, index) in jobData.tech_stack"
+                        :key="index"
+                      >
+                        <img :src="'/img/techstack/' + tech.logo" class="icon">
+                        <div class="text">{{tech.text}}</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
+                <RecentJobs/>
+
+                <!-- Social -->
+                <h2>Share this opening</h2>
+                <SocialSharingComponent :url="url" :title="jobData.job.name"/>
+                <!-- Social -->
               </div>
               <!-- SIDEBAR -->
             </div>
@@ -391,12 +363,13 @@
 
 
 <script>
-import SocialComponent from "@/components/shared/SocialComponent";
+import SocialSharingComponent from "@/components/shared/SocialSharingComponent";
 import JobBlock from "@/components/jobs/JobBlock";
 import { mapGetters } from "vuex";
 import LoaderComponent from "@/components/shared/LoaderComponent";
 import { VueEditor } from "vue2-editor";
 import ButtonComponent from "@/components/shared/ButtonComponent";
+import RecentJobs from "@/components/jobs/RecentJobs.vue";
 
 import InputText from "@/components/forms/InputText";
 import InputTel from "@/components/forms/InputTel";
@@ -409,9 +382,21 @@ import InputSelect from "@/components/forms/InputSelect";
 import countries from "@/components/forms/countries.js";
 import nationality from "@/components/forms/nationality.js";
 
+function convertFileToBinary(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(file);
+    reader.onload = () => {
+      let array = new Uint8Array(reader.result);
+      resolve(array);
+    };
+    reader.onerror = error => reject(error);
+  });
+}
+
 export default {
   components: {
-    SocialComponent,
+    SocialSharingComponent,
     JobBlock,
     LoaderComponent,
     InputText,
@@ -420,7 +405,8 @@ export default {
     InputEmail,
     InputEditor,
     InputNumeric,
-    InputSelect
+    InputSelect,
+    RecentJobs
   },
   computed: {
     ...mapGetters({
@@ -432,9 +418,21 @@ export default {
   },
   data: () => ({
     jobData: {},
+    url: null,
     jobId: null,
     loading: false,
-    submitStatus: false,
+    submitStatus: {
+      error: false,
+      success: false
+    },
+    CVInformation: {
+      fileName: null
+    },
+    CVUploadStatus: {
+      success: false,
+      error: null,
+      uploading: false
+    },
     applicationData: {
       firstName: null,
       lastName: null,
@@ -453,6 +451,7 @@ export default {
   }),
   beforeMount() {
     this.jobId = this.$route.params.id;
+    this.url = window.location.pathname;
 
     //Get company data
     this.fetchJobData();
@@ -470,15 +469,98 @@ export default {
       }
     },
     validateJobApplication() {
+      // TODO: Check if file has been uploaded
+
       this.$validator.validateAll().then(result => {
         if (result) {
-          // eslint-disable-next-line
-          alert("Form Submitted!");
+          alert("TODO: send data");
+
+          // TODO: send data
+
+          console.log(this.applicationData);
+
+          // Set submit status
+          this.submitStatus.success = true;
           return;
         }
 
-        alert("Correct them errors!");
+        alert("Correct the errors!");
+        this.submitStatus.error = true;
       });
+    },
+    handleCVUpload(file) {
+      console.log("file upload triggered");
+
+      // Resets alerts
+      this.CVUploadStatus.error = null;
+      this.CVUploadStatus.success = false;
+
+      console.log(this.$refs);
+
+      convertFileToBinary(this.$refs.cv_upload.files[0])
+        .then(data => {
+          // fileName is file upload name
+          let fileName = this.$refs.cv_upload.files[0].name;
+          let fileSize = this.$refs.cv_upload.files[0].size;
+          let fileType = this.$refs.cv_upload.files[0].type;
+
+          // Set filename
+          this.CVInformation.fileName = fileName;
+          this.CVInformation.fileSize = fileSize;
+
+          // Data contains file data
+          console.log(data);
+          console.log(fileName);
+          console.log(fileSize);
+          console.log(fileType);
+
+          let allowedUploadSize = 5242880;
+          let allowedTypes = ["application/pdf"];
+
+          if (!allowedTypes.includes(fileType)) {
+            this.CVUploadStatus.error = "Incorrect file type.";
+            return;
+          }
+
+          if (fileSize > allowedUploadSize) {
+            this.CVUploadStatus.error = "File size is above 5 Mb.";
+            return;
+          }
+
+          // TODO: Upload goes here and set status to true below
+          if (fileSize < allowedUploadSize && allowedTypes.includes(fileType)) {
+            // Set uploading information true
+            this.CVUploadStatus.uploading = true;
+
+            // TODO upload logic here
+          }
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    resetForm() {
+      this.CVUploadStatus.error = null;
+      this.CVUploadStatus.success = false;
+      this.CVUploadStatus.uploading = false;
+
+      this.submitStatus.error = false;
+      this.submitStatus.success = false;
+      this.CVInformation.fileName = null;
+
+      this.applicationData = {
+        firstName: null,
+        lastName: null,
+        telephone: null,
+        mobile: null,
+        address: null,
+        postal_code: null,
+        country: null,
+        nationality: null,
+        email: null,
+        cover_letter: null,
+        agree: false
+      }
     }
   },
   watch: {
@@ -513,7 +595,7 @@ export default {
       font-size: 36px;
       line-height: normal;
       margin-top: 0;
-      color: var(--block-text-color);
+      color: var(--color-dark);
     }
 
     label {
@@ -561,6 +643,9 @@ export default {
   }
 
   .upload__cv__button {
+    display: inline-flex;
+    margin-right: 10px;
+
     input[type="file"] {
       display: none;
     }
@@ -580,6 +665,43 @@ export default {
 
   span {
     text-transform: initial;
+    font-weight: 300;
+  }
+}
+
+.upload__in__progress {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--gutter);
+
+  .icon {
+    margin-right: 10px;
+
+    .loading {
+      display: block;
+      margin: 0;
+      font-size: 10px;
+      position: relative;
+      text-indent: -9999em;
+      border-top: 5px solid rgba(0, 0, 0, 0.2);
+      border-right: 5px solid rgba(0, 0, 0, 0.2);
+      border-bottom: 5px solid rgba(0, 0, 0, 0.2);
+      border-left: 5px solid var(--color-blue);
+      transform: translateZ(0);
+      animation: in-progress-loader 0.5s infinite linear;
+    }
+
+    .loading {
+      &,
+      &:after {
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .text {
     font-weight: 300;
   }
 }
@@ -792,6 +914,21 @@ export default {
   }
 }
 
+.tech__stack__icons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-row-gap: var(--gutter);
+
+  .tech__block {
+    text-align: center;
+
+    .text {
+      color: var(--color-light);
+    }
+  }
+}
+
 @media (max-width: 1024px) {
   .job__single {
     .job__sidebar {
@@ -803,7 +940,53 @@ export default {
 @media (max-width: 768px) {
 }
 
+@media (max-width: 600px) {
+  .job__details__logo {
+    display: grid;
+    grid-template-columns: 2fr 0.5fr;
+
+    .job__details {
+      h2 {
+        font-size: 27px;
+      }
+
+      .row-1 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+
+  .upload__options {
+    .upload__cv__button {
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 5px;
+    }
+
+    button {
+      margin-right: 0;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .upload__pc__button {
+      width: 100%;
+    }
+  }
+}
+
 @media (max-width: 450px) {
+  .job__details__logo {
+    .job__details {
+      h2 {
+        font-size: 23px;
+      }
+
+      .row-1 {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
 }
 </style>
 

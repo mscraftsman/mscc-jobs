@@ -1,11 +1,9 @@
 <template>
   <div id="app" :class="themes[currentTheme]">
-    <SiteHeader />
-    <router-view :key="$route.path" />
-    <SiteFooter />
-    <div class="theme-switcher" @click="switchTheme()">
-      {{ themes[currentTheme] }}
-    </div>
+    <SiteHeader/>
+    <router-view :key="$route.path"/>
+    <SiteFooter/>
+    <div class="theme-switcher" @click="switchTheme()">{{ themes[currentTheme] }}</div>
   </div>
 </template>
 
@@ -68,12 +66,14 @@ body {
 
 .job-listing__view,
 .company-profile__view,
-.job-single__view {
-  background: var(--site-background-color);
+.job-single__view,
+.submit__a__job__view {
+  background: var(--color-bg);
   padding-bottom: calc(var(--gutter) * 2);
 }
 
-.job-single__view {
+.job-single__view,
+.submit__a__job__view {
   padding-top: var(--gutter);
 }
 

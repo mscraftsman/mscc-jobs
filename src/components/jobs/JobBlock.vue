@@ -47,7 +47,7 @@
       <div class="time">20 hours ago</div>
       <div class="apply__button">
         <ButtonComponent
-          :to="{ name: 'jobsSingle', params: { id: jobData.id }  }"
+          :url="{ name: 'jobsSingle', params: { id: jobData.id }  }"
           color="yellow"
           classStyle="apply__job__button"
           text="Apply"

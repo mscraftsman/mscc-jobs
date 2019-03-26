@@ -76,3 +76,10 @@
     }
   }
 }
+
+@media (max-width: 450px) {
+  .block__content {
+    padding: var(--gutter) 0;
+    --padding: 0 var(--gutter);
+  }
+}

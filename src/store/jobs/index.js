@@ -8,10 +8,11 @@ const state = {
       colour: "#ffffff",
       featured: true,
       hasLogo: true,
-      id: 6489,
+      id: 6490,
       job: {
         name: "Software Engineer",
         salary: "Rs 50, 000 - 60, 000",
+        applyOnUrl: false,
         applyUrl:
           "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
         type: "Full time",
@@ -64,8 +65,16 @@ const state = {
           text: "GoLang"
         },
         {
-          logo: "golang.png",
-          text: "GoLang"
+          logo: "grpc.png",
+          text: "GRPC"
+        },
+        {
+          logo: "docker.png",
+          text: "Docker"
+        },
+        {
+          logo: "aws.png",
+          text: "AWS"
         }
       ]
     },
@@ -73,10 +82,11 @@ const state = {
       colour: "#004a8f",
       featured: false,
       hasLogo: true,
-      id: 6489,
+      id: 6491,
       job: {
         name: "Service Delivery Manager",
         salary: "Rs 50, 000 - 60, 000",
+        applyOnUrl: false,
         applyUrl:
           "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
         type: "Full time",
@@ -122,10 +132,11 @@ const state = {
       colour: "#F75940",
       featured: false,
       hasLogo: true,
-      id: 6489,
+      id: 6492,
       job: {
         name: "Systems Architect",
         salary: "Rs 100, 000 - 200, 000",
+        applyOnUrl: true,
         applyUrl:
           "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
         type: "Full time",
@@ -171,10 +182,11 @@ const state = {
       colour: "#ffffff",
       featured: false,
       hasLogo: true,
-      id: 6489,
+      id: 6493,
       job: {
         name: "Service Delivery Manager",
         salary: "Rs 50, 000 - 60, 000",
+        applyOnUrl: false,
         applyUrl:
           "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
         type: "Full time",
@@ -220,10 +232,11 @@ const state = {
       colour: "#ffffff",
       featured: false,
       hasLogo: true,
-      id: 6489,
+      id: 6494,
       job: {
         name: "Service Delivery Manager",
         salary: "Rs 50, 000 - 60, 000",
+        applyOnUrl: true,
         applyUrl:
           "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
         type: "Full time",
@@ -269,10 +282,11 @@ const state = {
       colour: "#ffffff",
       featured: false,
       hasLogo: true,
-      id: 6489,
+      id: 6495,
       job: {
         name: "Service Delivery Manager",
         salary: "Rs 50, 000 - 60, 000",
+        applyOnUrl: false,
         applyUrl:
           "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
         type: "Full time",

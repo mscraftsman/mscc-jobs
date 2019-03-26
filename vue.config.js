@@ -6,6 +6,7 @@ module.exports = {
     loaderOptions: {
       sass: {
         data: `
+          @import "@/assets/scss/_animations.scss";
           @import "@/assets/scss/_global.scss";
           @import "@/assets/scss/_variables.scss";
           @import "@/assets/scss/_buttons.scss";
