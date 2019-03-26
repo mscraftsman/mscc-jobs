@@ -24,6 +24,10 @@
     color: var(--color-dark);
     display: block;
     margin-bottom: 5px;
+
+    &.not__block {
+      display: inline-flex;
+    }
   }
 
   .input__text {
@@ -94,6 +98,16 @@
 
     &:focus {
       border-color: var(--color-dark);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .input__block {
+    grid-column: 1 / 3;
+
+    &.full {
+      grid-column: 1 / 3;
     }
   }
 }
