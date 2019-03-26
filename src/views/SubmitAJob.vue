@@ -70,8 +70,8 @@ export default {
   data: () => ({
     breadcrumbs: [
       {
-        name: "Jobs",
-        path: "jobs"
+        name: "Submit a job",
+        path: "submit-job"
       }
     ],
     url: null,
