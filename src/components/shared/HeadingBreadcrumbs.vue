@@ -6,24 +6,28 @@
           <nav class="breadcrumbs">
             <ul>
               <li>
-                <router-link :to="{ name: 'home'}">Home</router-link>
+                <router-link :to="{ name: 'home' }">Home</router-link>
               </li>
               <li v-for="(item, index) in breadcrumbs" :key="index">
-                <router-link v-if="item" :to="{name: item.path}">{{item.name}}</router-link>
+                <router-link v-if="item" :to="{ name: item.path }">{{
+                  item.name
+                }}</router-link>
               </li>
             </ul>
           </nav>
           <div class="page__title">
-            <h2 v-if="pageTitle">{{pageTitle}}</h2>
+            <h2 v-if="pageTitle">{{ pageTitle }}</h2>
           </div>
         </div>
         <div class="alert__wrapper" v-if="alertStatus">
           <div class="icon">
-            <img src="@/assets/img/enveloppe.svg" alt>
+            <img src="@/assets/img/enveloppe.svg" alt />
           </div>
           <div class="text">
             <h3>Do you want to be notified?</h3>
-            <button class="submit__job__button button__global blue">Subscribe</button>
+            <button class="submit__job__button button__global blue">
+              Subscribe
+            </button>
           </div>
         </div>
       </div>
@@ -109,6 +113,7 @@ export default {
       font-size: 36px;
       line-height: normal;
       margin: 0 0 10px 0;
+      color: var(--site-text-color);
     }
   }
 

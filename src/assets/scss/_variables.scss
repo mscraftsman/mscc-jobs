@@ -32,12 +32,14 @@
   /// SiteWide
   /////////////////////////////
   --site-background-color: #f4f4f6;
+  --site-text-color: var(--color-dark);
 
   //////////////////////////////
   /// Header
   /////////////////////////////
 
   --header-background-color: var(--color-white);
+  --header-text-color-active: var(--color-blue);
   --header-box-shadow-color: rgba(31, 32, 65, 0.05);
   --header-text-color: var(--color-light);
   --header-text-color-dark: var(--color-dark);
@@ -99,6 +101,11 @@
   --block-text-color: var(--color-dark);
 
   //////////////////////////////
+  /// Job Block
+  /////////////////////////////
+  --jobs-block-background-color: var(--color-white);
+
+  //////////////////////////////
   /// Social
   /////////////////////////////
 
@@ -124,16 +131,19 @@
 }
 
 .theme-dark {
+  --color-dark: #fff;
   //////////////////////////////
   /// SiteWide
   /////////////////////////////
   --site-background-color: #282828;
+  --site-text-color: var(--color-white);
 
   //////////////////////////////
   /// Header
   /////////////////////////////
 
   --header-background-color: var(--color-black);
+  --header-text-color-active: var(--color-yellow);
   --header-box-shadow-color: rgba(31, 32, 65, 0.05);
   --header-text-color: var(--color-light);
   --header-text-color-dark: var(--color-white);
@@ -162,7 +172,7 @@
   --button-background-color-outline: transparent;
   --button-text-color-outline: var(--color-blue);
   --button-border-color-outline: var(--color-blue);
-  --button-box-shadow-color-outline: rgba(1, 152, 192, 0.58);
+  --button-box-shadow-color-outline: rgba(var(--supercolor), 0.58);
   --button-box-shadow-color-outline-hover: rgba(1, 152, 192, 0.9);
 
   //////////////////////////////
@@ -170,6 +180,11 @@
   /////////////////////////////
   --block-background-color: var(--color-black);
   --block-text-color: var(--color-white);
+
+  //////////////////////////////
+  /// Job Block
+  /////////////////////////////
+  --job-block-background: var(--color-black);
 
   //////////////////////////////
   /// Social
@@ -186,4 +201,112 @@
   --footer-title-color: var(--color-white);
   --footer-subtitle-color: rgba(255, 255, 255, 0.5);
   --footer-text-color: var(--color-white);
+  --footer-heart-color: var(--color-white);
+}
+
+.theme-terminal {
+  --color-green: #4e9a06;
+  //////////////////////////////
+  /// SiteWide
+  /////////////////////////////
+  --site-background-color: #000e1c;
+  --site-text-color: var(--color-green);
+
+  //////////////////////////////
+  /// Header
+  /////////////////////////////
+
+  --header-background-color: #001122;
+  --header-text-color-active: var(--color-green);
+  --header-box-shadow-color: rgba(31, 32, 65, 0.05);
+  --header-text-color: var(--color-green);
+  --header-text-color-dark: var(--color-green);
+  --color-logo: var(--color-green);
+
+  //////////////////////////////
+  /// Buttons
+  /////////////////////////////
+
+  // Buttons Base
+  --button-text-color: var(--color-green);
+  --button-background-color: transparent;
+  --button-box-shadow-color: var(--color-green);
+  --button-box-shadow-color-hover: var(--color-green);
+
+  // Buttons Primary
+  --button-background-color-primary: transparent;
+
+  // Buttons Secondary
+  --button-background-color-secondary: var(--color-green);
+  --button-text-color-secondary: var(--color-white);
+  --button-box-shadow-color-secondary: rgba(1, 152, 192, 0.58);
+  --button-box-shadow-color-secondary-hover: rgba(1, 152, 192, 0.9);
+
+  // Buttons Accept
+  --button-background-color-accept: var(--color-green);
+  --button-text-color-accept: var(--color-white);
+  --button-box-shadow-color-accept: rgba(48, 135, 1, 0.58);
+  --button-box-shadow-color-accept-hover: rgba(48, 135, 1, 0.9);
+
+  --button-background-color-disabled: var(--color-light);
+  --button-text-color-disabled: var(--color-white);
+  --button-box-shadow-color-disabled: rgba(131, 131, 131, 0.58);
+  --button-box-shadow-color-disabled-hover: rgba(131, 131, 131, 0.9);
+
+  // Buttons outline
+  --button-background-color-outline: transparent;
+  --button-text-color-outline: var(--color-blue);
+  --button-border-color-outline: var(--color-blue);
+  --button-box-shadow-color-outline: rgba(1, 152, 192, 0.58);
+  --button-box-shadow-color-outline-hover: rgba(1, 152, 192, 0.9);
+
+  //////////////////////////////
+  /// Response messages color
+  /////////////////////////////
+
+  --response-background-success: rgba(48, 135, 1, 0.2);
+  --response-background-success-icon: var(--color-green);
+  --response-background-success-icon-shadow: rgba(48, 135, 1, 0.58);
+
+  --response-background-error: rgba(227, 1, 1, 0.2);
+  --response-background-error-icon: var(--color-red);
+  --response-background-error-icon-shadow: rgba(227, 1, 1, 0.58);
+
+  //////////////////////////////
+  /// Blocks
+  /////////////////////////////
+  --block-background-color: #001122;
+  --block-text-color: var(--color-green);
+
+  //////////////////////////////
+  /// Job Block
+  /////////////////////////////
+  --job-block-background: var(--color-white);
+
+  //////////////////////////////
+  /// Social
+  /////////////////////////////
+
+  --social-icon-background-color: var(--color-blue);
+
+  //////////////////////////////
+  /// Company
+  /////////////////////////////
+
+  --company-background-color: var(--color-dark);
+
+  //////////////////////////////
+  /// Footer
+  /////////////////////////////
+
+  --footer-background-color: var(--color-black);
+  --footer-border-color: rgba(255, 255, 255, 0.2);
+  --footer-title-color: var(--color-green);
+  --footer-subtitle-color: var(--color-green);
+  --footer-text-color: var(--color-green);
+  --footer-heart-color: var(--color-green);
+
+  img {
+    display: none;
+  }
 }

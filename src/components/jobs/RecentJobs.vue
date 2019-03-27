@@ -9,13 +9,15 @@
         :key="index"
       >
         <router-link
-          :to="{ name: 'jobsSingle', params: { id: job.id }  }"
+          :to="{ name: 'jobsSingle', params: { id: job.id } }"
           class="title"
-        >{{job.job.name}}</router-link>
+          >{{ job.job.name }}</router-link
+        >
         <router-link
           class="company"
-          :to="{ name: 'companySingle', params: { id: job.company.id }  }"
-        >{{job.company.name}}</router-link>
+          :to="{ name: 'companySingle', params: { id: job.company.id } }"
+          >{{ job.company.name }}</router-link
+        >
       </div>
     </div>
   </div>
@@ -42,6 +44,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h2 {
+  color: var(--site-text-color);
+}
 .recent__jobs {
   .job__block {
     padding-bottom: 10px;
