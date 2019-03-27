@@ -58,6 +58,7 @@
 
   // Buttons Primary
   --button-background-color-primary: var(--color-yellow);
+  --button-text-color-primary: var(--color-black);
 
   // Buttons Secondary
   --button-background-color-secondary: var(--color-blue);
@@ -169,6 +170,7 @@
 
   // Buttons Primary
   --button-background-color-primary: var(--color-yellow);
+  --button-text-color-primary: var(--color-black);
 
   // Buttons Secondary
   --button-background-color-secondary: var(--color-blue);
@@ -250,6 +252,7 @@
 
   // Buttons Primary
   --button-background-color-primary: transparent;
+  --button-text-color-primary: var(--color-green);
 
   // Buttons Secondary
   --button-background-color-secondary: var(--color-green);
@@ -291,8 +294,8 @@
   /// Inputs
   /////////////////////////////
   --input-background-color: var(--color-dark);
-  --input-border-color: var(--color-gray-light);
-  --input-border-color-focus: var(--color-dark);
+  --input-border-color: var(--color-green);
+  --input-border-color-focus: var(--color-green);
 
   //////////////////////////////
   /// Blocks
@@ -327,6 +330,11 @@
   --footer-subtitle-color: var(--color-green);
   --footer-text-color: var(--color-green);
   --footer-heart-color: var(--color-green);
+
+  .logo {
+    visibility: none;
+    opacity: 0;
+  }
 
   img {
     display: none;
