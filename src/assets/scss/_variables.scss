@@ -96,6 +96,13 @@
   --response-background-error-icon-shadow: rgba(227, 1, 1, 0.58);
 
   //////////////////////////////
+  /// Inputs
+  /////////////////////////////
+  --input-background-color: var(--color-white);
+  --input-border-color: var(--color-gray-light);
+  --input-border-color-focus: var(--color-dark);
+
+  //////////////////////////////
   /// Blocks
   /////////////////////////////
   --block-background-color: var(--color-white);
@@ -175,6 +182,13 @@
   --button-border-color-outline: var(--color-blue);
   --button-box-shadow-color-outline: rgba(var(--supercolor), 0.58);
   --button-box-shadow-color-outline-hover: rgba(1, 152, 192, 0.9);
+
+  //////////////////////////////
+  /// Inputs
+  /////////////////////////////
+  --input-background-color: var(--color-black);
+  --input-border-color: #000;
+  --input-border-color-focus: var(--color-white);
 
   //////////////////////////////
   /// Blocks
@@ -272,6 +286,13 @@
   --response-background-error: rgba(227, 1, 1, 0.2);
   --response-background-error-icon: var(--color-red);
   --response-background-error-icon-shadow: rgba(227, 1, 1, 0.58);
+
+  //////////////////////////////
+  /// Inputs
+  /////////////////////////////
+  --input-background-color: var(--color-dark);
+  --input-border-color: var(--color-gray-light);
+  --input-border-color-focus: var(--color-dark);
 
   //////////////////////////////
   /// Blocks
