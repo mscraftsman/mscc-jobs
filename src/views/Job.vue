@@ -63,22 +63,22 @@
 
                 <div class="block__content">
                   <h3>Description</h3>
-                  <div class="body__content" v-html="jobData.job.jobDesc"></div>
+                  <div class="body__content styled__content" v-html="jobData.job.jobDesc"></div>
                 </div>
 
                 <div class="block__content">
                   <h3>Responsibilities</h3>
-                  <div class="body__content" v-html="jobData.job.responsibilities"></div>
+                  <div class="body__content styled__content" v-html="jobData.job.responsibilities"></div>
                 </div>
 
                 <div class="block__content">
                   <h3>Requirements</h3>
-                  <div class="body__content" v-html="jobData.job.requirements"></div>
+                  <div class="body__content styled__content" v-html="jobData.job.requirements"></div>
                 </div>
 
                 <div class="block__content">
                   <h3>Benefits</h3>
-                  <div class="body__content" v-html="jobData.job.benefits"></div>
+                  <div class="body__content styled__content" v-html="jobData.job.benefits"></div>
                 </div>
 
                 <div class="block__content" v-if="jobData.job.applyOnUrl === false">
@@ -345,7 +345,7 @@
                   </div>
                 </div>
 
-                <RecentJobs/>
+                <RecentJobs :notIncludeId="jobData.id"/>
 
                 <!-- Social -->
                 <h2>Share this opening</h2>
@@ -451,7 +451,7 @@ export default {
   }),
   beforeMount() {
     this.jobId = this.$route.params.id;
-    this.url = window.location.pathname;
+    this.url = window.location.href;
 
     //Get company data
     this.fetchJobData();
@@ -560,7 +560,7 @@ export default {
         email: null,
         cover_letter: null,
         agree: false
-      }
+      };
     }
   },
   watch: {

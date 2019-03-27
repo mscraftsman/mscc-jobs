@@ -6,8 +6,9 @@
       <div class="container__fw">
         <div class="submit_job__sidebar">
           <!-- SUBMIT JOB -->
-          <div class="job__block">
-            <div class="block__content">
+          <div class="content__block">
+            <div class="block__content submit__job__block">
+              <h3>Job information</h3>
               <div class="body__content"></div>
             </div>
           </div>
