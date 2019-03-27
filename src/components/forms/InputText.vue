@@ -1,7 +1,5 @@
 <template>
-  <div
-    :class="['input__block', {'full': full}, {'error': errors.has(name) }, {'error': message !== null }]"
-  >
+  <div :class="['input__block', {'full': full}, {'error': errors.has(name) || message !== null }]">
     <label v-if="label">{{label}}</label>
     <input
       v-validate="'required'"
@@ -10,6 +8,7 @@
       type="text"
       :name="name"
       v-model="local"
+      :disabled="disabled"
     >
     <div>
       <div v-show="message !== null" class="error">{{ message }}</div>
@@ -37,6 +36,10 @@ export default {
       default: null
     },
     full: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
       type: Boolean,
       default: false
     }

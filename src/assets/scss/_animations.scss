@@ -8,3 +8,54 @@
     transform: rotate(360deg);
   }
 }
+
+@keyframes shrink-bounce {
+  0% {
+    transform: scale(1);
+  }
+  33% {
+    transform: scale(0.85);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes checkbox-check {
+  0% {
+    width: 0;
+    height: 0;
+    border-color: white;
+    transform: translate3d(0, 0, 0) rotate(45deg);
+  }
+  33% {
+    width: 7px;
+    height: 0;
+    transform: translate3d(0, 0, 0) rotate(45deg);
+  }
+  100% {
+    width: 7px;
+    height: 16px;
+    border-color: white;
+    transform: translate3d(0, -16px, 0) rotate(45deg);
+  }
+}
+
+@keyframes checkbox-check-submit {
+  0% {
+    width: 0;
+    height: 0;
+    border-color: white;
+    transform: translate3d(0, 0, 0) rotate(45deg);
+  }
+  33% {
+    width: 20px;
+    height: 0;
+    transform: translate3d(0, 0, 0) rotate(45deg);
+  }
+  100% {
+    width: 20px;
+    height: 45px;
+    border-color: white;
+    transform: translate3d(0, -45px, 0) rotate(45deg);
+  }
+}
