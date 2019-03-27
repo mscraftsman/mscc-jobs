@@ -9,6 +9,7 @@
       v-model="local"
       :disabled="disabled"
       ref="name"
+      @focus="isFocused()"
     >
     <small>{{helpText}}</small>
     <div>
@@ -47,6 +48,10 @@ export default {
     helpText: {
       type: String,
       default: null
+    },
+    styleClass: {
+      type: String,
+      default: null
     }
   },
   data() {
@@ -60,6 +65,10 @@ export default {
     input() {
       console.log(this.local);
       this.$emit("input", this.local);
+    },
+    isFocused() {
+      console.log("is focused");
+      this.$emit("isFocused", true);
     }
   },
   $_veeValidate: {
@@ -70,6 +79,15 @@ export default {
     // name getter
     name() {
       return this.name;
+    }
+  },
+  watch: {
+    value: {
+      handler(val) {
+        this.local = val;
+      },
+      deep: true,
+      immediate: true
     }
   }
 };

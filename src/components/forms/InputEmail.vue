@@ -1,16 +1,15 @@
 <template>
-  <div
-    :class="['input__block', {'full': full}, {'error': errors.has(name) }, {'error': message !== null }]"
-  >
+  <div :class="['input__block', {'full': full}, {'error': errors.has(name) || message !== null }]">
     <label v-if="label">{{label}}</label>
     <input
-      v-validate="'required|email'"
       class="input__text"
       @keyup="input()"
       type="text"
       :name="name"
       v-model="local"
+      @focus="isFocused()"
     >
+    <small>{{helpText}}</small>
     <div>
       <div v-show="message !== null" class="error">{{ message }}</div>
     </div>
@@ -39,6 +38,10 @@ export default {
     message: {
       type: String,
       default: null
+    },
+    helpText: {
+      type: String,
+      default: null
     }
   },
   data() {
@@ -52,6 +55,29 @@ export default {
     input() {
       console.log(this.local);
       this.$emit("input", this.local);
+    },
+    isFocused() {
+      console.log("is focused");
+      this.$emit("isFocused", true);
+    }
+  },
+  $_veeValidate: {
+    // value getter
+    value() {
+      return this.$el.value;
+    },
+    // name getter
+    name() {
+      return this.name;
+    }
+  },
+  watch: {
+    value: {
+      handler(val) {
+        this.local = val;
+      },
+      deep: true,
+      immediate: true
     }
   }
 };

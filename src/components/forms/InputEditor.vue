@@ -3,14 +3,7 @@
     :class="['input__block', {'full': full}, {'error': errors.has(name) }, {'error': message !== null }]"
   >
     <label v-if="label">{{label}}</label>
-    <input
-      v-validate="'required'"
-      class="input__text hidden"
-      @keyup="input()"
-      type="text"
-      :name="name"
-      v-model="local"
-    >
+    <input class="input__text hidden" @keyup="input()" type="text" :name="name" v-model="local">
     <vue-editor
       @text-change="input()"
       @blur="input()"
@@ -76,6 +69,25 @@ export default {
     input() {
       console.log(this.local);
       this.$emit("input", this.local);
+    }
+  },
+  $_veeValidate: {
+    // value getter
+    value() {
+      return this.$el.value;
+    },
+    // name getter
+    name() {
+      return this.name;
+    }
+  },
+  watch: {
+    value: {
+      handler(val) {
+        this.local = val;
+      },
+      deep: true,
+      immediate: true
     }
   }
 };

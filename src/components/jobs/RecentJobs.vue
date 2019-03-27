@@ -26,7 +26,7 @@ import { mapGetters } from "vuex";
 export default {
   props: {
     notIncludeId: {
-      type: String,
+      type: Number,
       default: null
     }
   },

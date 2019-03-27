@@ -1,17 +1,14 @@
 <template>
-  <div
-    :class="['input__block', {'full': full}, {'error': errors.has(name) }, {'error': message !== null }]"
-  >
+  <div :class="['input__block', {'full': full}, {'error': errors.has(name) || message !== null }]">
     <label v-if="label">{{label}}</label>
     <textarea
       class="input__textarea"
       rows="5"
-      v-validate="'required'"
       @keyup="input()"
       type="text"
       :name="name"
       v-model="local"
-    ></textarea>
+    />
     <div>
       <div v-show="message !== null" class="error">{{ message }}</div>
     </div>
@@ -53,6 +50,25 @@ export default {
     input() {
       console.log(this.local);
       this.$emit("input", this.local);
+    }
+  },
+  watch: {
+    value: {
+      handler(val) {
+        this.local = val;
+      },
+      deep: true,
+      immediate: true
+    }
+  },
+  $_veeValidate: {
+    // value getter
+    value() {
+      return this.$el.value;
+    },
+    // name getter
+    name() {
+      return this.name;
     }
   }
 };
