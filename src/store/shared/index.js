@@ -3,7 +3,9 @@ import getters from "./getters";
 import mutations from "./mutations";
 
 const state = {
-  menuState: false
+  menuState: false,
+  currentTheme: 0,
+  themes: ["theme-default", "theme-dark", "theme-terminal"]
 };
 
 const namespaced = true;

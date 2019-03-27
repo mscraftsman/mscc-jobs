@@ -113,7 +113,7 @@
 
         <div class="signature">
           Crafted with
-          <span>
+          <span @click="switchTheme">
             <svg
               width="15"
               height="13"
@@ -144,6 +144,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   data() {
     return {
@@ -170,6 +172,9 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    ...mapActions({ switchTheme: 'shared/switchTheme' })
   }
 };
 </script>

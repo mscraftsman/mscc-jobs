@@ -11,7 +11,7 @@
   text-decoration: none;
   font-weight: 700;
   text-transform: uppercase;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.4s ease-in;
   border: 0;
   outline: none;
 
@@ -55,6 +55,7 @@
   &:hover {
     transform: scale(1.05);
     box-shadow: 0px 4px 25px var(--button-box-shadow-color-hover);
+    transition: all 0.2s ease-out;
   }
 
   &.yellow {

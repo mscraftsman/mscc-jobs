@@ -6,19 +6,21 @@
   >
     <div
       class="upper__section"
-      :style="'background-color:' + jobData.colour + ';'"
+      :style="'background-color:' + backgroundColor + ';'"
       @click="openLowerSection()"
     >
       <div class="logo">
-        <router-link :to="{ name: 'companySingle', params: { id: jobData.company.id }  }">
+        <router-link
+          :to="{ name: 'companySingle', params: { id: jobData.company.id } }"
+        >
           <div class="logo__outer">
             <img
               :src="'/img/jobs/companies/' + jobData.company.logo"
               alt
               v-if="jobData.hasLogo && jobData.company.id"
-            >
+            />
             <div class="company__initial" v-else>
-              <span>{{getCompanyInitial(jobData.company.name)}}</span>
+              <span>{{ getCompanyInitial(jobData.company.name) }}</span>
             </div>
           </div>
         </router-link>
@@ -26,28 +28,32 @@
       <div class="title__company">
         <div>
           <router-link
-            :to="{ name: 'jobsSingle', params: { id: jobData.id }  }"
+            :to="{ name: 'jobsSingle', params: { id: jobData.id } }"
             class="title"
-          >{{jobData.job.name}}</router-link>
+            >{{ jobData.job.name }}</router-link
+          >
         </div>
         <div>
           <router-link
-            :to="{ name: 'companySingle', params: { id: jobData.company.id }  }"
+            :to="{ name: 'companySingle', params: { id: jobData.company.id } }"
             class="company"
-          >{{jobData.company.name}}</router-link>
+            >{{ jobData.company.name }}</router-link
+          >
         </div>
       </div>
       <div class="tags">
         <ul>
           <li v-for="(tag, index) in jobData.tags" :key="index">
-            <router-link :to="{ name: 'jobs', query: {tag: tag.url}}">{{tag.name}}</router-link>
+            <router-link :to="{ name: 'jobs', query: { tag: tag.url } }">{{
+              tag.name
+            }}</router-link>
           </li>
         </ul>
       </div>
       <div class="time">20 hours ago</div>
       <div class="apply__button">
         <ButtonComponent
-          :url="{ name: 'jobsSingle', params: { id: jobData.id }  }"
+          :url="{ name: 'jobsSingle', params: { id: jobData.id } }"
           color="yellow"
           classStyle="apply__job__button"
           text="Apply"
@@ -59,35 +65,37 @@
         />
       </div>
     </div>
-    <div :class="['lower__section', {'active' : state}]">
+    <div :class="['lower__section', { active: state }]">
       <div class="row-1">
         <div class="data__cell">
           <label>Type</label>
-          <div class="data__content">{{jobData.job.type}}</div>
+          <div class="data__content">{{ jobData.job.type }}</div>
         </div>
         <div class="data__cell">
           <label>Pay (Monthly)</label>
-          <div class="data__content">{{jobData.job.pay}}</div>
+          <div class="data__content">{{ jobData.job.pay }}</div>
         </div>
         <div class="data__cell">
           <label>Seniority Level</label>
-          <div class="data__content">{{jobData.job.seniority_level}}</div>
+          <div class="data__content">{{ jobData.job.seniority_level }}</div>
         </div>
         <div class="data__cell">
           <label>Job Functions</label>
-          <div class="data__content">{{jobData.job.functions}}</div>
+          <div class="data__content">{{ jobData.job.functions }}</div>
         </div>
       </div>
       <div class="row-2">
         <div class="data__cell">
           <label>About this job</label>
-          <div class="data__content">{{jobData.job.summary}}</div>
+          <div class="data__content">{{ jobData.job.summary }}</div>
         </div>
         <div class="data__cell">
           <div class="tags white__bg">
             <ul>
               <li v-for="(tag, index) in jobData.tags" :key="index">
-                <router-link :to="{ name: 'jobs', query: {tag: tag.url}}">{{tag.name}}</router-link>
+                <router-link :to="{ name: 'jobs', query: { tag: tag.url } }">{{
+                  tag.name
+                }}</router-link>
               </li>
             </ul>
           </div>
@@ -95,7 +103,7 @@
         <div class="data__cell">
           <div class="apply__button">
             <ButtonComponent
-              :to="{ name: 'jobsSingle', params: { id: jobData.id }  }"
+              :to="{ name: 'jobsSingle', params: { id: jobData.id } }"
               color="yellow"
               classStyle="apply__job__button"
               text="Apply"
@@ -114,6 +122,7 @@
 
 <script>
 import ButtonComponent from "@/components/shared/ButtonComponent";
+import { mapGetters } from 'vuex';
 export default {
   components: {
     ButtonComponent
@@ -130,6 +139,20 @@ export default {
     return {
       state: false
     };
+  },
+  computed: {
+    ...mapGetters({ theme: 'shared/getTheme' }),
+    backgroundColor() {
+      if (this.theme === 'theme-default') {
+        return this.jobData.colour
+      } else {
+        if (this.jobData.colour === '#ffffff') {
+          return 'var(--jobs-block-background-color)'
+        } else {
+          return this.jobData.colour
+        }
+      }
+    }
   },
   methods: {
     lightOrDark(hex) {
@@ -167,7 +190,7 @@ export default {
 
 <style lang="scss" scoped>
 .job__block {
-  background: var(--color-white);
+  background: var(--jobs-block-background-color);
   box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease-in-out;

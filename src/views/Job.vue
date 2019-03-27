@@ -576,6 +576,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h2 {
+  color: var(--site-text-color);
+}
+
 .job__single {
   .job__sidebar {
     display: grid;
@@ -595,13 +599,13 @@ export default {
       font-size: 36px;
       line-height: normal;
       margin-top: 0;
-      color: var(--color-dark);
+      color: var(--site-text-color);
     }
 
     label {
-      color: var(--color-light);
+      color: var(--color-dark);
       text-transform: uppercase;
-      font-weight: 500;
+      font-weight: 900;
       font-size: 11px;
       margin-bottom: 5px;
     }
