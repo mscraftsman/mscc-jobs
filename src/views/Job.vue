@@ -239,7 +239,7 @@
                       </div>
                       <!-- CV upload -->
                       <div :class="['input__block', 'full']">
-                        <div class="acceptance__submit">
+                        <div class="checkbox__styled border__top">
                           <div class="checkbox__accept">
                             <input
                               type="checkbox"
@@ -703,125 +703,6 @@ export default {
 
   .text {
     font-weight: 300;
-  }
-}
-
-.acceptance__submit {
-  display: flex;
-  align-items: center;
-  border-top: 1px solid var(--color-gray-light);
-  padding-top: var(--gutter);
-
-  @keyframes shrink-bounce {
-    0% {
-      transform: scale(1);
-    }
-    33% {
-      transform: scale(0.85);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  @keyframes checkbox-check {
-    0% {
-      width: 0;
-      height: 0;
-      border-color: white;
-      transform: translate3d(0, 0, 0) rotate(45deg);
-    }
-    33% {
-      width: 7px;
-      height: 0;
-      transform: translate3d(0, 0, 0) rotate(45deg);
-    }
-    100% {
-      width: 7px;
-      height: 16px;
-      border-color: white;
-      transform: translate3d(0, -16px, 0) rotate(45deg);
-    }
-  }
-
-  @keyframes checkbox-check-submit {
-    0% {
-      width: 0;
-      height: 0;
-      border-color: white;
-      transform: translate3d(0, 0, 0) rotate(45deg);
-    }
-    33% {
-      width: 20px;
-      height: 0;
-      transform: translate3d(0, 0, 0) rotate(45deg);
-    }
-    100% {
-      width: 20px;
-      height: 45px;
-      border-color: white;
-      transform: translate3d(0, -45px, 0) rotate(45deg);
-    }
-  }
-
-  .checkbox__text {
-    text-transform: initial;
-    font-weight: 300;
-  }
-
-  .checkbox__accept {
-    margin-right: 10px;
-    text-align: center;
-    width: 50px;
-
-    input[type="checkbox"] {
-      display: none;
-    }
-
-    input[type="checkbox"] + label {
-      position: relative;
-      display: flex;
-      margin: 0;
-      align-items: center;
-      color: #9e9e9e;
-      transition: color 250ms cubic-bezier(0.4, 0, 0.23, 1);
-    }
-
-    input[type="checkbox"] + label > span {
-      margin-right: 10px;
-      width: 40px;
-      height: 40px;
-      border-radius: 40px;
-      background: transparent;
-      border: 2px solid #9e9e9e;
-      cursor: pointer;
-      transition: all 250ms cubic-bezier(0.4, 0, 0.23, 1);
-    }
-
-    input[type="checkbox"] + label:hover,
-    input[type="checkbox"]:focus + label {
-      color: #fff;
-    }
-    input[type="checkbox"] + label:hover > span,
-    input[type="checkbox"]:focus + label > span {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    input[type="checkbox"]:checked + label > span {
-      border: 20px solid var(--color-green);
-      animation: shrink-bounce 200ms cubic-bezier(0.4, 0, 0.23, 1);
-    }
-    input[type="checkbox"]:checked + label > span:before {
-      content: "";
-      position: absolute;
-      top: 18px;
-      left: 10px;
-      border-right: 3px solid transparent;
-      border-bottom: 3px solid transparent;
-      transform: rotate(45deg);
-      transform-origin: 0% 100%;
-      animation: checkbox-check 125ms 250ms cubic-bezier(0.4, 0, 0.23, 1)
-        forwards;
-    }
   }
 }
 
