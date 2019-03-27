@@ -12,6 +12,7 @@ module.exports = {
           @import "@/assets/scss/_buttons.scss";
           @import "@/assets/scss/_tags.scss";
           @import "@/assets/scss/_inputs.scss";
+          @import "@/assets/scss/_content.scss";
         `
       }
     }

@@ -63,7 +63,7 @@ body {
 .company-profile__view,
 .job-single__view,
 .submit__a__job__view {
-  background: var(--color-bg);
+  background: var(--site-background-color);
   padding-bottom: calc(var(--gutter) * 2);
 }
 
@@ -91,5 +91,13 @@ body {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+
+a {
+  outline: none;
+
+  &:focus {
+    outline: none;
+  }
 }
 </style>

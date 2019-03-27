@@ -2,7 +2,12 @@
   <div>
     <h2>Recent Jobs</h2>
     <div class="recent__jobs">
-      <div class="job__block" v-for="(job, index) in jobs" v-if="index < 5" :key="index">
+      <div
+        class="job__block"
+        v-for="(job, index) in jobs"
+        v-if="index < 5 && job.id !== notIncludeId"
+        :key="index"
+      >
         <router-link
           :to="{ name: 'jobsSingle', params: { id: job.id }  }"
           class="title"
@@ -19,6 +24,12 @@
 import { mapGetters } from "vuex";
 
 export default {
+  props: {
+    notIncludeId: {
+      type: String,
+      default: null
+    }
+  },
   data() {
     return {};
   },
