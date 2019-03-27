@@ -4,18 +4,16 @@
       <nav class="side__menu">
         <ul>
           <li v-for="(item, index) in items" :key="index">
-            <router-link :class="item.class" :to="{ name: item.path }">
-              {{ item.name }}
-            </router-link>
+            <router-link :class="item.class" :to="{ name: item.path }">{{ item.name }}</router-link>
           </li>
         </ul>
         <button class="mobile__menu__button" @click="activateMobileMenu">
-          <img src="@/assets/img/menu.svg" alt />
+          <img src="@/assets/img/menu.svg" alt>
         </button>
       </nav>
       <div class="logo">
         <router-link to="/" class="logo-img">
-          <LogoComponent />
+          <LogoComponent/>
           <!-- <img src="@/assets/img/logo.svg" alt="Jobs In Tech logo" /> -->
         </router-link>
       </div>
@@ -23,17 +21,16 @@
         <router-link
           class="submit__job__button button__global yellow"
           :to="{ name: 'submitJob' }"
-          >Submit A Job</router-link
-        >
+        >Submit A Job</router-link>
       </div>
     </div>
-    <MobileMenu :items="items" />
+    <MobileMenu :items="items"/>
   </header>
 </template>
 
 <script>
 import MobileMenu from "@/components/shared/MobileMenu";
-import LogoComponent from "@/components/shared/LogoComponent.vue"
+import LogoComponent from "@/components/shared/LogoComponent.vue";
 export default {
   name: "Navigation",
   components: {
@@ -104,6 +101,16 @@ export default {
           &.home {
             font-weight: 700;
             color: var(--header-text-color-dark);
+          }
+
+          &.router-link-active {
+            font-weight: 700;
+            color: var(--color-blue);
+
+            &.home {
+              font-weight: 700;
+              color: var(--header-text-color-dark);
+            }
           }
         }
       }
