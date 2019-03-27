@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="themes[currentTheme]">
+  <div id="app" :class="theme">
     <SiteHeader />
     <router-view :key="$route.path" />
     <SiteFooter />
@@ -11,6 +11,8 @@
 import "normalize-css";
 import SiteHeader from "@/components/shared/SiteHeader.vue";
 import SiteFooter from "@/components/shared/SiteFooter.vue";
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   name: "App",
   components: {
@@ -22,20 +24,12 @@ export default {
   },
   data() {
     return {
-      currentTheme: 0,
-      // themes: ['theme-default', 'theme-dark', 'theme-terminal']
-      themes: ["theme-default", "theme-dark"]
     };
   },
+  computed: {
+    ...mapGetters({ theme: 'shared/getTheme' })
+  },
   methods: {
-    switchTheme() {
-      let total = this.themes.length - 1;
-      if (this.currentTheme === total) {
-        this.currentTheme = 0;
-      } else {
-        this.currentTheme++;
-      }
-    }
   }
 };
 </script>

@@ -4,6 +4,11 @@ let setMenuStatus = ({ state, commit }) => {
   });
 };
 
+let switchTheme = ({ state, commit }) => {
+  commit("switchTheme");
+};
+
 export default {
-  setMenuStatus
+  setMenuStatus,
+  switchTheme
 };
