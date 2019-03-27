@@ -14,7 +14,7 @@
   --color-light: #838383;
   --color-gray-light: #e5e5e5;
   --color-red: #e30101;
-  --color-blue: 1, 152, 192; //#0198c0;
+  --color-blue: #0198c0; //1, 152, 192; //#0198c0;
   --color-yellow: #ffe401;
   --color-green: #308701;
   --color-white: #ffffff;
@@ -112,7 +112,7 @@
   /// Social
   /////////////////////////////
 
-  --social-icon-background-color: var(--color-blue);
+  --social-icons-background-color: var(--color-yellow);
 
   //////////////////////////////
   /// Company
