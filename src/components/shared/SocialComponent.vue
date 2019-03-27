@@ -53,7 +53,7 @@ export default {
       justify-content: center;
       width: 40px;
       height: 40px;
-      background: var(--social-icon-background-color);
+      background: var(--social-icons-background-color);
       border-radius: 50px;
       transition: all 0.2s ease-in-out;
 

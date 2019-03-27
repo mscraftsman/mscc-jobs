@@ -1,8 +1,8 @@
 <template>
   <div id="app" :class="themes[currentTheme]">
-    <SiteHeader/>
-    <router-view :key="$route.path"/>
-    <SiteFooter/>
+    <SiteHeader />
+    <router-view :key="$route.path" />
+    <SiteFooter />
     <!-- <div class="theme-switcher" @click="switchTheme()">{{ themes[currentTheme] }}</div> -->
   </div>
 </template>
@@ -42,6 +42,10 @@ export default {
 
 
 <style lang="scss">
+body {
+  overflow-y: scroll;
+}
+
 * {
   box-sizing: border-box;
 }
