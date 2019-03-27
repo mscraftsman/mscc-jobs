@@ -599,9 +599,9 @@ export default {
     }
 
     label {
-      color: var(--color-light);
+      color: var(--color-dark);
       text-transform: uppercase;
-      font-weight: 500;
+      font-weight: 900;
       font-size: 11px;
       margin-bottom: 5px;
     }
