@@ -58,6 +58,7 @@
 
   // Buttons Primary
   --button-background-color-primary: var(--color-yellow);
+  --button-text-color-primary: var(--color-black);
 
   // Buttons Secondary
   --button-background-color-secondary: var(--color-blue);
@@ -94,6 +95,13 @@
   --response-background-error: rgba(227, 1, 1, 0.2);
   --response-background-error-icon: var(--color-red);
   --response-background-error-icon-shadow: rgba(227, 1, 1, 0.58);
+
+  //////////////////////////////
+  /// Inputs
+  /////////////////////////////
+  --input-background-color: var(--color-white);
+  --input-border-color: var(--color-gray-light);
+  --input-border-color-focus: var(--color-dark);
 
   //////////////////////////////
   /// Blocks
@@ -162,6 +170,7 @@
 
   // Buttons Primary
   --button-background-color-primary: var(--color-yellow);
+  --button-text-color-primary: var(--color-black);
 
   // Buttons Secondary
   --button-background-color-secondary: var(--color-blue);
@@ -175,6 +184,13 @@
   --button-border-color-outline: var(--color-blue);
   --button-box-shadow-color-outline: rgba(var(--supercolor), 0.58);
   --button-box-shadow-color-outline-hover: rgba(1, 152, 192, 0.9);
+
+  //////////////////////////////
+  /// Inputs
+  /////////////////////////////
+  --input-background-color: var(--color-black);
+  --input-border-color: #000;
+  --input-border-color-focus: var(--color-white);
 
   //////////////////////////////
   /// Blocks
@@ -236,6 +252,7 @@
 
   // Buttons Primary
   --button-background-color-primary: transparent;
+  --button-text-color-primary: var(--color-green);
 
   // Buttons Secondary
   --button-background-color-secondary: var(--color-green);
@@ -274,6 +291,13 @@
   --response-background-error-icon-shadow: rgba(227, 1, 1, 0.58);
 
   //////////////////////////////
+  /// Inputs
+  /////////////////////////////
+  --input-background-color: var(--color-dark);
+  --input-border-color: var(--color-green);
+  --input-border-color-focus: var(--color-green);
+
+  //////////////////////////////
   /// Blocks
   /////////////////////////////
   --block-background-color: #001122;
@@ -306,6 +330,11 @@
   --footer-subtitle-color: var(--color-green);
   --footer-text-color: var(--color-green);
   --footer-heart-color: var(--color-green);
+
+  .logo {
+    visibility: none;
+    opacity: 0;
+  }
 
   img {
     display: none;
