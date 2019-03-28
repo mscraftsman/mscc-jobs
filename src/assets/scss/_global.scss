@@ -97,10 +97,12 @@
     text-transform: initial;
     font-weight: 300;
     width: 100%;
+    font-size: 16px;
 
     label {
       text-transform: initial;
       font-weight: 300;
+      margin: 0;
     }
   }
 
@@ -109,11 +111,13 @@
     text-align: center;
     width: 50px;
 
-    input[type="checkbox"] {
+    input[type="checkbox"],
+    input[type="radio"] {
       display: none;
     }
 
-    input[type="checkbox"] + label {
+    input[type="checkbox"] + label,
+    input[type="radio"] + label {
       position: relative;
       display: flex;
       margin: 0;
@@ -122,7 +126,8 @@
       transition: color 250ms cubic-bezier(0.4, 0, 0.23, 1);
     }
 
-    input[type="checkbox"] + label > span {
+    input[type="checkbox"] + label > span,
+    input[type="radio"] + label > span {
       margin-right: 10px;
       width: 40px;
       height: 40px;
@@ -134,19 +139,25 @@
     }
 
     input[type="checkbox"] + label:hover,
-    input[type="checkbox"]:focus + label {
+    input[type="checkbox"]:focus + label,
+    input[type="radio"] + label:hover,
+    input[type="radio"]:focus + label {
       color: #fff;
     }
     input[type="checkbox"] + label:hover > span,
-    input[type="checkbox"]:focus + label > span {
+    input[type="checkbox"]:focus + label > span,
+    input[type="radio"] + label:hover > span,
+    input[type="radio"]:focus + label > span {
       background: rgba(255, 255, 255, 0.1);
     }
 
-    input[type="checkbox"]:checked + label > span {
+    input[type="checkbox"]:checked + label > span,
+    input[type="radio"]:checked + label > span {
       border: 20px solid var(--color-green);
       animation: shrink-bounce 200ms cubic-bezier(0.4, 0, 0.23, 1);
     }
-    input[type="checkbox"]:checked + label > span:before {
+    input[type="checkbox"]:checked + label > span:before,
+    input[type="radio"]:checked + label > span:before {
       content: "";
       position: absolute;
       top: 18px;

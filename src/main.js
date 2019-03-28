@@ -5,6 +5,7 @@ import store from "./store/index";
 import "./registerServiceWorker";
 import * as VueGoogleMaps from "vue2-google-maps";
 import VeeValidate from "vee-validate";
+import VueTheMask from "vue-the-mask";
 
 Vue.config.productionTip = false;
 
@@ -15,6 +16,8 @@ Vue.use(VueGoogleMaps, {
     libraries: "places"
   }
 });
+
+Vue.use(VueTheMask);
 
 new Vue({
   router,

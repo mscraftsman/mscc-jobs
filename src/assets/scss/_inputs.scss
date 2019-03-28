@@ -62,7 +62,7 @@
   }
 
   .ui.selection.dropdown {
-    height: 50px;
+    min-height: 50px;
     font-family: var(--font-Roboto);
     font-weight: 300;
   }
@@ -100,6 +100,33 @@
     &:focus {
       border-color: var(--color-dark);
     }
+  }
+}
+
+.ui.multiple.dropdown > .label {
+  font-family: var(--font-Poppins);
+  font-weight: 300;
+}
+
+input#MultiSelect.search {
+  font-family: var(--font-Poppins);
+  font-weight: 300;
+
+  top: -10px;
+  height: 42px !important;
+  margin-left: 10px;
+  margin: 0;
+  margin-top: -1px;
+  padding-left: 5px;
+}
+
+.ui.multiple.dropdown > .label {
+  padding: 10px !important;
+
+  .delete {
+    width: 10px;
+    height: 10px;
+    content: url("/img/utils/close_dark.svg");
   }
 }
 

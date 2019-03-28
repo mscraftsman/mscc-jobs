@@ -8,7 +8,7 @@
       :name="name"
       v-model="local"
       :disabled="disabled"
-      ref="name"
+      :ref="name"
       @focus="isFocused()"
     >
     <small>{{helpText}}</small>

@@ -7,10 +7,9 @@
       type="text"
       :name="name"
       v-model="local"
-      :disabled="disabled"
+      v-mask="['###', '####']"
       :ref="name"
     >
-    <small>{{helpText}}</small>
     <div>
       <div v-show="message !== null" class="error">{{ message }}</div>
     </div>
@@ -32,19 +31,11 @@ export default {
       type: String,
       default: null
     },
-    message: {
-      type: String,
-      default: null
-    },
     full: {
       type: Boolean,
       default: false
     },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    helpText: {
+    message: {
       type: String,
       default: null
     }
@@ -60,6 +51,15 @@ export default {
     input() {
       console.log(this.local);
       this.$emit("input", this.local);
+    }
+  },
+  watch: {
+    value: {
+      handler(val) {
+        this.local = val;
+      },
+      deep: true,
+      immediate: true
     }
   },
   $_veeValidate: {

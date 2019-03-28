@@ -4,11 +4,12 @@
     <input
       class="input__text"
       @keyup="input()"
-      type="text"
+      type="number"
       :name="name"
       v-model="local"
       :disabled="disabled"
       :ref="name"
+      v-mask="'################'"
     >
     <small>{{helpText}}</small>
     <div>

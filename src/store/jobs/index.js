@@ -13,14 +13,16 @@ const state = {
         name: "Software Engineer",
         salary: "Rs 50, 000 - 60, 000",
         applyOnUrl: false,
-        applyUrl: "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
+        applyUrl:
+          "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
         type: "Full time",
         pay: "Rs 18 000 to Rs 30 000",
         seniority_level: "Entry",
         functions: "Project Management, Information Technology",
         startDesc: "July onwards",
         durationDesc: "August/September",
-        benefits: "Competitive Salary, Flights to and from resort, Accommodation and more...",
+        benefits:
+          "Competitive Salary, Flights to and from resort, Accommodation and more...",
         jobDesc:
           "<p>Dependant on location you will report to the Manager or the Childcare Manager where you will assist with the overall smooth running of the Childcare program 5-6 days a week.</p><p>You will be responsible for the safe and effective deliverance of the various Kids Clubs that we operate across our programs which encompass children of ages 4-7 and ages 8-12. Creating new, fun and kerr-azy activities you will ensure that all children are comfortable in their surroundings and enjoy their holiday.  All activities will be age appropriate and suited to parents when applicable. </p><p>Typically your day will be from 8am – 6pm with a break in the middle of the day where the children will re-join their parents for lunch, however you will run an evening activity 1-2 nights a week.</p><p><span> </span></p><p>  <br/><strong>Key Accountabilities & Responsibilities: </strong> <br/>  <br/><br/>·         Interacting with all guests in a professional yet relaxed fashion both during the day and evening  <br/>·         Represent the company in a professional, well presented manner at all times and in compliance with the company uniform policy  <br/>·         Deliver the Child Care section of the welcome meeting to promote childcare activities to all guests  <br/>·         Upsell in-resort extras e.g. Excursions, Junior Squad</p><p><strong>Operational </strong> <br/>·         Plan, organise & provide an engaging, inclusive and exciting range of activities for Kids Clubs – lawn games, arts & crafts, pool activities, bike rides, kayaking, sailing, windsurfing  <br/>·         Carry out all activities in a safe manner with regard to children’s learning and welfare needs  <br/>·         Ensure children have adequate shade, water breaks and sunscreen  <br/>·         Run evening social events for Kids Club members  <br/>·         Arrange prizes/certificates and awards for the children at the end of their week  <br/>·         Ensure children are signed in and out of your care by parent/guardian  <br/>·         Attending daily staff meeting to discuss activity plans and duties for the day  <br/>·         Ensure all children are registered including; special diet, allergies, care needs are recorded, monitored & delivered appropriately  <br/>·         Carrying out first aid and completing accident forms as necessary  <br/>·         Attend & socialise with children & guests at Welcome Meals/Theme Nights/BBQs  <br/>·         Complete health & safety and risk assessment for your designated childcare facilities and activities  <br/>·         Carrying out monthly stock takes, weekly deep clean of activity equipment & childcare facilities  <br/>·         Archiving all relevant childcare paperwork on a weekly basis  <br/>·         Assisting other departments as per operational needs</p><p> </p><p> </p>",
         requirements:
@@ -85,14 +87,16 @@ const state = {
         name: "Service Delivery Manager",
         salary: "Rs 50, 000 - 60, 000",
         applyOnUrl: false,
-        applyUrl: "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
+        applyUrl:
+          "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
         type: "Full time",
         pay: "Rs 18 000 to Rs 30 000",
         seniority_level: "Entry",
         functions: "Project Management, Information Technology",
         startDesc: "July onwards",
         durationDesc: "August/September",
-        benefits: "Competitive Salary, Flights to and from resort, Accommodation and more...",
+        benefits:
+          "Competitive Salary, Flights to and from resort, Accommodation and more...",
         jobDesc:
           "<p>Dependant on location you will report to the Manager or the Childcare Manager where you will assist with the overall smooth running of the Childcare program 5-6 days a week.</p><p>You will be responsible for the safe and effective deliverance of the various Kids Clubs that we operate across our programs which encompass children of ages 4-7 and ages 8-12. Creating new, fun and kerr-azy activities you will ensure that all children are comfortable in their surroundings and enjoy their holiday.  All activities will be age appropriate and suited to parents when applicable. </p><p>Typically your day will be from 8am – 6pm with a break in the middle of the day where the children will re-join their parents for lunch, however you will run an evening activity 1-2 nights a week.</p><p><span> </span></p><p>  <br/><strong>Key Accountabilities & Responsibilities: </strong> <br/>  <br/><br/>·         Interacting with all guests in a professional yet relaxed fashion both during the day and evening  <br/>·         Represent the company in a professional, well presented manner at all times and in compliance with the company uniform policy  <br/>·         Deliver the Child Care section of the welcome meeting to promote childcare activities to all guests  <br/>·         Upsell in-resort extras e.g. Excursions, Junior Squad</p><p><strong>Operational </strong> <br/>·         Plan, organise & provide an engaging, inclusive and exciting range of activities for Kids Clubs – lawn games, arts & crafts, pool activities, bike rides, kayaking, sailing, windsurfing  <br/>·         Carry out all activities in a safe manner with regard to children’s learning and welfare needs  <br/>·         Ensure children have adequate shade, water breaks and sunscreen  <br/>·         Run evening social events for Kids Club members  <br/>·         Arrange prizes/certificates and awards for the children at the end of their week  <br/>·         Ensure children are signed in and out of your care by parent/guardian  <br/>·         Attending daily staff meeting to discuss activity plans and duties for the day  <br/>·         Ensure all children are registered including; special diet, allergies, care needs are recorded, monitored & delivered appropriately  <br/>·         Carrying out first aid and completing accident forms as necessary  <br/>·         Attend & socialise with children & guests at Welcome Meals/Theme Nights/BBQs  <br/>·         Complete health & safety and risk assessment for your designated childcare facilities and activities  <br/>·         Carrying out monthly stock takes, weekly deep clean of activity equipment & childcare facilities  <br/>·         Archiving all relevant childcare paperwork on a weekly basis  <br/>·         Assisting other departments as per operational needs</p><p> </p><p> </p>",
         requirements:
@@ -133,14 +137,16 @@ const state = {
         name: "Systems Architect",
         salary: "Rs 100, 000 - 200, 000",
         applyOnUrl: true,
-        applyUrl: "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
+        applyUrl:
+          "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
         type: "Full time",
         pay: "Rs 18 000 to Rs 30 000",
         seniority_level: "Entry",
         functions: "Project Management, Information Technology",
         startDesc: "July onwards",
         durationDesc: "August/September",
-        benefits: "Competitive Salary, Flights to and from resort, Accommodation and more...",
+        benefits:
+          "Competitive Salary, Flights to and from resort, Accommodation and more...",
         jobDesc:
           "<p>Dependant on location you will report to the Manager or the Childcare Manager where you will assist with the overall smooth running of the Childcare program 5-6 days a week.</p><p>You will be responsible for the safe and effective deliverance of the various Kids Clubs that we operate across our programs which encompass children of ages 4-7 and ages 8-12. Creating new, fun and kerr-azy activities you will ensure that all children are comfortable in their surroundings and enjoy their holiday.  All activities will be age appropriate and suited to parents when applicable. </p><p>Typically your day will be from 8am – 6pm with a break in the middle of the day where the children will re-join their parents for lunch, however you will run an evening activity 1-2 nights a week.</p><p><span> </span></p><p>  <br/><strong>Key Accountabilities & Responsibilities: </strong> <br/>  <br/><br/>·         Interacting with all guests in a professional yet relaxed fashion both during the day and evening  <br/>·         Represent the company in a professional, well presented manner at all times and in compliance with the company uniform policy  <br/>·         Deliver the Child Care section of the welcome meeting to promote childcare activities to all guests  <br/>·         Upsell in-resort extras e.g. Excursions, Junior Squad</p><p><strong>Operational </strong> <br/>·         Plan, organise & provide an engaging, inclusive and exciting range of activities for Kids Clubs – lawn games, arts & crafts, pool activities, bike rides, kayaking, sailing, windsurfing  <br/>·         Carry out all activities in a safe manner with regard to children’s learning and welfare needs  <br/>·         Ensure children have adequate shade, water breaks and sunscreen  <br/>·         Run evening social events for Kids Club members  <br/>·         Arrange prizes/certificates and awards for the children at the end of their week  <br/>·         Ensure children are signed in and out of your care by parent/guardian  <br/>·         Attending daily staff meeting to discuss activity plans and duties for the day  <br/>·         Ensure all children are registered including; special diet, allergies, care needs are recorded, monitored & delivered appropriately  <br/>·         Carrying out first aid and completing accident forms as necessary  <br/>·         Attend & socialise with children & guests at Welcome Meals/Theme Nights/BBQs  <br/>·         Complete health & safety and risk assessment for your designated childcare facilities and activities  <br/>·         Carrying out monthly stock takes, weekly deep clean of activity equipment & childcare facilities  <br/>·         Archiving all relevant childcare paperwork on a weekly basis  <br/>·         Assisting other departments as per operational needs</p><p> </p><p> </p>",
         requirements:
@@ -181,14 +187,16 @@ const state = {
         name: "Service Delivery Manager",
         salary: "Rs 50, 000 - 60, 000",
         applyOnUrl: false,
-        applyUrl: "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
+        applyUrl:
+          "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
         type: "Full time",
         pay: "Rs 18 000 to Rs 30 000",
         seniority_level: "Entry",
         functions: "Project Management, Information Technology",
         startDesc: "July onwards",
         durationDesc: "August/September",
-        benefits: "Competitive Salary, Flights to and from resort, Accommodation and more...",
+        benefits:
+          "Competitive Salary, Flights to and from resort, Accommodation and more...",
         jobDesc:
           "<p>Dependant on location you will report to the Manager or the Childcare Manager where you will assist with the overall smooth running of the Childcare program 5-6 days a week.</p><p>You will be responsible for the safe and effective deliverance of the various Kids Clubs that we operate across our programs which encompass children of ages 4-7 and ages 8-12. Creating new, fun and kerr-azy activities you will ensure that all children are comfortable in their surroundings and enjoy their holiday.  All activities will be age appropriate and suited to parents when applicable. </p><p>Typically your day will be from 8am – 6pm with a break in the middle of the day where the children will re-join their parents for lunch, however you will run an evening activity 1-2 nights a week.</p><p><span> </span></p><p>  <br/><strong>Key Accountabilities & Responsibilities: </strong> <br/>  <br/><br/>·         Interacting with all guests in a professional yet relaxed fashion both during the day and evening  <br/>·         Represent the company in a professional, well presented manner at all times and in compliance with the company uniform policy  <br/>·         Deliver the Child Care section of the welcome meeting to promote childcare activities to all guests  <br/>·         Upsell in-resort extras e.g. Excursions, Junior Squad</p><p><strong>Operational </strong> <br/>·         Plan, organise & provide an engaging, inclusive and exciting range of activities for Kids Clubs – lawn games, arts & crafts, pool activities, bike rides, kayaking, sailing, windsurfing  <br/>·         Carry out all activities in a safe manner with regard to children’s learning and welfare needs  <br/>·         Ensure children have adequate shade, water breaks and sunscreen  <br/>·         Run evening social events for Kids Club members  <br/>·         Arrange prizes/certificates and awards for the children at the end of their week  <br/>·         Ensure children are signed in and out of your care by parent/guardian  <br/>·         Attending daily staff meeting to discuss activity plans and duties for the day  <br/>·         Ensure all children are registered including; special diet, allergies, care needs are recorded, monitored & delivered appropriately  <br/>·         Carrying out first aid and completing accident forms as necessary  <br/>·         Attend & socialise with children & guests at Welcome Meals/Theme Nights/BBQs  <br/>·         Complete health & safety and risk assessment for your designated childcare facilities and activities  <br/>·         Carrying out monthly stock takes, weekly deep clean of activity equipment & childcare facilities  <br/>·         Archiving all relevant childcare paperwork on a weekly basis  <br/>·         Assisting other departments as per operational needs</p><p> </p><p> </p>",
         requirements:
@@ -229,14 +237,16 @@ const state = {
         name: "Service Delivery Manager",
         salary: "Rs 50, 000 - 60, 000",
         applyOnUrl: true,
-        applyUrl: "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
+        applyUrl:
+          "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
         type: "Full time",
         pay: "Rs 18 000 to Rs 30 000",
         seniority_level: "Entry",
         functions: "Project Management, Information Technology",
         startDesc: "July onwards",
         durationDesc: "August/September",
-        benefits: "Competitive Salary, Flights to and from resort, Accommodation and more...",
+        benefits:
+          "Competitive Salary, Flights to and from resort, Accommodation and more...",
         jobDesc:
           "<p>Dependant on location you will report to the Manager or the Childcare Manager where you will assist with the overall smooth running of the Childcare program 5-6 days a week.</p><p>You will be responsible for the safe and effective deliverance of the various Kids Clubs that we operate across our programs which encompass children of ages 4-7 and ages 8-12. Creating new, fun and kerr-azy activities you will ensure that all children are comfortable in their surroundings and enjoy their holiday.  All activities will be age appropriate and suited to parents when applicable. </p><p>Typically your day will be from 8am – 6pm with a break in the middle of the day where the children will re-join their parents for lunch, however you will run an evening activity 1-2 nights a week.</p><p><span> </span></p><p>  <br/><strong>Key Accountabilities & Responsibilities: </strong> <br/>  <br/><br/>·         Interacting with all guests in a professional yet relaxed fashion both during the day and evening  <br/>·         Represent the company in a professional, well presented manner at all times and in compliance with the company uniform policy  <br/>·         Deliver the Child Care section of the welcome meeting to promote childcare activities to all guests  <br/>·         Upsell in-resort extras e.g. Excursions, Junior Squad</p><p><strong>Operational </strong> <br/>·         Plan, organise & provide an engaging, inclusive and exciting range of activities for Kids Clubs – lawn games, arts & crafts, pool activities, bike rides, kayaking, sailing, windsurfing  <br/>·         Carry out all activities in a safe manner with regard to children’s learning and welfare needs  <br/>·         Ensure children have adequate shade, water breaks and sunscreen  <br/>·         Run evening social events for Kids Club members  <br/>·         Arrange prizes/certificates and awards for the children at the end of their week  <br/>·         Ensure children are signed in and out of your care by parent/guardian  <br/>·         Attending daily staff meeting to discuss activity plans and duties for the day  <br/>·         Ensure all children are registered including; special diet, allergies, care needs are recorded, monitored & delivered appropriately  <br/>·         Carrying out first aid and completing accident forms as necessary  <br/>·         Attend & socialise with children & guests at Welcome Meals/Theme Nights/BBQs  <br/>·         Complete health & safety and risk assessment for your designated childcare facilities and activities  <br/>·         Carrying out monthly stock takes, weekly deep clean of activity equipment & childcare facilities  <br/>·         Archiving all relevant childcare paperwork on a weekly basis  <br/>·         Assisting other departments as per operational needs</p><p> </p><p> </p>",
         requirements:
@@ -277,14 +287,16 @@ const state = {
         name: "Service Delivery Manager",
         salary: "Rs 50, 000 - 60, 000",
         applyOnUrl: false,
-        applyUrl: "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
+        applyUrl:
+          "https://www.candiman.net/GenericApplicationForm.aspx?appID=172&jobID=334182&site=resortwork.co.uk",
         type: "Full time",
         pay: "Rs 18 000 to Rs 30 000",
         seniority_level: "Entry",
         functions: "Project Management, Information Technology",
         startDesc: "July onwards",
         durationDesc: "August/September",
-        benefits: "Competitive Salary, Flights to and from resort, Accommodation and more...",
+        benefits:
+          "Competitive Salary, Flights to and from resort, Accommodation and more...",
         jobDesc:
           "<p>Dependant on location you will report to the Manager or the Childcare Manager where you will assist with the overall smooth running of the Childcare program 5-6 days a week.</p><p>You will be responsible for the safe and effective deliverance of the various Kids Clubs that we operate across our programs which encompass children of ages 4-7 and ages 8-12. Creating new, fun and kerr-azy activities you will ensure that all children are comfortable in their surroundings and enjoy their holiday.  All activities will be age appropriate and suited to parents when applicable. </p><p>Typically your day will be from 8am – 6pm with a break in the middle of the day where the children will re-join their parents for lunch, however you will run an evening activity 1-2 nights a week.</p><p><span> </span></p><p>  <br/><strong>Key Accountabilities & Responsibilities: </strong> <br/>  <br/><br/>·         Interacting with all guests in a professional yet relaxed fashion both during the day and evening  <br/>·         Represent the company in a professional, well presented manner at all times and in compliance with the company uniform policy  <br/>·         Deliver the Child Care section of the welcome meeting to promote childcare activities to all guests  <br/>·         Upsell in-resort extras e.g. Excursions, Junior Squad</p><p><strong>Operational </strong> <br/>·         Plan, organise & provide an engaging, inclusive and exciting range of activities for Kids Clubs – lawn games, arts & crafts, pool activities, bike rides, kayaking, sailing, windsurfing  <br/>·         Carry out all activities in a safe manner with regard to children’s learning and welfare needs  <br/>·         Ensure children have adequate shade, water breaks and sunscreen  <br/>·         Run evening social events for Kids Club members  <br/>·         Arrange prizes/certificates and awards for the children at the end of their week  <br/>·         Ensure children are signed in and out of your care by parent/guardian  <br/>·         Attending daily staff meeting to discuss activity plans and duties for the day  <br/>·         Ensure all children are registered including; special diet, allergies, care needs are recorded, monitored & delivered appropriately  <br/>·         Carrying out first aid and completing accident forms as necessary  <br/>·         Attend & socialise with children & guests at Welcome Meals/Theme Nights/BBQs  <br/>·         Complete health & safety and risk assessment for your designated childcare facilities and activities  <br/>·         Carrying out monthly stock takes, weekly deep clean of activity equipment & childcare facilities  <br/>·         Archiving all relevant childcare paperwork on a weekly basis  <br/>·         Assisting other departments as per operational needs</p><p> </p><p> </p>",
         requirements:
@@ -318,7 +330,69 @@ const state = {
     }
   ],
   jobs: [],
-  jobsGroupedByCompanyId: {}
+  jobsGroupedByCompanyId: {},
+  tech_stack: [
+    {
+      logo: "vuejs.png",
+      text: "Vue.js",
+      value: "Vue.js"
+    },
+    {
+      logo: "golang.png",
+      text: "GoLang",
+      value: "GoLang"
+    },
+    {
+      logo: "grpc.png",
+      text: "GRPC",
+      value: "GRPC"
+    },
+    {
+      logo: "docker.png",
+      text: "Docker",
+      value: "Docker"
+    },
+    {
+      logo: "aws.png",
+      text: "AWS",
+      value: "AWS"
+    },
+    {
+      logo: "aws.png",
+      text: "Technology X",
+      value: "Technology X"
+    },
+    {
+      logo: "aws.png",
+      text: "Technology Y",
+      value: "Technology Y"
+    },
+    {
+      logo: "aws.png",
+      text: "Technology A",
+      value: "Technology A"
+    },
+    {
+      logo: "aws.png",
+      text: "Technology B",
+      value: "Technology B"
+    },
+    {
+      logo: "aws.png",
+      text: "Technology C",
+      value: "Technology C"
+    },
+    {
+      logo: "aws.png",
+      text: "Technology D",
+      value: "Technology D"
+    },
+    {
+      logo: "aws.png",
+      text: "Technology E",
+      value: "Technology E"
+    }
+  ]
 };
 
 const namespaced = true;

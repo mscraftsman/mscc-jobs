@@ -79,6 +79,19 @@
                     helpText="Use tags like industry and tech stack, and separate multiple tags by comma"
                   />
 
+                  <InputMultiSelect
+                    label="Tech Stack"
+                    name="techStack"
+                    v-model="submitJobData.techStack"
+                    :values="getTechStack"
+                    optionValue="text"
+                    optionText="text"
+                    :full="true"
+                    v-validate="'required'"
+                    :message="errors.first('techStack')"
+                    helpText="The Tech Stack"
+                  />
+
                   <InputEditor
                     label="Job Description"
                     name="description"
@@ -181,6 +194,7 @@
                             id="companyLogo"
                             :options="CompanyLogoDropzoneOptions"
                             :useCustomSlot="true"
+                            @vdropzone-success="companyLogoUploadSuccess"
                           >
                             <div class="dropzone__content">
                               <img src="/img/utils/upload.svg" class="icon">
@@ -191,6 +205,7 @@
 
                         <div class="preview__wrapper">
                           <label>Preview</label>
+                          <img class="logo" :src="companyInformation.logoSrc" alt>
                         </div>
                       </div>
                     </div>
@@ -232,10 +247,243 @@
                     :message="errors.first('email')"
                     helpText="Make sure this email is accessible by you! We use this to send the invoice and edit link. We can not and do not manually resend it!"
                   />
+
+                  <div class="payment__card__info">
+                    <div class="card__number">
+                      <InputCreditCard
+                        label="Company Card"
+                        name="cardNumber"
+                        v-model="submitJobData.cardNumber"
+                        v-validate="'required|credit_card'"
+                        :full="true"
+                        :message="errors.first('cardNumber')"
+                      />
+                    </div>
+                    <div class="card__expiry">
+                      <InputCreditCardExpiry
+                        label="Card Expiry"
+                        name="cardExpiry"
+                        v-model="submitJobData.cardExpiry"
+                        v-validate="'required|date_format:MM/yy'"
+                        :full="true"
+                        :message="errors.first('cardExpiry')"
+                      />
+                    </div>
+                    <div class="card__CVV">
+                      <InputCreditCardCVC
+                        label="Card CVC"
+                        name="cardCVC"
+                        v-model="submitJobData.cardCVC"
+                        v-validate="'required|numeric|min:3|max:4'"
+                        :full="true"
+                        :message="errors.first('cardCVC')"
+                      />
+                    </div>
+
+                    <div class="card__notes">
+                      <div class="note">
+                        <div class="icon">
+                          <img src="@/assets/img/payment-lock.svg" alt>
+                        </div>
+                        <div class="text">Secure payment guaranteed by XXXXXX over HTTPS</div>
+                      </div>
+
+                      <div class="note">
+                        <div class="icon">
+                          <img class="small" src="@/assets/img/payment-card.svg" alt>
+                        </div>
+                        <div class="text">Card is only charged when you press "Submit your Job"</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <button @click="validateSubmission()">Submit</button>
+              <div class="block__content submit__job__block">
+                <h3>Get more leads</h3>
+                <div class="body__content submit__grid__layout">
+                  <!-- Show company logo -->
+                  <div :class="['input__block', 'full']">
+                    <div class="checkbox__styled">
+                      <div class="checkbox__accept">
+                        <input
+                          type="checkbox"
+                          id="company__show__logo"
+                          v-model="submitJobData.showCompanyLogo"
+                        >
+                        <label for="company__show__logo">
+                          <span></span>
+                        </label>
+                      </div>
+                      <label
+                        class="checkbox__text"
+                        for="company__show__logo"
+                      >Show my company logo besides my post (+$99)</label>
+                    </div>
+                  </div>
+
+                  <!-- Featured yellow bar or background colour -->
+                  <div :class="['input__block', 'full']">
+                    <div class="checkbox__styled">
+                      <div class="checkbox__accept">
+                        <input
+                          type="checkbox"
+                          id="company__is__featured"
+                          v-model="submitJobData.featured"
+                        >
+                        <label for="company__is__featured">
+                          <span></span>
+                        </label>
+                      </div>
+                      <label
+                        class="checkbox__text"
+                        for="company__is__featured"
+                      >Highlight my post in️ yellow (+$99)</label>
+                    </div>
+                  </div>
+
+                  <div :class="['input__block', 'full']">
+                    <div class="checkbox__styled">
+                      <div class="checkbox__accept">
+                        <input
+                          type="checkbox"
+                          id="company__has__colour"
+                          v-model="submitJobData.hasBrandColour"
+                        >
+                        <label for="company__has__colour">
+                          <span></span>
+                        </label>
+                      </div>
+                      <label
+                        class="checkbox__text"
+                        for="company__has__colour"
+                      >Highlight with my company's brand color (+$50)</label>
+                    </div>
+                  </div>
+
+                  <div :class="['input__block', 'full']">
+                    <div class="checkbox__styled">
+                      <div class="checkbox__accept">
+                        <input
+                          type="checkbox"
+                          id="company__stays_on_top_1_week"
+                          v-model="submitJobData.staysOnTopFor1Week"
+                        >
+                        <label for="company__stays_on_top_1_week">
+                          <span></span>
+                        </label>
+                      </div>
+                      <label
+                        class="checkbox__text"
+                        for="company__stays_on_top_1_week"
+                      >Sticky my post so it stays on top of the frontpage for 1 entire week (+$XX)</label>
+                    </div>
+                  </div>
+
+                  <div :class="['input__block', 'full']">
+                    <div class="checkbox__styled">
+                      <div class="checkbox__accept">
+                        <input
+                          type="checkbox"
+                          id="company__stays_on_top_1_month"
+                          v-model="submitJobData.staysOnTopFor1Month"
+                        >
+                        <label for="company__stays_on_top_1_month">
+                          <span></span>
+                        </label>
+                      </div>
+                      <label
+                        class="checkbox__text"
+                        for="company__stays_on_top_1_month"
+                      >Sticky my post so it stays on top of the frontpage for 🗓1 entire month (+$XX)</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="block__content submit__job__block">
+                <h3>Save money & buy a package</h3>
+                <div class="body__content submit__grid__layout">
+                  <!-- Show company logo -->
+                  <div
+                    :class="['input__block', 'full']"
+                    v-for="(item, index) in packageInformation"
+                    :key="index"
+                  >
+                    <div class="checkbox__styled">
+                      <div class="checkbox__accept">
+                        <input
+                          type="radio"
+                          name="packageInfo"
+                          :id="'company__package__' + index"
+                          :value="item.value"
+                          v-model="submitJobData.packageInfo"
+                          @click="uncheck(item.value)"
+                        >
+                        <label :for="'company__package__' + index" @click="uncheck(item.value)">
+                          <span></span>
+                        </label>
+                      </div>
+                      <label
+                        class="checkbox__text"
+                        :for="'company__package__' + index"
+                        @click="uncheck(item.value)"
+                      >{{item.name}}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div :class="['input__block', 'full', 'submit__buttons']">
+                <button
+                  type="button"
+                  class="submit__job__button button__global green override__visbility"
+                  @click="validateSubmission()"
+                >
+                  <div class="icon">
+                    <div class="loading"></div>
+                  </div>
+                  <span class="text">Submit job</span>
+                </button>
+
+                <button
+                  type="reset"
+                  class="reset__submission__button button__global yellow override__visbility"
+                  @click="resetForm()"
+                >
+                  <span class="text">Reset</span>
+                </button>
+              </div>
+
+              <div
+                :class="['input__block', 'full', 'response__message', 'success']"
+                v-if="submitStatus.success"
+              >
+                <div class="icon__wrapper">
+                  <div class="icon">
+                    <img src="@/assets/img/success.svg" alt>
+                  </div>
+                </div>
+                <div class="message">
+                  <h4>Success !</h4>
+                  <p>Thanks for submitting a job!</p>
+                </div>
+              </div>
+
+              <div
+                :class="['input__block', 'full', 'response__message', 'error']"
+                v-if="submitStatus.error"
+              >
+                <div class="icon__wrapper">
+                  <div class="icon">
+                    <img src="@/assets/img/error_white.svg" alt>
+                  </div>
+                </div>
+                <div class="message">
+                  <h4>Error !</h4>
+                  <p>There is an error in your data</p>
+                </div>
+              </div>
             </form>
           </div>
           <!-- SUBMIT JOB -->
@@ -266,22 +514,17 @@ import InputEmail from "@/components/forms/InputEmail";
 import InputEditor from "@/components/forms/InputEditor";
 import InputNumeric from "@/components/forms/InputNumeric";
 import InputSelect from "@/components/forms/InputSelect";
+import InputMultiSelect from "@/components/forms/InputMultiSelect";
 import InputUrl from "@/components/forms/InputUrl";
+import InputCreditCard from "@/components/forms/InputCreditCard";
+import InputCreditCardExpiry from "@/components/forms/InputCreditCardExpiry";
+import InputCreditCardCVC from "@/components/forms/InputCreditCardCVC";
+import InputDate from "@/components/forms/InputDate";
 
 import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
 
-function convertFileToBinary(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsArrayBuffer(file);
-    reader.onload = () => {
-      let array = new Uint8Array(reader.result);
-      resolve(array);
-    };
-    reader.onerror = error => reject(error);
-  });
-}
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -294,10 +537,19 @@ export default {
     InputNumeric,
     InputSelect,
     InputUrl,
+    InputCreditCard,
+    InputCreditCardExpiry,
+    InputCreditCardCVC,
+    InputDate,
     HeadingBreadcrumbs,
-    vueDropzone: vue2Dropzone
+    vueDropzone: vue2Dropzone,
+    InputMultiSelect
   },
-  computed: {},
+  computed: {
+    ...mapGetters({
+      getTechStack: "jobs/getTechStack"
+    })
+  },
   data: () => ({
     breadcrumbs: [
       {
@@ -341,12 +593,8 @@ export default {
       success: false
     },
     companyInformation: {
-      logoFileName: null
-    },
-    companyImageStatus: {
-      success: false,
-      error: null,
-      uploading: false
+      logoFileName: null,
+      logoSrc: null
     },
     submitJobData: {
       position: null,
@@ -366,7 +614,17 @@ export default {
       socialTwitter: null,
       socialFacebook: null,
       socialLinkedIn: null,
-      email: null
+      email: null,
+      cardNumber: null,
+      cardExpiry: null,
+      cardCVC: null,
+      techStack: [],
+      showCompanyLogo: false,
+      featured: false,
+      hasBrandColour: false,
+      staysOnTopFor1Week: false,
+      staysOnTopFor1Month: false,
+      packageInfo: null
     },
     CompanyLogoDropzoneOptions: {
       url: "https://httpbin.org/post",
@@ -374,9 +632,28 @@ export default {
       maxFilesize: 0.5,
       headers: { "My-Awesome-Header": "header value" },
       uploadMultiple: false,
-      acceptedFiles: ".jpeg,.jpg,.png,.gif",
+      acceptedFiles: ".jpeg, .jpg, .png, .gif, .svg",
       maxFilesize: 1
-    }
+    },
+    packageInformation: [
+      {
+        name: "Package 1",
+        value: 1
+      },
+      {
+        name: "Package 2",
+        value: 2
+      },
+      {
+        name: "Package 3",
+        value: 3
+      },
+      {
+        name: "Package 4",
+        value: 4
+      }
+    ],
+    previouslySelectedPackage: null
   }),
   beforeMount() {},
   methods: {
@@ -402,57 +679,6 @@ export default {
         this.submitStatus.error = true;
       });
     },
-    handleCVUpload(file) {
-      console.log("file upload triggered");
-
-      // Resets alerts
-      this.CVUploadStatus.error = null;
-      this.CVUploadStatus.success = false;
-
-      console.log(this.$refs);
-
-      convertFileToBinary(this.$refs.cv_upload.files[0])
-        .then(data => {
-          // fileName is file upload name
-          let fileName = this.$refs.cv_upload.files[0].name;
-          let fileSize = this.$refs.cv_upload.files[0].size;
-          let fileType = this.$refs.cv_upload.files[0].type;
-
-          // Set filename
-          this.CVInformation.fileName = fileName;
-          this.CVInformation.fileSize = fileSize;
-
-          // Data contains file data
-          console.log(data);
-          console.log(fileName);
-          console.log(fileSize);
-          console.log(fileType);
-
-          let allowedUploadSize = 5242880;
-          let allowedTypes = ["application/pdf"];
-
-          if (!allowedTypes.includes(fileType)) {
-            this.CVUploadStatus.error = "Incorrect file type.";
-            return;
-          }
-
-          if (fileSize > allowedUploadSize) {
-            this.CVUploadStatus.error = "File size is above 5 Mb.";
-            return;
-          }
-
-          // TODO: Upload goes here and set status to true below
-          if (fileSize < allowedUploadSize && allowedTypes.includes(fileType)) {
-            // Set uploading information true
-            this.CVUploadStatus.uploading = true;
-
-            // TODO upload logic here
-          }
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
     resetForm() {},
     applyUrlIsFocused(val) {
       this.submitJobData.applyEmail = null;
@@ -462,20 +688,42 @@ export default {
       this.submitJobData.applyUrl = null;
       this.submitJobData.applyMode = "applyEmail";
     },
-    checkUrl() {
-      if (
-        this.submitJobData.socialTwitter &&
-        this.submitJobData.socialTwitter.length
-      ) {
-        console.log({ url: { require_protocol: true } });
+    companyLogoUploadSuccess(file, response) {
+      console.log(file);
+      console.log(response);
 
-        return { url: { require_protocol: true } };
-      } else {
-        return "";
+      let fileSrc = file.dataURL;
+      this.companyInformation.logoSrc = fileSrc;
+    },
+    uncheck(val) {
+      if (val === this.previouslySelectedPackage) {
+        this.submitJobData.packageInfo = false;
+      }
+      this.previouslySelectedPackage = this.submitJobData.packageInfo;
+    }
+  },
+  watch: {
+    "submitJobData.featured"(val) {
+      if (val === true && this.submitJobData.hasBrandColour) {
+        this.submitJobData.hasBrandColour = false;
+      }
+    },
+    "submitJobData.hasBrandColour"(val) {
+      if (val === true && this.submitJobData.featured) {
+        this.submitJobData.featured = false;
+      }
+    },
+    "submitJobData.staysOnTopFor1Week"(val) {
+      if (val === true && this.submitJobData.staysOnTopFor1Month) {
+        this.submitJobData.staysOnTopFor1Month = false;
+      }
+    },
+    "submitJobData.staysOnTopFor1Month"(val) {
+      if (val === true && this.submitJobData.staysOnTopFor1Week) {
+        this.submitJobData.staysOnTopFor1Week = false;
       }
     }
   },
-  watch: {},
   $_veeValidate: {
     // value getter
     value() {
@@ -534,7 +782,7 @@ export default {
   border-radius: 5px;
   padding: var(--gutter);
   align-items: center;
-  margin-bottom: var(--gutter);
+  margin: var(--gutter) 0;
 
   &.success {
     background-color: var(--response-background-success);
@@ -646,6 +894,53 @@ export default {
   }
 
   .preview__wrapper {
+    .logo {
+      max-width: 90%;
+    }
+  }
+}
+
+.payment__card__info {
+  display: grid;
+  grid-gap: var(--gutter);
+  grid-template-columns: 1fr 0.5fr 0.5fr;
+
+  .card__notes {
+    grid-column: 1 / 5;
+
+    .note {
+      width: 100;
+      display: flex;
+      align-items: center;
+
+      .icon {
+        width: 40px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+
+        img {
+          height: 30px;
+
+          &.small {
+            height: 18px;
+          }
+        }
+      }
+
+      .text {
+        font-size: 12px;
+        color: var(--color-light);
+      }
+    }
+  }
+}
+
+.submit__buttons {
+  .submit__job__button {
+    margin-right: 10px;
   }
 }
 

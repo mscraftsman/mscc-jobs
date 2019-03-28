@@ -10,8 +10,13 @@ let getJobsByCompanyId = state => id => {
   return state.jobsGroupedByCompanyId[id];
 };
 
+let getTechStack = state => {
+  return state.tech_stack;
+};
+
 export default {
   getJobs,
   getJobsByCompanyId,
-  getJobById
+  getJobById,
+  getTechStack
 };

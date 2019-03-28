@@ -9,6 +9,9 @@
       v-model="local"
       :disabled="disabled"
       :ref="name"
+      v-mask="'##/##'"
+      :masked="true"
+      placeholder="MM/YY"
     >
     <small>{{helpText}}</small>
     <div>
@@ -19,6 +22,7 @@
 
 <script>
 export default {
+  components: {},
   props: {
     name: {
       type: String,

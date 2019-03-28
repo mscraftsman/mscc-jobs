@@ -19,6 +19,7 @@
 
 <script>
 export default {
+  components: {},
   props: {
     name: {
       type: String,
