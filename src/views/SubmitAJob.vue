@@ -57,6 +57,37 @@
                   </div>
 
                   <InputSelect
+                    label="Type"
+                    name="type"
+                    v-model="submitJobData.type"
+                    :values="jobTypes"
+                    optionValue="name"
+                    optionText="name"
+                    :full="true"
+                    v-validate="'required'"
+                    :message="errors.first('type')"
+                  />
+
+                  <InputText
+                    label="Seniority Level"
+                    name="seniorityLevel"
+                    v-model="submitJobData.seniorityLevel"
+                    v-validate="'required'"
+                    :full="true"
+                    :message="errors.first('seniorityLevel')"
+                  />
+
+                  <InputText
+                    label="Functions"
+                    name="functions"
+                    v-model="submitJobData.functions"
+                    v-validate
+                    :full="true"
+                    :message="errors.first('functions')"
+                    helpText="Use comma to separate the job functions"
+                  />
+
+                  <InputSelect
                     label="Primary tag"
                     name="primaryTag"
                     v-model="submitJobData.primaryTag"
@@ -90,6 +121,15 @@
                     v-validate="'required'"
                     :message="errors.first('techStack')"
                     helpText="The Tech Stack"
+                  />
+
+                  <InputEditor
+                    label="Job Summary"
+                    name="summary"
+                    :full="true"
+                    v-model="submitJobData.summary"
+                    v-validate="'required'"
+                    :message="errors.first('summary')"
                   />
 
                   <InputEditor
@@ -354,10 +394,14 @@
                           <span></span>
                         </label>
                       </div>
-                      <label
-                        class="checkbox__text"
-                        for="company__has__colour"
-                      >Highlight with my company's brand color (+$50)</label>
+                      <label class="checkbox__text" for="company__has__colour">
+                        Highlight with my company's brand color (+$50)
+                        <input
+                          type="color"
+                          :disabled="(submitJobData.hasBrandColour === true) ? false : true"
+                          v-model="submitJobData.colour"
+                        >
+                      </label>
                     </div>
                   </div>
 
@@ -496,6 +540,24 @@
           <!-- SIDEBAR -->
         </div>
       </div>
+
+      <modal name="job-preview" :adaptive="true" height="auto" :scrollable="true" width="1400px">
+        <div class="job__preview__modal">
+          <h3>Here's a preview of how your job will look like</h3>
+
+          <JobBlock :jobData="job" :isPreview="true"/>
+        </div>
+      </modal>
+
+      <div class="preview__button">
+        <button
+          type="button"
+          class="submit__job__button button__global green override__visbility"
+          @click="showPreview()"
+        >
+          <span class="text">Preview</span>
+        </button>
+      </div>
     </section>
   </div>
 </template>
@@ -557,6 +619,20 @@ export default {
         path: "submit-job"
       }
     ],
+    jobTypes: [
+      {
+        name: "Full Time",
+        value: "Full Time"
+      },
+      {
+        name: "Part Time",
+        value: "Part Time"
+      },
+      {
+        name: "Freelance",
+        value: "Freelance"
+      }
+    ],
     primaryTags: [
       {
         name: "Software Development",
@@ -597,6 +673,10 @@ export default {
       logoSrc: null
     },
     submitJobData: {
+      colour: "#ffffff",
+      type: null,
+      seniorityLevel: null,
+      functions: null,
       position: null,
       companyName: null,
       isRemote: false,
@@ -606,6 +686,7 @@ export default {
       description: null,
       responsibilities: null,
       requirements: null,
+      summary: null,
       salary: null,
       howToApply: null,
       applyUrl: null,
@@ -653,7 +734,28 @@ export default {
         value: 4
       }
     ],
-    previouslySelectedPackage: null
+    previouslySelectedPackage: null,
+    job: {
+      colour: "#ffffff",
+      featured: true,
+      hasLogo: true,
+      id: "",
+      job: {
+        name: "",
+        salary: "",
+        type: "",
+        pay: "",
+        seniority_level: "",
+        functions: "",
+        summary: ""
+      },
+      company: {
+        name: "",
+        id: "",
+        logo: ""
+      },
+      tags: []
+    }
   }),
   beforeMount() {},
   methods: {
@@ -668,7 +770,7 @@ export default {
 
           // TODO: send data
 
-          console.log(this.applicationData);
+          console.log(this.submitJobData);
 
           // Set submit status
           this.submitStatus.success = true;
@@ -700,6 +802,12 @@ export default {
         this.submitJobData.packageInfo = false;
       }
       this.previouslySelectedPackage = this.submitJobData.packageInfo;
+    },
+    showPreview() {
+      this.$modal.show("job-preview");
+    },
+    hidePreview() {
+      this.$modal.hide("job-preview");
     }
   },
   watch: {
@@ -722,6 +830,32 @@ export default {
       if (val === true && this.submitJobData.staysOnTopFor1Week) {
         this.submitJobData.staysOnTopFor1Week = false;
       }
+    },
+    submitJobData: {
+      handler(val) {
+        let backgroundColour = !val.hasBrandColour ? "#ffffff" : val.colour;
+
+        this.job = {
+          colour: backgroundColour,
+          featured: val.featured,
+          hasLogo: val.showCompanyLogo,
+          job: {
+            name: val.position,
+            pay: val.salary,
+            type: val.type,
+            seniority_level: val.seniorityLevel,
+            functions: val.functions,
+            summary: val.summary
+          },
+          company: {
+            name: val.companyName,
+            logo: this.companyInformation.logoSrc
+          },
+          tags: []
+        };
+      },
+      deep: true,
+      immediate: true
     }
   },
   $_veeValidate: {
@@ -942,6 +1076,17 @@ export default {
   .submit__job__button {
     margin-right: 10px;
   }
+}
+
+.preview__button {
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+}
+
+.job__preview__modal {
+  padding: var(--gutter);
+  min-height: 300px;
 }
 
 @media (max-width: 1024px) {

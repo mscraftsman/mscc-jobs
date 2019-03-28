@@ -6,6 +6,7 @@ import "./registerServiceWorker";
 import * as VueGoogleMaps from "vue2-google-maps";
 import VeeValidate from "vee-validate";
 import VueTheMask from "vue-the-mask";
+import VModal from "vue-js-modal";
 
 Vue.config.productionTip = false;
 
@@ -16,8 +17,8 @@ Vue.use(VueGoogleMaps, {
     libraries: "places"
   }
 });
-
 Vue.use(VueTheMask);
+Vue.use(VModal);
 
 new Vue({
   router,

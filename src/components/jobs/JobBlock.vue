@@ -10,59 +10,87 @@
       @click="openLowerSection()"
     >
       <div class="logo">
-        <router-link
-          :to="{ name: 'companySingle', params: { id: jobData.company.id } }"
-        >
+        <template v-if="!isPreview">
+          <router-link :to="{ name: 'companySingle', params: { id: jobData.company.id } }">
+            <div class="logo__outer">
+              <img
+                :src="'/img/jobs/companies/' + jobData.company.logo"
+                alt
+                v-if="jobData.hasLogo && jobData.company.id"
+              >
+              <div class="company__initial" v-else>
+                <span>{{ getCompanyInitial(jobData.company.name) }}</span>
+              </div>
+            </div>
+          </router-link>
+        </template>
+        <template v-else>
           <div class="logo__outer">
-            <img
-              :src="'/img/jobs/companies/' + jobData.company.logo"
-              alt
-              v-if="jobData.hasLogo && jobData.company.id"
-            />
+            <img :src="jobData.company.logo" alt v-if="jobData.hasLogo">
             <div class="company__initial" v-else>
               <span>{{ getCompanyInitial(jobData.company.name) }}</span>
             </div>
           </div>
-        </router-link>
+        </template>
       </div>
       <div class="title__company">
         <div>
-          <router-link
-            :to="{ name: 'jobsSingle', params: { id: jobData.id } }"
-            class="title"
-            >{{ jobData.job.name }}</router-link
-          >
+          <template v-if="!isPreview">
+            <router-link
+              :to="{ name: 'jobsSingle', params: { id: jobData.id } }"
+              class="title"
+            >{{ jobData.job.name }}</router-link>
+          </template>
+          <template v-else>{{ jobData.job.name }}</template>
         </div>
         <div>
-          <router-link
-            :to="{ name: 'companySingle', params: { id: jobData.company.id } }"
-            class="company"
-            >{{ jobData.company.name }}</router-link
-          >
+          <template v-if="!isPreview">
+            <router-link
+              :to="{ name: 'companySingle', params: { id: jobData.company.id } }"
+              class="company"
+            >{{ jobData.company.name }}</router-link>
+          </template>
+          <template v-else>{{ jobData.company.name }}</template>
         </div>
       </div>
       <div class="tags">
         <ul>
           <li v-for="(tag, index) in jobData.tags" :key="index">
-            <router-link :to="{ name: 'jobs', query: { tag: tag.url } }">{{
+            <router-link :to="{ name: 'jobs', query: { tag: tag.url } }">
+              {{
               tag.name
-            }}</router-link>
+              }}
+            </router-link>
           </li>
         </ul>
       </div>
       <div class="time">20 hours ago</div>
       <div class="apply__button">
-        <ButtonComponent
-          :url="{ name: 'jobsSingle', params: { id: jobData.id } }"
-          color="yellow"
-          classStyle="apply__job__button"
-          text="Apply"
-          :iconOnDesktop="false"
-          :iconOnMobile="false"
-          :textOnMobile="true"
-          :textOnDesktop="true"
-          icon="/img/utils/icon-bold.svg"
-        />
+        <template v-if="!isPreview">
+          <ButtonComponent
+            :url="{ name: 'jobsSingle', params: { id: jobData.id } }"
+            color="yellow"
+            classStyle="apply__job__button"
+            text="Apply"
+            :iconOnDesktop="false"
+            :iconOnMobile="false"
+            :textOnMobile="true"
+            :textOnDesktop="true"
+            icon="/img/utils/icon-bold.svg"
+          />
+        </template>
+        <template v-else>
+          <ButtonComponent
+            color="yellow"
+            classStyle="apply__job__button"
+            text="Apply"
+            :iconOnDesktop="false"
+            :iconOnMobile="false"
+            :textOnMobile="true"
+            :textOnDesktop="true"
+            icon="/img/utils/icon-bold.svg"
+          />
+        </template>
       </div>
     </div>
     <div :class="['lower__section', { active: state }]">
@@ -87,15 +115,17 @@
       <div class="row-2">
         <div class="data__cell">
           <label>About this job</label>
-          <div class="data__content">{{ jobData.job.summary }}</div>
+          <div class="data__content" v-html="jobData.job.summary"></div>
         </div>
         <div class="data__cell">
           <div class="tags white__bg">
             <ul>
               <li v-for="(tag, index) in jobData.tags" :key="index">
-                <router-link :to="{ name: 'jobs', query: { tag: tag.url } }">{{
+                <router-link :to="{ name: 'jobs', query: { tag: tag.url } }">
+                  {{
                   tag.name
-                }}</router-link>
+                  }}
+                </router-link>
               </li>
             </ul>
           </div>
@@ -122,7 +152,7 @@
 
 <script>
 import ButtonComponent from "@/components/shared/ButtonComponent";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 export default {
   components: {
     ButtonComponent
@@ -133,6 +163,10 @@ export default {
       default: () => {
         return {};
       }
+    },
+    isPreview: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -141,15 +175,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({ theme: 'shared/getTheme' }),
+    ...mapGetters({ theme: "shared/getTheme" }),
     backgroundColor() {
-      if (this.theme === 'theme-default') {
-        return this.jobData.colour
+      if (this.theme === "theme-default") {
+        return this.jobData.colour;
       } else {
-        if (this.jobData.colour === '#ffffff') {
-          return 'var(--jobs-block-background-color)'
+        if (this.jobData.colour === "#ffffff") {
+          return "var(--jobs-block-background-color)";
         } else {
-          return this.jobData.colour
+          return this.jobData.colour;
         }
       }
     }
