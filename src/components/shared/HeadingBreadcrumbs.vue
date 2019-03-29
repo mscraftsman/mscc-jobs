@@ -35,7 +35,14 @@
         </div>
       </div>
 
-      <modal name="subscribe" :adaptive="true" height="auto" :scrollable="true" width="600px">
+      <modal
+        name="subscribe"
+        :adaptive="true"
+        height="auto"
+        :scrollable="true"
+        width="600px"
+        :clickToClose="false"
+      >
         <div class="subscribe__modal modal">
           <h3>
             <img src="@/assets/img/enveloppe.svg" class="subcribe__icon"> Subscribe to this job alert
