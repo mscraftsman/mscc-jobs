@@ -44,7 +44,10 @@
                         <div class="tags white__bg">
                           <ul>
                             <li v-for="(tag, index) in jobData.tags" :key="index">
-                              <router-link :to="{ name: 'jobs', query: {tag: tag.url}}">{{tag.name}}</router-link>
+                              <router-link
+                                class="tag"
+                                :to="{ name: 'jobs', query: {tag: tag.url}}"
+                              >{{tag.name}}</router-link>
                             </li>
                           </ul>
                         </div>

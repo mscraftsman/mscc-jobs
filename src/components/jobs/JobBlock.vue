@@ -41,7 +41,9 @@
               class="title"
             >{{ jobData.job.name }}</router-link>
           </template>
-          <template v-else>{{ jobData.job.name }}</template>
+          <template v-else>
+            <div class="title">{{ jobData.job.name }}</div>
+          </template>
         </div>
         <div>
           <template v-if="!isPreview">
@@ -50,17 +52,24 @@
               class="company"
             >{{ jobData.company.name }}</router-link>
           </template>
-          <template v-else>{{ jobData.company.name }}</template>
+          <template v-else>
+            <div class="company">{{ jobData.company.name }}</div>
+          </template>
         </div>
       </div>
       <div class="tags">
         <ul>
           <li v-for="(tag, index) in jobData.tags" :key="index">
-            <router-link :to="{ name: 'jobs', query: { tag: tag.url } }">
-              {{
-              tag.name
-              }}
-            </router-link>
+            <template v-if="!isPreview">
+              <router-link class="tag" :to="{ name: 'jobs', query: { tag: tag.url } }">
+                {{
+                tag.name
+                }}
+              </router-link>
+            </template>
+            <template v-else>
+              <span class="tag">{{ tag.name }}</span>
+            </template>
           </li>
         </ul>
       </div>
@@ -80,16 +89,12 @@
           />
         </template>
         <template v-else>
-          <ButtonComponent
-            color="yellow"
-            classStyle="apply__job__button"
-            text="Apply"
-            :iconOnDesktop="false"
-            :iconOnMobile="false"
-            :textOnMobile="true"
-            :textOnDesktop="true"
-            icon="/img/utils/icon-bold.svg"
-          />
+          <button
+            type="button"
+            class="button__global apply__job__button yellow override__visbility"
+          >
+            <span class="text">Apply</span>
+          </button>
         </template>
       </div>
     </div>

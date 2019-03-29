@@ -533,8 +533,16 @@
           <!-- SUBMIT JOB -->
           <!-- SIDEBAR -->
           <div class="sidebar__block">
-            <div class="block__content">
-              <div class="body__content"></div>
+            <div class="block__content style__content">
+              <div class="body__content centered__content">
+                <a
+                  href="http://mscc.mu"
+                  class="go__to__button button__global blue override__visbility"
+                >
+                  <img class="icon" src="@/assets/img/external-link-light.svg" alt>
+                  <div class="text">Visit Website</div>
+                </a>
+              </div>
             </div>
           </div>
           <!-- SIDEBAR -->
@@ -543,7 +551,10 @@
 
       <modal name="job-preview" :adaptive="true" height="auto" :scrollable="true" width="1400px">
         <div class="job__preview__modal">
-          <h3>Here's a preview of how your job will look like</h3>
+          <h3>Preview</h3>
+          <button class="close__modal" @click="hidePreview()">
+            <img src="/img/utils/close.svg" alt>
+          </button>
 
           <JobBlock :jobData="job" :isPreview="true"/>
         </div>
@@ -834,6 +845,17 @@ export default {
     submitJobData: {
       handler(val) {
         let backgroundColour = !val.hasBrandColour ? "#ffffff" : val.colour;
+        let tags = [];
+        tags.push({ name: val.primaryTag });
+
+        if (val.extraTags) {
+          let extraTags = val.extraTags.split(",");
+          extraTags.map(tag => {
+            if (tag && tag.trim().length) {
+              tags.push({ name: tag });
+            }
+          });
+        }
 
         this.job = {
           colour: backgroundColour,
@@ -851,7 +873,7 @@ export default {
             name: val.companyName,
             logo: this.companyInformation.logoSrc
           },
-          tags: []
+          tags: tags
         };
       },
       deep: true,
@@ -1038,6 +1060,7 @@ export default {
   display: grid;
   grid-gap: var(--gutter);
   grid-template-columns: 1fr 0.5fr 0.5fr;
+  grid-column: 1 / 3;
 
   .card__notes {
     grid-column: 1 / 5;
@@ -1089,13 +1112,50 @@ export default {
   min-height: 300px;
 }
 
+.centered__content {
+  text-align: center;
+}
+
 @media (max-width: 1024px) {
+  .submit__a__job {
+    .submit_job__sidebar {
+      grid-template-columns: 1fr;
+    }
+  }
 }
 
 @media (max-width: 768px) {
+  .dropzone__company__logo {
+    grid-template-columns: 1fr;
+
+    .dropzone {
+      margin-bottom: var(--gutter);
+    }
+  }
 }
 
 @media (max-width: 600px) {
+  .payment__card__info {
+    display: block;
+
+    .card__number,
+    .card__expiry,
+    .card__CVV {
+      margin-bottom: var(--gutter);
+    }
+  }
+
+  .submit__buttons {
+    .submit__job__button,
+    .reset__submission__button {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .reset__submission__button {
+      margin-bottom: var(--gutter);
+    }
+  }
 }
 
 @media (max-width: 450px) {

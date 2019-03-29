@@ -8,7 +8,7 @@
       margin-bottom: 5px;
       margin-right: 5px;
 
-      a {
+      .tag {
         padding: 5px 10px;
         text-decoration: none;
         display: block;
@@ -38,7 +38,7 @@
     ul {
       &,
       li {
-        a {
+        .tag {
           color: var(--color-blue);
           border: 1px solid var(--color-blue);
 
@@ -57,7 +57,7 @@
     ul {
       &,
       li {
-        a {
+        .tag {
           font-size: 10px;
         }
       }

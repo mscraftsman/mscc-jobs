@@ -1,8 +1,8 @@
 <template>
   <div id="app" :class="theme">
-    <SiteHeader />
-    <router-view :key="$route.path" />
-    <SiteFooter />
+    <SiteHeader/>
+    <router-view :key="$route.path"/>
+    <SiteFooter/>
     <!-- <div class="theme-switcher" @click="switchTheme()">{{ themes[currentTheme] }}</div> -->
   </div>
 </template>
@@ -11,7 +11,7 @@
 import "normalize-css";
 import SiteHeader from "@/components/shared/SiteHeader.vue";
 import SiteFooter from "@/components/shared/SiteFooter.vue";
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "App",
@@ -23,14 +23,12 @@ export default {
     this.$store.dispatch("jobs/getJobsFromApi");
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
-    ...mapGetters({ theme: 'shared/getTheme' })
+    ...mapGetters({ theme: "shared/getTheme" })
   },
-  methods: {
-  }
+  methods: {}
 };
 </script>
 
@@ -60,7 +58,8 @@ body {
 .job-listing__view,
 .company-profile__view,
 .job-single__view,
-.submit__a__job__view {
+.submit__a__job__view,
+.generic__view {
   background: var(--site-background-color);
   padding-bottom: calc(var(--gutter) * 2);
 }

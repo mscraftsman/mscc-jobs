@@ -13,6 +13,7 @@ module.exports = {
           @import "@/assets/scss/_tags.scss";
           @import "@/assets/scss/_inputs.scss";
           @import "@/assets/scss/_content.scss";
+          @import "@/assets/scss/_modal.scss";
         `
       }
     }
