@@ -37,7 +37,9 @@
 
       <modal name="subscribe" :adaptive="true" height="auto" :scrollable="true" width="600px">
         <div class="subscribe__modal modal">
-          <h3>Subscribe to this job alert</h3>
+          <h3>
+            <img src="@/assets/img/enveloppe.svg" class="subcribe__icon"> Subscribe to this job alert
+          </h3>
           <button class="close__modal" @click="hideSubscribeModal()">
             <img src="/img/utils/close.svg" alt>
           </button>
@@ -66,7 +68,7 @@
                 name="email"
                 v-model="subscribeData.email"
                 :full="true"
-                v-validate="'required'"
+                v-validate="'required|email'"
                 :message="errors.first('email')"
               />
               <div :class="['input__block', 'full']">
@@ -89,10 +91,40 @@
                 </div>
               </div>
 
+              <div
+                :class="['input__block', 'full', 'response__message', 'success']"
+                v-if="submitStatus.success"
+              >
+                <div class="icon__wrapper">
+                  <div class="icon">
+                    <img src="@/assets/img/success.svg" alt>
+                  </div>
+                </div>
+                <div class="message">
+                  <h4>Success !</h4>
+                  <p>Your application has been sent !</p>
+                </div>
+              </div>
+
+              <div
+                :class="['input__block', 'full', 'response__message', 'error']"
+                v-if="submitStatus.error"
+              >
+                <div class="icon__wrapper">
+                  <div class="icon">
+                    <img src="@/assets/img/error_white.svg" alt>
+                  </div>
+                </div>
+                <div class="message">
+                  <h4>Error !</h4>
+                  <p>There is an error in your subscription</p>
+                </div>
+              </div>
+
               <div :class="['input__block', 'full', 'submit__buttons']">
                 <button
                   type="reset"
-                  class="reset__subcription__button button__global yellow override__visbility"
+                  class="reset__subscription__button button__global yellow override__visbility"
                   @click="resetForm()"
                 >
                   <span class="text">Reset</span>
@@ -100,7 +132,7 @@
 
                 <button
                   type="button"
-                  class="submit__subcription__button button__global green override__visbility"
+                  class="submit__subscription__button button__global green override__visbility"
                   @click="subscribeUser()"
                   :disabled="subscribeData.agree === false"
                 >
@@ -174,6 +206,7 @@ export default {
 
           // Set submit status
           this.submitStatus.success = true;
+          this.submitStatus.error = false;
           return;
         }
 
@@ -282,7 +315,7 @@ export default {
   text-align: right;
 }
 
-.reset__subcription__button {
+.reset__subscription__button {
   margin-right: 10px;
 }
 
