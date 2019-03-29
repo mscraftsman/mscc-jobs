@@ -7,6 +7,17 @@
     />
 
     <div class="container__fw">
+      <div class="filtered__content">
+        <div class="heading">Showing results:</div>
+        <div class="tags white__bg">
+          <ul>
+            <li>
+              <span class="tag">Front-end</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <div class="jobs__listing">
         <div class="jobs">
           <JobBlock v-for="(job, index) in jobs" :jobData="job" :key="index"/>
@@ -83,6 +94,18 @@ export default {
       box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
       padding: var(--gutter);
     }
+  }
+}
+
+.filtered__content {
+  margin-bottom: var(--gutter);
+  display: flex;
+  align-items: center;
+
+  .heading {
+    font-size: 13px;
+    color: var(--color-light);
+    margin-right: 10px;
   }
 }
 
