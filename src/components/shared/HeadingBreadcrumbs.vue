@@ -9,9 +9,11 @@
                 <router-link :to="{ name: 'home' }">Home</router-link>
               </li>
               <li v-for="(item, index) in breadcrumbs" :key="index">
-                <router-link v-if="item" :to="{ name: item.path }">{{
+                <router-link v-if="item" :to="{ name: item.path }">
+                  {{
                   item.name
-                }}</router-link>
+                  }}
+                </router-link>
               </li>
             </ul>
           </nav>
@@ -21,21 +23,109 @@
         </div>
         <div class="alert__wrapper" v-if="alertStatus">
           <div class="icon">
-            <img src="@/assets/img/enveloppe.svg" alt />
+            <img src="@/assets/img/enveloppe.svg" alt>
           </div>
           <div class="text">
             <h3>Do you want to be notified?</h3>
-            <button class="submit__job__button button__global blue">
-              Subscribe
-            </button>
+            <button
+              class="submit__job__button button__global blue"
+              @click="showSubscribeModal()"
+            >Subscribe</button>
           </div>
         </div>
       </div>
+
+      <modal name="subscribe" :adaptive="true" height="auto" :scrollable="true" width="600px">
+        <div class="subscribe__modal modal">
+          <h3>Subscribe to this job alert</h3>
+          <button class="close__modal" @click="hideSubscribeModal()">
+            <img src="/img/utils/close.svg" alt>
+          </button>
+
+          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores maxime nesciunt cupiditate facere blanditiis est unde deleniti ea...</p>
+
+          <form @submit.prevent="subscribeUser()">
+            <div class="form__field">
+              <InputText
+                label="First Name"
+                name="firstName"
+                v-model="subscribeData.firstName"
+                v-validate="'required'"
+                :message="errors.first('firstName')"
+              />
+              <InputText
+                label="Last Name"
+                name="lastName"
+                v-model="subscribeData.lastName"
+                v-validate="'required'"
+                :message="errors.first('lastName')"
+              />
+
+              <InputEmail
+                label="Email"
+                name="email"
+                v-model="subscribeData.email"
+                :full="true"
+                v-validate="'required'"
+                :message="errors.first('email')"
+              />
+              <div :class="['input__block', 'full']">
+                <div class="checkbox__styled">
+                  <div class="checkbox__accept">
+                    <input
+                      type="checkbox"
+                      required
+                      id="accept__job__conditions"
+                      v-model="subscribeData.agree"
+                    >
+                    <label for="accept__job__conditions">
+                      <span></span>
+                    </label>
+                  </div>
+                  <label
+                    class="checkbox__text"
+                    for="accept__job__conditions"
+                  >GDPR compliance text goes here</label>
+                </div>
+              </div>
+
+              <div :class="['input__block', 'full', 'submit__buttons']">
+                <button
+                  type="reset"
+                  class="reset__subcription__button button__global yellow override__visbility"
+                  @click="resetForm()"
+                >
+                  <span class="text">Reset</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="submit__subcription__button button__global green override__visbility"
+                  @click="subscribeUser()"
+                  :disabled="subscribeData.agree === false"
+                >
+                  <div class="icon">
+                    <div class="loading"></div>
+                  </div>
+                  <span class="text">Subscribe</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </modal>
     </div>
   </div>
 </template>
 <script>
+import InputText from "@/components/forms/InputText";
+import InputEmail from "@/components/forms/InputEmail";
+
 export default {
+  components: {
+    InputText,
+    InputEmail
+  },
   props: {
     breadcrumbs: {
       type: Array,
@@ -50,6 +140,46 @@ export default {
     alertStatus: {
       type: Boolean,
       default: false
+    }
+  },
+  data() {
+    return {
+      submitStatus: {
+        error: false,
+        success: false
+      },
+      subscribeData: {
+        firstName: null,
+        lastName: null,
+        email: null,
+        agree: false
+      }
+    };
+  },
+  methods: {
+    showSubscribeModal() {
+      this.$modal.show("subscribe");
+    },
+    hideSubscribeModal() {
+      this.$modal.hide("subscribe");
+    },
+    subscribeUser() {
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          alert("TODO: send data");
+
+          // TODO: send data
+
+          console.log(this.subscribeData);
+
+          // Set submit status
+          this.submitStatus.success = true;
+          return;
+        }
+
+        alert("Correct the errors!");
+        this.submitStatus.error = true;
+      });
     }
   }
 };
@@ -140,6 +270,20 @@ export default {
       }
     }
   }
+}
+
+.form__field {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: var(--gutter);
+}
+
+.submit__buttons {
+  text-align: right;
+}
+
+.reset__subcription__button {
+  margin-right: 10px;
 }
 
 @media (max-width: 1024px) {

@@ -21,3 +21,20 @@
     width: 90%;
   }
 }
+
+.subscribe__modal {
+  padding: calc(var(--gutter) * 2);
+}
+
+.modal {
+  h3 {
+    color: var(--color-light);
+    text-transform: uppercase;
+    font-size: 22px;
+  }
+
+  p {
+    margin-bottom: var(--gutter);
+    color: var(--color-dark);
+  }
+}

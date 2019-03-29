@@ -550,7 +550,7 @@
       </div>
 
       <modal name="job-preview" :adaptive="true" height="auto" :scrollable="true" width="1400px">
-        <div class="job__preview__modal">
+        <div class="job__preview__modal modal">
           <h3>Preview</h3>
           <button class="close__modal" @click="hidePreview()">
             <img src="/img/utils/close.svg" alt>
