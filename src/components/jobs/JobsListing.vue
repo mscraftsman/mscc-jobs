@@ -9,6 +9,7 @@
     <div class="container__fw">
       <div class="filtered__content">
         <div class="heading">Showing results:</div>
+        <div class="search__queries">Job</div>
         <div class="tags white__bg">
           <ul>
             <li>
