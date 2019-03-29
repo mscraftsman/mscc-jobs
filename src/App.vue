@@ -28,7 +28,15 @@ export default {
   computed: {
     ...mapGetters({ theme: "shared/getTheme" })
   },
-  methods: {}
+  methods: {},
+  metaInfo: {
+    title: "Home",
+    titleTemplate: "%s | Jobs In Tech",
+    htmlAttrs: {
+      lang: "en",
+      amp: undefined
+    }
+  }
 };
 </script>
 

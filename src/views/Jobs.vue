@@ -27,6 +27,9 @@ export default {
       listingPageTitle: "Latest jobs",
       listingAlert: true
     };
+  },
+  metaInfo: {
+    title: "Jobs"
   }
 };
 </script>

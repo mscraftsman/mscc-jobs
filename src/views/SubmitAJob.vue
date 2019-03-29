@@ -880,6 +880,9 @@ export default {
       immediate: true
     }
   },
+  metaInfo: {
+    title: "Submit a Job"
+  },
   $_veeValidate: {
     // value getter
     value() {

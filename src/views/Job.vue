@@ -574,6 +574,13 @@ export default {
       deep: true,
       immediate: true
     }
+  },
+  metaInfo() {
+    let title =
+      this.jobData && this.jobData.job.name ? this.jobData.job.name : "";
+    return {
+      title: title
+    };
   }
 };
 </script>
