@@ -4,6 +4,15 @@ This project is the front-end client for the MSCC Job Portal, built using vue-cl
 
 ![logo](https://raw.githubusercontent.com/mscraftsman/mscc-jobs/master/src/assets/img/logo.svg)
 
+## Prerequisites
+
+#### Nodejs
+
+You may run `node -v` to see your current node version
+
+- Minimum : Node.js 8.11.0+
+- Recommended : Node.js v11.8.0
+
 ## Usage
 
 ### Development mode
