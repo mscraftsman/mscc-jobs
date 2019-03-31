@@ -1,7 +1,9 @@
 <template>
-  <div id="app" :class="theme">
+  <div id="app" :class="[theme, 'app']">
     <SiteHeader/>
-    <router-view :key="$route.path"/>
+    <div class="view">
+      <router-view :key="$route.path"/>
+    </div>
     <SiteFooter/>
     <!-- <div class="theme-switcher" @click="switchTheme()">{{ themes[currentTheme] }}</div> -->
   </div>
@@ -14,7 +16,7 @@ import SiteFooter from "@/components/shared/SiteFooter.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "App",
+  name: "JobsInTechApp",
   components: {
     SiteHeader,
     SiteFooter
@@ -33,8 +35,7 @@ export default {
     title: "Home",
     titleTemplate: "%s | Jobs In Tech",
     htmlAttrs: {
-      lang: "en",
-      amp: undefined
+      lang: "en"
     }
   }
 };
@@ -42,6 +43,17 @@ export default {
 
 
 <style lang="scss">
+.app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.view,
+.body__container {
+  flex: 1;
+}
+
 body {
   overflow-y: scroll;
 }

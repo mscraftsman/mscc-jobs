@@ -9,6 +9,7 @@
     "test:e2e": "vue-cli-service test:e2e"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "i": "^0.3.6",
     "lodash": "^4.17.11",
     "normalize-css": "^2.3.1",

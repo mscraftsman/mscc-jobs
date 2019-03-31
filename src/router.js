@@ -13,7 +13,7 @@ export default new Router({
       component: () => import("./views/Home.vue")
     },
     {
-      path: "/about",
+      path: "/about", // Generic
       name: "about",
       component: () => import("./views/About.vue")
     },
@@ -38,10 +38,11 @@ export default new Router({
       component: () => import("./views/SubmitAJob.vue")
     },
     {
-      path: "/terms-conditions",
-      name: "termsAndConditions",
-      component: () => import("./views/About.vue")
-    }
+      path: "/404",
+      name: "notFound",
+      component: () => import("./views/NotFound.vue")
+    },
+    { path: "*", component: () => import("./views/NotFound.vue") }
   ],
   scrollBehavior(to, from, savedPosition) {
     return new Promise((resolve, reject) => {

@@ -11,38 +11,50 @@
                 <div class="block__content">
                   <div class="body__content job__details__logo">
                     <div class="job__details">
-                      <h2>{{jobData.job.name}}</h2>
+                      <h2 v-if="jobData.job.name">{{jobData.job.name}}</h2>
 
                       <div class="row-1">
                         <div class="data__cell">
                           <label>Type</label>
-                          <div class="data__content">{{jobData.job.type}}</div>
+                          <div class="data__content" v-if="jobData.job.type">{{jobData.job.type}}</div>
                         </div>
                         <div class="data__cell">
                           <label>Pay (Monthly)</label>
-                          <div class="data__content">{{jobData.job.pay}}</div>
+                          <div class="data__content" v-if="jobData.job.pay">{{jobData.job.pay}}</div>
                         </div>
                         <div class="data__cell">
                           <label>Seniority Level</label>
-                          <div class="data__content">{{jobData.job.seniority_level}}</div>
+                          <div
+                            class="data__content"
+                            v-if="jobData.job.seniority_level"
+                          >{{jobData.job.seniority_level}}</div>
                         </div>
                         <div class="data__cell">
                           <label>Job Functions</label>
-                          <div class="data__content">{{jobData.job.functions}}</div>
+                          <div
+                            class="data__content"
+                            v-if="jobData.job.functions"
+                          >{{jobData.job.functions}}</div>
                         </div>
                         <div class="data__cell">
                           <label>Start</label>
-                          <div class="data__content">{{jobData.job.startDesc}}</div>
+                          <div
+                            class="data__content"
+                            v-if="jobData.job.startDesc"
+                          >{{jobData.job.startDesc}}</div>
                         </div>
                         <div class="data__cell">
                           <label>Duration</label>
-                          <div class="data__content">{{jobData.job.durationDesc}}</div>
+                          <div
+                            class="data__content"
+                            v-if="jobData.job.durationDesc"
+                          >{{jobData.job.durationDesc}}</div>
                         </div>
                       </div>
 
                       <div class="row-2">
                         <div class="tags white__bg">
-                          <ul>
+                          <ul v-if="jobData.tags">
                             <li v-for="(tag, index) in jobData.tags" :key="index">
                               <router-link
                                 class="tag"
@@ -53,7 +65,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="company__logo">
+                    <div class="company__logo" v-if="jobData.company">
                       <router-link
                         class="logo"
                         :to="{name: 'companySingle', params: { id: jobData.company.id}}"
@@ -66,22 +78,38 @@
 
                 <div class="block__content">
                   <h3>Description</h3>
-                  <div class="body__content styled__content" v-html="jobData.job.jobDesc"></div>
+                  <div
+                    class="body__content styled__content"
+                    v-if="jobData.job.jobDesc"
+                    v-html="jobData.job.jobDesc"
+                  ></div>
                 </div>
 
                 <div class="block__content">
                   <h3>Responsibilities</h3>
-                  <div class="body__content styled__content" v-html="jobData.job.responsibilities"></div>
+                  <div
+                    class="body__content styled__content"
+                    v-if="jobData.job.responsibilities"
+                    v-html="jobData.job.responsibilities"
+                  ></div>
                 </div>
 
                 <div class="block__content">
                   <h3>Requirements</h3>
-                  <div class="body__content styled__content" v-html="jobData.job.requirements"></div>
+                  <div
+                    class="body__content styled__content"
+                    v-if="jobData.job.requirements"
+                    v-html="jobData.job.requirements"
+                  ></div>
                 </div>
 
                 <div class="block__content">
                   <h3>Benefits</h3>
-                  <div class="body__content styled__content" v-html="jobData.job.benefits"></div>
+                  <div
+                    class="body__content styled__content"
+                    v-if="jobData.job.benefits"
+                    v-html="jobData.job.benefits"
+                  ></div>
                 </div>
 
                 <div class="block__content" v-if="jobData.job.applyOnUrl === false">
@@ -423,7 +451,7 @@ export default {
     jobData: {},
     url: null,
     jobId: null,
-    loading: false,
+    loading: true,
     submitStatus: {
       error: false,
       success: false
@@ -462,9 +490,25 @@ export default {
   methods: {
     fetchJobData() {
       if (typeof this.getJobData === "undefined") {
-        this.$store.dispatch("jobs/getJobFromAPI", {
-          value: this.jobId
-        });
+        // FYR https://stackoverflow.com/questions/40165766/returning-promises-from-vuex-actions
+        this.$store
+          .dispatch("jobs/getJobFromApi", {
+            value: this.$route.params.id
+          })
+          .then(
+            response => {
+              console.log(
+                "Got some data, now lets show something in this component"
+              );
+
+              this.JobData = response; // TBC
+            },
+            error => {
+              console.error(
+                "Got nothing from server. Prompt user to check internet connection and try again"
+              );
+            }
+          );
       } else {
         this.jobData = this.getJobData;
         //Set loading status
@@ -577,7 +621,9 @@ export default {
   },
   metaInfo() {
     let title =
-      this.jobData && this.jobData.job.name ? this.jobData.job.name : "";
+      this.jobData && this.jobData.job && this.jobData.job.name
+        ? this.jobData.job.name
+        : "";
     return {
       title: title
     };

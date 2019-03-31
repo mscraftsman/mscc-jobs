@@ -627,7 +627,7 @@ export default {
     breadcrumbs: [
       {
         name: "Submit a job",
-        path: "submit-job"
+        path: "submitJob"
       }
     ],
     jobTypes: [
