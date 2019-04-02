@@ -1,9 +1,8 @@
 let addCompany = (state, payload) => {
   let company = payload.value;
-  let IdCompany = company.id;
+  let IdCompany = company.customerId;
 
-  // Add to jobs
-  if (typeof state.companies[IdCompany] !== "undefined") {
+  if (typeof state.companies[IdCompany] === "undefined") {
     state.companies[IdCompany] = company;
   }
 };

@@ -23,6 +23,7 @@ export default {
   },
   beforeMount() {
     this.$store.dispatch("jobs/getJobsFromApi");
+    this.$store.dispatch("companies/getCompaniesFromApi");
   },
   data() {
     return {};

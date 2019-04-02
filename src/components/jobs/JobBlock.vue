@@ -11,24 +11,20 @@
     >
       <div class="logo">
         <template v-if="!isPreview">
-          <router-link :to="{ name: 'companySingle', params: { id: jobData.company.id } }">
+          <router-link :to="{ name: 'companySingle', params: { id: jobData.profileId } }">
             <div class="logo__outer">
-              <img
-                :src="'/img/jobs/companies/' + jobData.company.logo"
-                alt
-                v-if="jobData.hasLogo && jobData.company.id"
-              >
+              <img :src="'/img/jobs/companies/' + company.logo" alt v-if="company.logo !== null">
               <div class="company__initial" v-else>
-                <span>{{ getCompanyInitial(jobData.company.name) }}</span>
+                <span>{{ getCompanyInitial(company.company) }}</span>
               </div>
             </div>
           </router-link>
         </template>
         <template v-else>
           <div class="logo__outer">
-            <img :src="jobData.company.logo" alt v-if="jobData.hasLogo">
+            <img :src="jobData.logo" alt v-if="jobData.logo !== null">
             <div class="company__initial" v-else>
-              <span>{{ getCompanyInitial(jobData.company.name) }}</span>
+              <span>{{ getCompanyInitial(company.company) }}</span>
             </div>
           </div>
         </template>
@@ -37,47 +33,49 @@
         <div>
           <template v-if="!isPreview">
             <router-link
-              :to="{ name: 'jobsSingle', params: { id: jobData.id } }"
+              :to="{ name: 'jobsSingle', params: { id: jobData.advertId } }"
               class="title"
-            >{{ jobData.job.name }}</router-link>
+            >{{ jobData.title }}</router-link>
           </template>
           <template v-else>
-            <div class="title">{{ jobData.job.name }}</div>
+            <div class="title">{{ jobData.title }}</div>
           </template>
         </div>
         <div>
           <template v-if="!isPreview">
             <router-link
-              :to="{ name: 'companySingle', params: { id: jobData.company.id } }"
+              :to="{ name: 'companySingle', params: { id: jobData.profileId } }"
               class="company"
-            >{{ jobData.company.name }}</router-link>
+            >{{ company.company }}</router-link>
           </template>
           <template v-else>
-            <div class="company">{{ jobData.company.name }}</div>
+            <div class="company">{{ jobData.profileId }}</div>
           </template>
         </div>
       </div>
       <div class="tags">
         <ul>
-          <li v-for="(tag, index) in jobData.tags" :key="index">
+          <li v-for="(tag, index) in tags" :key="index">
             <template v-if="!isPreview">
-              <router-link class="tag" :to="{ name: 'jobs', query: { tag: tag.url } }">
+              <router-link class="tag" :to="{ name: 'jobs', query: { tag: tag } }">
                 {{
-                tag.name
+                tag
                 }}
               </router-link>
             </template>
             <template v-else>
-              <span class="tag">{{ tag.name }}</span>
+              <span class="tag">{{ tag }}</span>
             </template>
           </li>
         </ul>
       </div>
-      <div class="time">20 hours ago</div>
+      <div class="time">
+        <timeago :datetime="posted"></timeago>
+      </div>
       <div class="apply__button">
         <template v-if="!isPreview">
           <ButtonComponent
-            :url="{ name: 'jobsSingle', params: { id: jobData.id } }"
+            :url="{ name: 'jobsSingle', params: { id: jobData.advertId } }"
             color="yellow"
             classStyle="apply__job__button"
             text="Apply"
@@ -98,7 +96,7 @@
         </template>
       </div>
     </div>
-    <div :class="['lower__section', { active: state }]">
+    <!-- <div :class="['lower__section', { active: state }]">
       <div class="row-1">
         <div class="data__cell">
           <label>Type</label>
@@ -151,7 +149,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -180,7 +178,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({ theme: "shared/getTheme" }),
+    ...mapGetters({
+      theme: "shared/getTheme",
+      getCompanyById: "companies/getCompanyById"
+    }),
     backgroundColor() {
       if (this.theme === "theme-default") {
         return this.jobData.colour;
@@ -190,6 +191,22 @@ export default {
         } else {
           return this.jobData.colour;
         }
+      }
+    },
+    company() {
+      return this.getCompanyById(this.jobData.profileId);
+    },
+    tags() {
+      let tags = this.jobData.tags;
+      let tagsArr = tags.split(",").map(function(item) {
+        return item.trim();
+      });
+
+      return tagsArr;
+    },
+    posted() {
+      if (this.jobData.datePosted) {
+        return Date.parse(this.jobData.datePosted);
       }
     }
   },
