@@ -69,7 +69,10 @@ export default {
       jobs: "jobs/getJobs"
     })
   },
-  beforeMount() {}
+  beforeMount() {
+    this.$store.dispatch("companies/getCompaniesFromApi");
+    this.$store.dispatch("jobs/getJobsFromApi");
+  }
 };
 </script>
 

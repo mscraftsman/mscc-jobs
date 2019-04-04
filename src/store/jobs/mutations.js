@@ -1,13 +1,16 @@
 let addJob = (state, payload) => {
-  state.jobs = [...state.jobs, ...[payload.value]];
+  // state.jobs = [...state.jobs, ...[payload.value]];
+
+  let job = state.jobs.find(job => job.id == payload.value.advertId);
+
+  if (typeof job === "undefined") {
+    state.jobs = [...state.jobs, ...[payload.value]];
+  }
 };
 
 let setGroupedJobsByCompany = (state, payload) => {
   let job = payload.value;
   let IdCompanyOfJob = job.profileId;
-
-  // Add to jobs
-  // state.jobs = [...state.jobs, ...[job]];
 
   // Grouping by ID
   if (typeof state.jobsGroupedByCompanyId[IdCompanyOfJob] === "undefined") {
@@ -18,7 +21,17 @@ let setGroupedJobsByCompany = (state, payload) => {
   }
 };
 
+let addJobFull = (state, payload) => {
+  let job = payload.value;
+  let jobId = job.id;
+
+  if (typeof state.jobsFull[jobId] === "undefined") {
+    state.jobsFull[jobId] = job;
+  }
+};
+
 export default {
   addJob,
-  setGroupedJobsByCompany
+  setGroupedJobsByCompany,
+  addJobFull
 };

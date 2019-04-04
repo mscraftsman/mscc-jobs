@@ -11,66 +11,64 @@
                 <div class="block__content">
                   <div class="body__content job__details__logo">
                     <div class="job__details">
-                      <h2 v-if="jobData.job.name">{{jobData.job.name}}</h2>
+                      <h2 v-if="jobData.jobTitle">{{jobData.jobTitle}}</h2>
 
                       <div class="row-1">
                         <div class="data__cell">
                           <label>Type</label>
-                          <div class="data__content" v-if="jobData.job.type">{{jobData.job.type}}</div>
+                          <div class="data__content" v-if="jobData.type">{{jobData.type}}</div>
                         </div>
                         <div class="data__cell">
                           <label>Pay (Monthly)</label>
-                          <div class="data__content" v-if="jobData.job.pay">{{jobData.job.pay}}</div>
+                          <div class="data__content" v-if="jobData.salary">{{jobData.salary}}</div>
                         </div>
                         <div class="data__cell">
                           <label>Seniority Level</label>
                           <div
                             class="data__content"
-                            v-if="jobData.job.seniority_level"
-                          >{{jobData.job.seniority_level}}</div>
+                            v-if="jobData.seniority_level"
+                          >{{jobData.seniority_level}}</div>
                         </div>
                         <div class="data__cell">
                           <label>Job Functions</label>
-                          <div
-                            class="data__content"
-                            v-if="jobData.job.functions"
-                          >{{jobData.job.functions}}</div>
+                          <div class="data__content" v-if="jobData.functions">{{jobData.functions}}</div>
                         </div>
                         <div class="data__cell">
                           <label>Start</label>
-                          <div
-                            class="data__content"
-                            v-if="jobData.job.startDesc"
-                          >{{jobData.job.startDesc}}</div>
+                          <div class="data__content" v-if="jobData.startDesc">{{jobData.startDesc}}</div>
                         </div>
                         <div class="data__cell">
                           <label>Duration</label>
                           <div
                             class="data__content"
-                            v-if="jobData.job.durationDesc"
-                          >{{jobData.job.durationDesc}}</div>
+                            v-if="jobData.durationDesc"
+                          >{{jobData.durationDesc}}</div>
                         </div>
                       </div>
 
                       <div class="row-2">
                         <div class="tags white__bg">
-                          <ul v-if="jobData.tags">
-                            <li v-for="(tag, index) in jobData.tags" :key="index">
+                          <ul v-if="tags">
+                            <li v-for="(tag, index) in tags" :key="index">
                               <router-link
                                 class="tag"
-                                :to="{ name: 'jobs', query: {tag: tag.url}}"
-                              >{{tag.name}}</router-link>
+                                :to="{ name: 'jobs', query: {tag: tag}}"
+                              >{{tag}}</router-link>
                             </li>
                           </ul>
                         </div>
                       </div>
                     </div>
-                    <div class="company__logo" v-if="jobData.company">
+                    <div class="company__logo" v-if="jobData.employerId">
                       <router-link
                         class="logo"
-                        :to="{name: 'companySingle', params: { id: jobData.company.id}}"
+                        :to="{name: 'companySingle', params: { id: jobData.employerId}}"
                       >
-                        <img :src="'/img/jobs/companies/' + jobData.company.logo" alt>
+                        <img
+                          v-if="companyData && companyData.logo"
+                          :src="'/img/jobs/companies/' + companyData.logo"
+                          alt
+                        >
                       </router-link>
                     </div>
                   </div>
@@ -80,8 +78,8 @@
                   <h3>Description</h3>
                   <div
                     class="body__content styled__content"
-                    v-if="jobData.job.jobDesc"
-                    v-html="jobData.job.jobDesc"
+                    v-if="jobData.jobDesc"
+                    v-html="jobData.jobDesc"
                   ></div>
                 </div>
 
@@ -89,8 +87,8 @@
                   <h3>Responsibilities</h3>
                   <div
                     class="body__content styled__content"
-                    v-if="jobData.job.responsibilities"
-                    v-html="jobData.job.responsibilities"
+                    v-if="jobData.responsibilities"
+                    v-html="jobData.responsibilities"
                   ></div>
                 </div>
 
@@ -98,8 +96,8 @@
                   <h3>Requirements</h3>
                   <div
                     class="body__content styled__content"
-                    v-if="jobData.job.requirements"
-                    v-html="jobData.job.requirements"
+                    v-if="jobData.requirements"
+                    v-html="jobData.requirements"
                   ></div>
                 </div>
 
@@ -107,12 +105,12 @@
                   <h3>Benefits</h3>
                   <div
                     class="body__content styled__content"
-                    v-if="jobData.job.benefits"
-                    v-html="jobData.job.benefits"
+                    v-if="jobData.benefits"
+                    v-html="jobData.benefits"
                   ></div>
                 </div>
 
-                <div class="block__content" v-if="jobData.job.applyOnUrl === false">
+                <div class="block__content" v-if="jobData.applyOnUrl === false">
                   <h3>Apply for this job</h3>
                   <form @submit.prevent="validateJobApplication" autocomplete="off">
                     <div class="body__content apply__grid__layout">
@@ -344,11 +342,11 @@
                   </form>
                 </div>
 
-                <div class="block__content" v-if="jobData.job.applyOnUrl === true">
+                <div class="block__content" v-if="jobData.applyOnUrl === true">
                   <h3>Apply for this job</h3>
                   <div class="body__content">
                     <a
-                      :href="jobData.job.applyUrl"
+                      :href="jobData.applyUrl"
                       class="submit__job__button button__global blue override__visbility"
                     >
                       <img class="icon" src="@/assets/img/external-link-light.svg" alt>
@@ -380,7 +378,7 @@
 
                 <!-- Social -->
                 <h2>Share this opening</h2>
-                <SocialSharingComponent :url="url" :title="jobData.job.name"/>
+                <SocialSharingComponent :url="url" :title="jobData.jobTitle"/>
                 <!-- Social -->
               </div>
               <!-- SIDEBAR -->
@@ -441,14 +439,32 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getJobById: "jobs/getJobById"
+      getJobById: "jobs/getJobById",
+      getCompanyById: "companies/getCompanyById"
     }),
     getJobData() {
       return this.getJobById(this.jobId);
+    },
+    company() {
+      let companyData = this.getCompanyById(this.jobId);
+      this.companyData = companyData;
+
+      return companyData;
+    },
+    tags() {
+      if (this.jobData && this.jobData.tags) {
+        let tags = this.jobData.tags;
+        let tagsArr = tags.split(",").map(function(item) {
+          return item.trim();
+        });
+
+        return tagsArr;
+      }
     }
   },
   data: () => ({
     jobData: {},
+    companyData: {},
     url: null,
     jobId: null,
     loading: true,
@@ -495,20 +511,33 @@ export default {
           .dispatch("jobs/getJobFromApi", {
             value: this.$route.params.id
           })
-          .then(
-            response => {
-              console.log(
-                "Got some data, now lets show something in this component"
-              );
+          .then(response => {
+            console.log(response);
 
-              this.JobData = response; // TBC
-            },
-            error => {
-              console.error(
-                "Got nothing from server. Prompt user to check internet connection and try again"
-              );
+            this.jobData = response;
+            this.loading = false;
+
+            return response.employerId;
+          })
+          .then(employerId => {
+            // GET COMPANY DATA
+            if (typeof this.company === "undefined") {
+              this.$store
+                .dispatch("companies/getCompanyFromApi", {
+                  value: employerId
+                })
+                .then(response => {
+                  this.companyData = response;
+                })
+                .catch(error => {
+                  console.error(error);
+                });
             }
-          );
+          })
+          .catch(error => {
+            console.error(error);
+            this.$router.push({ name: "notFound" });
+          });
       } else {
         this.jobData = this.getJobData;
         //Set loading status
@@ -611,19 +640,17 @@ export default {
     }
   },
   watch: {
-    getCompanyById: {
-      handler(val) {
-        this.fetchJobData();
-      },
-      deep: true,
-      immediate: true
-    }
+    // getCompanyById: {
+    //   handler(val) {
+    //     this.fetchJobData();
+    //   },
+    //   deep: true,
+    //   immediate: true
+    // }
   },
   metaInfo() {
     let title =
-      this.jobData && this.jobData.job && this.jobData.job.name
-        ? this.jobData.job.name
-        : "";
+      this.jobData && this.jobData.jobTitle ? this.jobData.jobTitle : "";
     return {
       title: title
     };

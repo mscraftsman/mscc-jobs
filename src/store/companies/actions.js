@@ -23,12 +23,27 @@ let getCompaniesFromApi = ({ state, commit }, payload) => {
 };
 
 let getCompanyFromApi = ({ state, commit }, payload) => {
-  // get company data
-  console.log(payload);
+  let companyId = payload.value;
 
-  // Add company to state
-  commit("addCompany", {
-    value: payload
+  return new Promise((resolve, reject) => {
+    axios
+      .get(JOBS_ENDPOINT + "companies/" + companyId + ".json")
+      .then(function(response) {
+        let company = response.data;
+
+        console.log(company);
+
+        commit("addCompany", {
+          value: company
+        });
+
+        resolve(company);
+      })
+      .catch(function(error) {
+        console.log(error);
+        reject(error);
+      })
+      .then(function() {});
   });
 };
 

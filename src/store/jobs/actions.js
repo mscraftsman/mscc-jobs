@@ -38,33 +38,21 @@ let getJobsFromApi = ({ state, commit }, payload) => {
 let getJobFromApi = ({ state, commit }, payload) => {
   // Get single job from API
   let jobId = payload.value;
-  console.log(jobId);
-
   return new Promise((resolve, reject) => {
-    // Do something here... lets say, a http call
-
     axios
-      .get("/job", {
-        params: {
-          ID: jobId
-        }
-      })
+      .get(JOBS_ENDPOINT + "jobs/" + jobId + ".json")
       .then(function(response) {
         let job = response.data;
 
         console.log(job);
 
         // Add job to state
-        commit("addJob", {
-          value: job
-        });
-
-        commit("setGroupedJobsByCompany", {
+        commit("addJobFull", {
           value: job
         });
 
         // http success, call the mutator and change something in state
-        resolve(response); // Let the calling function know that http is done. You may send some data back
+        resolve(job); // Let the calling function know that http is done. You may send some data back
       })
       .catch(function(error) {
         console.log(error);

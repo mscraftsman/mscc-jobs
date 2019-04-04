@@ -13,7 +13,7 @@
         <template v-if="!isPreview">
           <router-link :to="{ name: 'companySingle', params: { id: jobData.profileId } }">
             <div class="logo__outer">
-              <img :src="'/img/jobs/companies/' + company.logo" alt v-if="company.logo !== null">
+              <img v-if="company && company.logo" :src="'/img/jobs/companies/' + company.logo" alt>
               <div class="company__initial" v-else>
                 <span>{{ getCompanyInitial(company.company) }}</span>
               </div>
@@ -22,7 +22,7 @@
         </template>
         <template v-else>
           <div class="logo__outer">
-            <img :src="jobData.logo" alt v-if="jobData.logo !== null">
+            <img alt v-if="jobData && jobData.logo" :src="jobData.logo">
             <div class="company__initial" v-else>
               <span>{{ getCompanyInitial(company.company) }}</span>
             </div>
@@ -96,69 +96,81 @@
         </template>
       </div>
     </div>
-    <!-- <div :class="['lower__section', { active: state }]">
-      <div class="row-1">
-        <div class="data__cell">
-          <label>Type</label>
-          <div class="data__content">{{ jobData.job.type }}</div>
-        </div>
-        <div class="data__cell">
-          <label>Pay (Monthly)</label>
-          <div class="data__content">{{ jobData.job.pay }}</div>
-        </div>
-        <div class="data__cell">
-          <label>Seniority Level</label>
-          <div class="data__content">{{ jobData.job.seniority_level }}</div>
-        </div>
-        <div class="data__cell">
-          <label>Job Functions</label>
-          <div class="data__content">{{ jobData.job.functions }}</div>
-        </div>
-      </div>
-      <div class="row-2">
-        <div class="data__cell">
-          <label>About this job</label>
-          <div class="data__content" v-html="jobData.job.summary"></div>
-        </div>
-        <div class="data__cell">
-          <div class="tags white__bg">
-            <ul>
-              <li v-for="(tag, index) in jobData.tags" :key="index">
-                <router-link :to="{ name: 'jobs', query: { tag: tag.url } }">
-                  {{
-                  tag.name
-                  }}
-                </router-link>
-              </li>
-            </ul>
+    <div :class="['lower__section', { active: state }]">
+      <template v-if="loadingStatus">
+        <LoaderComponent :small="true"/>
+      </template>
+      <template v-else>
+        <div class="row-1">
+          <div class="data__cell">
+            <label>Type</label>
+            <div class="data__content">{{ fullView.type }}</div>
+          </div>
+          <div class="data__cell">
+            <label>Pay (Monthly)</label>
+            <div class="data__content">{{ fullView.salary }}</div>
+          </div>
+          <div class="data__cell">
+            <label>Seniority Level</label>
+            <div class="data__content">{{ fullView.seniority_level }}</div>
+          </div>
+          <div class="data__cell">
+            <label>Job Functions</label>
+            <div class="data__content">{{ fullView.functions }}</div>
           </div>
         </div>
-        <div class="data__cell">
-          <div class="apply__button">
-            <ButtonComponent
-              :to="{ name: 'jobsSingle', params: { id: jobData.id } }"
-              color="yellow"
-              classStyle="apply__job__button"
-              text="Apply"
-              :iconOnDesktop="false"
-              :iconOnMobile="false"
-              :textOnMobile="true"
-              :textOnDesktop="true"
-              icon="/img/utils/icon-bold.svg"
-            />
+        <div class="row-2">
+          <div class="data__cell">
+            <label>About this job</label>
+            <div class="data__content" v-html="fullView.summary"></div>
+          </div>
+          <div class="data__cell">
+            <div class="tags white__bg">
+              <ul>
+                <li v-for="(tag, index) in tags" :key="index">
+                  <template v-if="!isPreview">
+                    <router-link class="tag" :to="{ name: 'jobs', query: { tag: tag } }">
+                      {{
+                      tag
+                      }}
+                    </router-link>
+                  </template>
+                  <template v-else>
+                    <span class="tag">{{ tag }}</span>
+                  </template>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="data__cell">
+            <div class="apply__button">
+              <ButtonComponent
+                :to="{ name: 'jobsSingle', params: { id: jobData.id } }"
+                color="yellow"
+                classStyle="apply__job__button"
+                text="Apply"
+                :iconOnDesktop="false"
+                :iconOnMobile="false"
+                :textOnMobile="true"
+                :textOnDesktop="true"
+                icon="/img/utils/icon-bold.svg"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </div>-->
+      </template>
+    </div>
   </div>
 </template>
 
 <script>
 import ButtonComponent from "@/components/shared/ButtonComponent";
+import LoaderComponent from "@/components/shared/LoaderComponent";
 import { mapGetters } from "vuex";
 export default {
   components: {
-    ButtonComponent
+    ButtonComponent,
+    LoaderComponent
   },
   props: {
     jobData: {
@@ -174,14 +186,21 @@ export default {
   },
   data() {
     return {
-      state: false
+      state: false,
+      loadingStatus: true,
+      fullView: null
     };
   },
   computed: {
     ...mapGetters({
       theme: "shared/getTheme",
-      getCompanyById: "companies/getCompanyById"
+      getCompanyById: "companies/getCompanyById",
+      getJobFullById: "jobs/getJobFullById"
     }),
+    getFullViewData() {
+      console.log(this.jobData.advertId);
+      return this.getJobFullById(this.jobData.advertId);
+    },
     backgroundColor() {
       if (this.theme === "theme-default") {
         return this.jobData.colour;
@@ -237,6 +256,31 @@ export default {
     getCompanyInitial(value) {
       if (value) {
         return value.substring(0, 2);
+      }
+    },
+    getFullView() {
+      if (!this.fullView) {
+        this.$store
+          .dispatch("jobs/getJobFromApi", {
+            value: this.jobData.advertId
+          })
+          .then(response => {
+            this.fullView = response;
+            this.loadingStatus = false; // Set loading to false after data is obtained
+          })
+          .catch(error => {
+            console.log(error);
+            this.loadingStatus = true;
+          });
+      } else {
+        this.fullView = this.getFullViewData;
+      }
+    }
+  },
+  watch: {
+    state(val) {
+      if (val === true) {
+        this.getFullView();
       }
     }
   }

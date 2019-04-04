@@ -28,6 +28,7 @@ export default {
       listingAlert: true
     };
   },
+  mounted() {},
   metaInfo: {
     title: "Jobs"
   }

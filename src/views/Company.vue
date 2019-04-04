@@ -12,14 +12,14 @@
           "
         >
           <div class="container__fw">
-            <h2 v-if="company.name">{{ company.name }}</h2>
+            <h2 v-if="company.company">{{ company.company }}</h2>
           </div>
         </div>
         <section class="company__information">
           <div class="container__fw">
             <div class="block__content">
               <div class="company__logo">
-                <img src="/img/jobs/companies/mcb.jpg" alt class="logo">
+                <img :src="'/img/jobs/companies/' + company.logo" alt class="logo">
               </div>
               <div class="company__details">
                 <div class="data">
@@ -180,9 +180,20 @@ export default {
   methods: {
     fetchCompanyData() {
       if (typeof this.getCompanyData === "undefined") {
-        this.$store.dispatch("companies/getCompanyFromAPI", {
-          value: this.companyId
-        });
+        this.$store
+          .dispatch("companies/getCompanyFromApi", {
+            value: this.companyId
+          })
+          .then(response => {
+            console.log(response);
+
+            this.company = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            console.error(error);
+            this.$router.push({ name: "notFound" });
+          });
       } else {
         this.company = this.getCompanyData;
 
@@ -196,17 +207,10 @@ export default {
       }
     }
   },
-  watch: {
-    getCompanyById: {
-      handler(val) {
-        this.fetchCompanyData();
-      },
-      deep: true,
-      immediate: true
-    }
-  },
+  watch: {},
   metaInfo() {
-    let title = this.company && this.company.name ? this.company.name : "";
+    let title =
+      this.company && this.company.company ? this.company.company : "";
     return {
       title: title
     };

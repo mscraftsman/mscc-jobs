@@ -21,10 +21,7 @@ export default {
     SiteHeader,
     SiteFooter
   },
-  beforeMount() {
-    this.$store.dispatch("jobs/getJobsFromApi");
-    this.$store.dispatch("companies/getCompaniesFromApi");
-  },
+  beforeMount() {},
   data() {
     return {};
   },
@@ -38,7 +35,8 @@ export default {
     htmlAttrs: {
       lang: "en"
     }
-  }
+  },
+  beforeMount() {}
 };
 </script>
 
@@ -48,6 +46,7 @@ export default {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  background: var(--site-background-color);
 }
 
 .view,
