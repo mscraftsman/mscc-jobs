@@ -543,7 +543,7 @@ export default {
           })
           .catch(error => {
             console.error(error);
-            // this.$router.push({ name: "notFound" });
+            this.$router.push({ name: "notFound" });
           });
       } else {
         this.jobData = this.getJobData;

@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="job__block"
-    :data-featured="jobData.featured"
-    :data-palette="lightOrDark(jobData.colour)"
-  >
+  <div class="job__block" :data-featured="job.featured" :data-palette="lightOrDark(job.colour)">
     <div
       class="upper__section"
       :style="'background-color:' + backgroundColor + ';'"
@@ -11,7 +7,9 @@
     >
       <div class="logo">
         <template v-if="!isPreview">
-          <router-link :to="{ name: 'profileSingle', params: { id: jobData.profileId } }">
+          <router-link
+            :to="{ name: 'profileSingle', params: { id: job.profileId || this.profileId  } }"
+          >
             <div class="logo__outer">
               <img
                 v-if="profileData && profileData.profile.image"
@@ -21,7 +19,7 @@
               <div class="company__initial" v-else>
                 <span
                   v-if="profileData && profileData.employerName"
-                >{{ getCompanyInitial(profileData.employerName) }}</span>
+                >{{ getCompanyInitial(profileData. employerName) }}</span>
               </div>
             </div>
           </router-link>
@@ -45,21 +43,21 @@
         <div>
           <template v-if="!isPreview">
             <router-link
-              :to="{ name: 'jobsSingle', params: { id: jobData.advertId } }"
+              :to="{ name: 'jobsSingle', params: { id: job.advertId || jobCompanyData.id } }"
               class="title"
-            >{{ jobData.title }}</router-link>
+            >{{ job.title || jobCompanyData.jobTitle }}</router-link>
           </template>
           <template v-else>
-            <div class="title">{{ jobData.title }}</div>
+            <div class="title">{{ job.title || jobCompanyData.jobTitle }}</div>
           </template>
         </div>
         <div>
           <template v-if="!isPreview">
             <router-link
-              v-if="profileData && profileData.employerName"
-              :to="{ name: 'profileSingle', params: { id: jobData.profileId } }"
+              v-if="(profileData && profileData.employerName)"
+              :to="{ name: 'profileSingle', params: { id: job.profileId || this.profileId } }"
               class="company"
-            >{{ profileData.employerName }}</router-link>
+            >{{ profileData.employerName || jobCompanyData.jobTitle }}</router-link>
           </template>
           <template v-else>
             <div class="company" v-if="profileData.employerName">{{ profileData.employerName }}</div>
@@ -88,7 +86,7 @@
       <div class="apply__button">
         <template v-if="!isPreview">
           <ButtonComponent
-            :url="{ name: 'jobsSingle', params: { id: jobData.advertId } }"
+            :url="{ name: 'jobsSingle', params: { id: job.advertId || this.jobCompanyData.id } }"
             color="yellow"
             classStyle="apply__job__button"
             text="Apply"
@@ -158,7 +156,7 @@
           <div class="data__cell">
             <div class="apply__button">
               <ButtonComponent
-                :to="{ name: 'jobsSingle', params: { id: jobData.id } }"
+                :to="{ name: 'jobsSingle', params: { id: job.id || this.jobCompanyData.id  } }"
                 color="yellow"
                 classStyle="apply__job__button"
                 text="Apply"
@@ -192,13 +190,32 @@ export default {
         return {};
       }
     },
+    jobCompanyData: {
+      type: Object,
+      default: () => {
+        return {};
+      }
+    },
     isPreview: {
       type: Boolean,
       default: false
+    },
+    isProfilePage: {
+      type: Boolean,
+      default: false
+    },
+    profileId: {
+      type: String,
+      default: null
     }
   },
   data() {
+    let job = {};
+
+    Object.assign(job, this.jobData);
+
     return {
+      job,
       state: false,
       loadingStatus: true,
       fullView: null,
@@ -213,28 +230,28 @@ export default {
       getProfileById: "companies/getProfileById"
     }),
     getFullViewData() {
-      console.log(this.jobData.advertId);
-      return this.getJobFullById(this.jobData.advertId);
+      console.log(this.job.advertId);
+      return this.getJobFullById(this.job.advertId);
     },
     backgroundColor() {
       if (this.theme === "theme-default") {
-        return this.jobData.colour;
+        return this.job.colour;
       } else {
-        if (this.jobData.colour === "#ffffff") {
+        if (this.job.colour === "#ffffff") {
           return "var(--jobs-block-background-color)";
         } else {
-          return this.jobData.colour;
+          return this.job.colour;
         }
       }
     },
     // company() {
-    //   return this.getCompanyById(this.jobData.profileId);
+    //   return this.getCompanyById(this.job.profileId);
     // },
     profile() {
-      return this.getProfileById(this.jobData.profileId);
+      return this.getProfileById(this.job.profileId);
     },
     tags() {
-      let tags = this.jobData.tags;
+      let tags = this.job.tags;
       let tagsArr = tags.split(",").map(function(item) {
         return item.trim();
       });
@@ -242,8 +259,8 @@ export default {
       return tagsArr;
     },
     posted() {
-      if (this.jobData.datePosted) {
-        return Date.parse(this.jobData.datePosted);
+      if (this.job.datePosted) {
+        return Date.parse(this.job.datePosted);
       }
     }
   },
@@ -280,7 +297,7 @@ export default {
       if (!this.fullView) {
         this.$store
           .dispatch("jobs/getJobFromApi", {
-            value: this.jobData.advertId
+            value: this.job.advertId || this.jobCompanyData.id
           })
           .then(response => {
             this.fullView = response;
@@ -311,6 +328,7 @@ export default {
       }
     }
   },
+  beforeMount() {},
   watch: {
     state(val) {
       if (val === true) {
@@ -320,7 +338,17 @@ export default {
     jobData: {
       handler(val) {
         if (val.profileId !== null) {
-          this.getProfile(this.jobData.profileId);
+          this.getProfile(this.job.profileId);
+        }
+      },
+      deep: true,
+      immediate: true
+    },
+    profileId: {
+      handler(val) {
+        if (val !== null) {
+          console.log(this.profileId);
+          this.getProfile(this.profileId);
         }
       },
       deep: true,

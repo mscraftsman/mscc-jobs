@@ -151,7 +151,13 @@
               "
             >
               <template v-for="(job, index) in company.listings">
-                <JobBlock :jobData="job" :key="index"/>
+                <JobBlock
+                  :jobData="job"
+                  :jobCompanyData="job"
+                  :isProfilePage="true"
+                  :profileId="profileId"
+                  :key="index"
+                />
               </template>
             </div>
 
