@@ -8,6 +8,7 @@ import VeeValidate from "vee-validate";
 import VueTheMask from "vue-the-mask";
 import VModal from "vue-js-modal";
 import Meta from "vue-meta";
+import VueTimeago from "vue-timeago";
 
 Vue.config.productionTip = false;
 
@@ -21,6 +22,11 @@ Vue.use(VueGoogleMaps, {
 Vue.use(VueTheMask);
 Vue.use(VModal);
 Vue.use(Meta);
+
+Vue.use(VueTimeago, {
+  name: "Timeago",
+  locale: "en"
+});
 
 new Vue({
   router,

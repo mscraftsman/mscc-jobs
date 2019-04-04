@@ -1,17 +1,16 @@
 let addJob = (state, payload) => {
-  state.jobs.push(payload.value);
+  state.jobs = [...state.jobs, ...[payload.value]];
 };
 
 let setGroupedJobsByCompany = (state, payload) => {
   let job = payload.value;
-  let IdCompanyOfJob = job.company.id;
+  let IdCompanyOfJob = job.profileId;
 
   // Add to jobs
-  state.jobs = [...state.jobs, ...[job]];
+  // state.jobs = [...state.jobs, ...[job]];
 
   // Grouping by ID
   if (typeof state.jobsGroupedByCompanyId[IdCompanyOfJob] === "undefined") {
-    console.log("undefined");
     state.jobsGroupedByCompanyId[IdCompanyOfJob] = [];
     state.jobsGroupedByCompanyId[IdCompanyOfJob].push(job);
   } else {
