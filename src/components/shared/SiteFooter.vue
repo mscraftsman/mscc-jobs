@@ -11,7 +11,7 @@
         </div>
 
         <div class="social__media">
-          <a href="#" class="icon">
+          <a href="https://twitter.com/mscraftsman" class="icon" target="_blank" rel="noreferrer">
             <svg
               width="18"
               height="15"
@@ -25,7 +25,7 @@
               />
             </svg>
           </a>
-          <a href="#" class="icon">
+          <a href="https://www.facebook.com/MauritiusSoftwareCraftsmanshipCommunity/" class="icon" target="_blank" rel="noreferrer">
             <svg
               width="8"
               height="15"
@@ -39,7 +39,7 @@
               />
             </svg>
           </a>
-          <a href="#" class="icon">
+          <a href="https://www.linkedin.com/groups/5033639/" class="icon" target="_blank" rel="noreferrer">
             <svg
               width="17"
               height="15"
@@ -53,7 +53,7 @@
               />
             </svg>
           </a>
-          <a href="#" class="icon">
+          <a href="https://github.com/mscraftsman/" class="icon" target="_blank" rel="noreferrer">
             <svg
               width="16"
               height="15"
@@ -67,23 +67,7 @@
               />
             </svg>
           </a>
-          <a href="#" class="icon">
-            <svg
-              width="24"
-              height="15"
-              viewBox="0 0 24 15"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M7.62262 6.01481V8.9852C7.62262 8.9852 10.5512 8.98133 11.7437 8.98133C11.0979 10.9068 10.0939 11.9554 7.62262 11.9554C5.12175 11.9554 3.16988 9.96065 3.16988 7.5C3.16988 5.03935 5.12175 3.0446 7.62262 3.0446C8.94487 3.0446 9.79894 3.50185 10.5821 4.13921C11.2091 3.52229 11.1568 3.43427 12.7521 1.95202C11.3979 0.73919 9.59794 0 7.62262 0C3.41269 0 0 3.35785 0 7.5C0 11.6422 3.41269 15 7.62262 15C13.9153 15 15.4532 9.60892 14.9434 6.01481H7.62262ZM21.3585 6.16342V3.56428H19.4717V6.16323H16.7546V8.01968H19.4717V10.693H21.3585V8.01986H24V6.16342H21.3585Z"
-                fill="var(--footer-icons-color)"
-              />
-            </svg>
-          </a>
-          <a href="#" class="icon">
+          <a href="https://www.youtube.com/channel/UCeLiAZ5TlJla_uDj8_KndyA" class="icon" target="_blank" rel="noreferrer">
             <svg
               width="22"
               height="15"
