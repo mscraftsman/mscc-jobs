@@ -28,10 +28,37 @@ GET: /sites/{siteId}/employers
 ```
 POST: /search
 ```
+Using the following JSON structure as payload:
+```
+{
+  "id": 0,
+  "keyword": "string",
+  "searchId": "string",
+  "offset": 0,
+  "limit": 0,
+  "inhouse": 0,
+  "employment": 0,
+  "contract": 0,
+  "latitude": 0.0,
+  "longitude": 0.0,
+  "radius": 0,
+  "isCountry": false,
+  "startMonth": 0,
+}
+```
 
 ## Employer Details
 ```
 POST: /profile
+```
+Using the following JSON structure as payload:
+```
+{
+  "id": 0,
+  "advertId": 0,
+  "customer": "string",
+  "profile": "string"
+}
 ```
 
 ## Job Details
