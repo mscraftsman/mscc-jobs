@@ -110,7 +110,7 @@
                   ></div>
                 </div>
 
-                <div class="block__content" v-if="jobData.applyOnUrl === false">
+                <div class="block__content" v-if="jobData.applyUrl === null">
                   <h3>Apply for this job</h3>
                   <form @submit.prevent="validateJobApplication" autocomplete="off">
                     <div class="body__content apply__grid__layout">
@@ -342,7 +342,7 @@
                   </form>
                 </div>
 
-                <div class="block__content" v-if="jobData.applyOnUrl === true">
+                <div class="block__content" v-if="jobData.applyUrl !== null">
                   <h3>Apply for this job</h3>
                   <div class="body__content">
                     <a
@@ -519,8 +519,6 @@ export default {
             value: this.$route.params.id
           })
           .then(response => {
-            console.log(response);
-
             this.jobData = response;
             this.loading = false;
 
