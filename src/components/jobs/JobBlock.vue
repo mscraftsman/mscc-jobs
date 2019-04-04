@@ -11,20 +11,32 @@
     >
       <div class="logo">
         <template v-if="!isPreview">
-          <router-link :to="{ name: 'companySingle', params: { id: jobData.profileId } }">
+          <router-link :to="{ name: 'profileSingle', params: { id: jobData.profileId } }">
             <div class="logo__outer">
-              <img v-if="company && company.logo" :src="'/img/jobs/companies/' + company.logo" alt>
+              <img
+                v-if="profileData && profileData.profile.image"
+                :src="profileData.profile.image"
+                alt
+              >
               <div class="company__initial" v-else>
-                <span>{{ getCompanyInitial(company.company) }}</span>
+                <span
+                  v-if="profileData && profileData.employerName"
+                >{{ getCompanyInitial(profileData.employerName) }}</span>
               </div>
             </div>
           </router-link>
         </template>
         <template v-else>
           <div class="logo__outer">
-            <img alt v-if="jobData && jobData.logo" :src="jobData.logo">
+            <img
+              alt
+              v-if="profileData && profileData.profile.image"
+              :src="profileData.profile.image"
+            >
             <div class="company__initial" v-else>
-              <span>{{ getCompanyInitial(company.company) }}</span>
+              <span
+                v-if="profileData && profileData.employerName"
+              >{{ getCompanyInitial(profileData.employerName) }}</span>
             </div>
           </div>
         </template>
@@ -44,12 +56,13 @@
         <div>
           <template v-if="!isPreview">
             <router-link
-              :to="{ name: 'companySingle', params: { id: jobData.profileId } }"
+              v-if="profileData && profileData.employerName"
+              :to="{ name: 'profileSingle', params: { id: jobData.profileId } }"
               class="company"
-            >{{ company.company }}</router-link>
+            >{{ profileData.employerName }}</router-link>
           </template>
           <template v-else>
-            <div class="company">{{ jobData.profileId }}</div>
+            <div class="company" v-if="profileData.employerName">{{ profileData.employerName }}</div>
           </template>
         </div>
       </div>
@@ -188,14 +201,16 @@ export default {
     return {
       state: false,
       loadingStatus: true,
-      fullView: null
+      fullView: null,
+      profileData: null
     };
   },
   computed: {
     ...mapGetters({
       theme: "shared/getTheme",
-      getCompanyById: "companies/getCompanyById",
-      getJobFullById: "jobs/getJobFullById"
+      // getCompanyById: "companies/getCompanyById",
+      getJobFullById: "jobs/getJobFullById",
+      getProfileById: "companies/getProfileById"
     }),
     getFullViewData() {
       console.log(this.jobData.advertId);
@@ -212,8 +227,11 @@ export default {
         }
       }
     },
-    company() {
-      return this.getCompanyById(this.jobData.profileId);
+    // company() {
+    //   return this.getCompanyById(this.jobData.profileId);
+    // },
+    profile() {
+      return this.getProfileById(this.jobData.profileId);
     },
     tags() {
       let tags = this.jobData.tags;
@@ -275,6 +293,22 @@ export default {
       } else {
         this.fullView = this.getFullViewData;
       }
+    },
+    getProfile(id) {
+      if (typeof this.profile === "undefined") {
+        this.$store
+          .dispatch("companies/getProfileByIdFromApi", {
+            value: id
+          })
+          .then(response => {
+            this.profileData = response;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      } else {
+        this.profileData = this.profile;
+      }
     }
   },
   watch: {
@@ -282,6 +316,15 @@ export default {
       if (val === true) {
         this.getFullView();
       }
+    },
+    jobData: {
+      handler(val) {
+        if (val.profileId !== null) {
+          this.getProfile(this.jobData.profileId);
+        }
+      },
+      deep: true,
+      immediate: true
     }
   }
 };

@@ -28,8 +28,8 @@ export default new Router({
       component: () => import("./views/Job.vue")
     },
     {
-      path: "/company/:id",
-      name: "companySingle",
+      path: "/profile/:id",
+      name: "profileSingle",
       component: () => import("./views/Company.vue")
     },
     {

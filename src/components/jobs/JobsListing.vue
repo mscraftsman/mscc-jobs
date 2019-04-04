@@ -70,8 +70,8 @@ export default {
     })
   },
   beforeMount() {
-    this.$store.dispatch("companies/getCompaniesFromApi");
-    this.$store.dispatch("jobs/getJobsFromApi");
+    // this.$store.dispatch("companies/getCompaniesFromApi");
+    this.$store.dispatch("jobs/getLatestJobsFromApi");
   }
 };
 </script>

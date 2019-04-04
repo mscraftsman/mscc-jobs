@@ -1,43 +1,66 @@
 import axios from "axios";
-import { JOBS_ENDPOINT } from "../constants";
+import { PROFILE_ENDPOINT, CUSTOMER_ENDPOINT, USE_JSON } from "../constants";
 
-let getCompaniesFromApi = ({ state, commit }, payload) => {
-  axios
-    .get(JOBS_ENDPOINT + "Get_Response_Site_SiteId_Employers.json")
-    .then(function(response) {
-      let companies = response.data;
-      if (companies && companies.length) {
-        companies.map(company => {
-          commit("addCompany", {
-            value: company
-          });
-        });
-      }
-    })
-    .catch(function(error) {
-      console.log(error);
-    })
-    .then(function() {
-      // always executed
-    });
-};
+// let getCompaniesFromApi = ({ state, commit }, payload) => {
+//   axios
+//     .get(PROFILE_ENDPOINT + "Get_Response_Site_SiteId_Employers.json")
+//     .then(function(response) {
+//       let companies = response.data;
+//       if (companies && companies.length) {
+//         companies.map(company => {
+//           commit("addCompany", {
+//             value: company
+//           });
+//         });
+//       }
+//     })
+//     .catch(function(error) {
+//       console.log(error);
+//     })
+//     .then(function() {
+//       // always executed
+//     });
+// };
 
-let getCompanyFromApi = ({ state, commit }, payload) => {
-  let companyId = payload.value;
+let getCustomerByIdFromApi = ({ state, commit }, payload) => {
+  let customerId = payload.value;
 
   return new Promise((resolve, reject) => {
     axios
-      .get(JOBS_ENDPOINT + "companies/" + companyId + ".json")
+      .get(CUSTOMER_ENDPOINT + "/" + customerId + USE_JSON)
       .then(function(response) {
-        let company = response.data;
+        let customer = response.data;
 
-        console.log(company);
+        console.log(customer);
 
-        commit("addCompany", {
-          value: company
+        commit("addCustomer", {
+          value: customer
         });
 
-        resolve(company);
+        resolve(customer);
+      })
+      .catch(function(error) {
+        console.log(error);
+        reject(error);
+      })
+      .then(function() {});
+  });
+};
+
+let getProfileByIdFromApi = ({ state, commit }, payload) => {
+  let profileId = payload.value;
+
+  return new Promise((resolve, reject) => {
+    axios
+      .get(PROFILE_ENDPOINT + "/" + profileId + USE_JSON)
+      .then(function(response) {
+        let profile = response.data;
+
+        commit("addProfile", {
+          value: profile
+        });
+
+        resolve(profile);
       })
       .catch(function(error) {
         console.log(error);
@@ -48,6 +71,8 @@ let getCompanyFromApi = ({ state, commit }, payload) => {
 };
 
 export default {
-  getCompaniesFromApi,
-  getCompanyFromApi
+  // getCompaniesFromApi,
+  // getCompanyFromApi,
+  getProfileByIdFromApi,
+  getCustomerByIdFromApi
 };

@@ -21,6 +21,19 @@ let setGroupedJobsByCompany = (state, payload) => {
   }
 };
 
+let setGroupedJobsByProfile = (state, payload) => {
+  let job = payload.value;
+  let IdProfileOfJob = job.profileId;
+
+  // Grouping by ID
+  if (typeof state.jobsGroupedByProfileId[IdProfileOfJob] === "undefined") {
+    state.jobsGroupedByProfileId[IdProfileOfJob] = [];
+    state.jobsGroupedByProfileId[IdProfileOfJob].push(job);
+  } else {
+    state.jobsGroupedByProfileId[IdProfileOfJob].push(job);
+  }
+};
+
 let addJobFull = (state, payload) => {
   let job = payload.value;
   let jobId = job.id;
@@ -33,5 +46,6 @@ let addJobFull = (state, payload) => {
 export default {
   addJob,
   setGroupedJobsByCompany,
-  addJobFull
+  addJobFull,
+  setGroupedJobsByProfile
 };

@@ -6,6 +6,7 @@ const state = {
   jobs: [],
   jobsFull: {},
   jobsGroupedByCompanyId: {},
+  jobsGroupedByProfileId: {},
   tech_stack: [
     {
       logo: "vuejs.png",

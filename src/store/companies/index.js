@@ -3,7 +3,9 @@ import getters from "./getters";
 import mutations from "./mutations";
 
 const state = {
-  companies: {}
+  companies: {},
+  customers: {},
+  profiles: {}
 };
 
 const namespaced = true;

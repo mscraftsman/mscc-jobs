@@ -59,17 +59,17 @@
                         </div>
                       </div>
                     </div>
-                    <div class="company__logo" v-if="jobData.employerId">
-                      <router-link
+                    <div class="company__logo" v-if="jobData.customerId">
+                      <!-- <router-link
                         class="logo"
-                        :to="{name: 'companySingle', params: { id: jobData.employerId}}"
+                        :to="{name: 'profileSingle', params: { id: jobData.customerId}}"
+                      >-->
+                      <img
+                        v-if="customerData && customerData.profile && customerData.profile.image"
+                        :src="customerData.profile.image"
+                        alt
                       >
-                        <img
-                          v-if="companyData && companyData.logo"
-                          :src="'/img/jobs/companies/' + companyData.logo"
-                          alt
-                        >
-                      </router-link>
+                      <!-- </router-link> -->
                     </div>
                   </div>
                 </div>
@@ -440,16 +440,22 @@ export default {
   computed: {
     ...mapGetters({
       getJobById: "jobs/getJobById",
-      getCompanyById: "companies/getCompanyById"
+      getCustomerById: "companies/getCustomerById"
     }),
     getJobData() {
       return this.getJobById(this.jobId);
     },
-    company() {
-      let companyData = this.getCompanyById(this.jobId);
-      this.companyData = companyData;
+    // company() {
+    //   let companyData = this.getCompanyById(this.jobId);
+    //   this.companyData = companyData;
 
-      return companyData;
+    //   return companyData;
+    // },
+    customer() {
+      let customerData = this.getCustomerById(this.jobData.customerId);
+      this.customerData = customerData;
+
+      return customerData;
     },
     tags() {
       if (this.jobData && this.jobData.tags) {
@@ -465,6 +471,7 @@ export default {
   data: () => ({
     jobData: {},
     companyData: {},
+    customerData: {},
     url: null,
     jobId: null,
     loading: true,
@@ -517,17 +524,17 @@ export default {
             this.jobData = response;
             this.loading = false;
 
-            return response.employerId;
+            return response.customerId;
           })
-          .then(employerId => {
+          .then(customerId => {
             // GET COMPANY DATA
-            if (typeof this.company === "undefined") {
+            if (typeof this.customer === "undefined") {
               this.$store
-                .dispatch("companies/getCompanyFromApi", {
-                  value: employerId
+                .dispatch("companies/getCustomerByIdFromApi", {
+                  value: customerId
                 })
                 .then(response => {
-                  this.companyData = response;
+                  this.customerData = response;
                 })
                 .catch(error => {
                   console.error(error);
@@ -536,7 +543,7 @@ export default {
           })
           .catch(error => {
             console.error(error);
-            this.$router.push({ name: "notFound" });
+            // this.$router.push({ name: "notFound" });
           });
       } else {
         this.jobData = this.getJobData;
