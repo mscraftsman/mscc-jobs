@@ -556,7 +556,7 @@
             <img src="/img/utils/close.svg" alt>
           </button>
 
-          <JobBlock :jobData="job" :isPreview="true"/>
+          <JobBlock :jobData="job" :isPreview="true" :previewData="job"/>
         </div>
       </modal>
 
@@ -746,27 +746,7 @@ export default {
       }
     ],
     previouslySelectedPackage: null,
-    job: {
-      colour: "#ffffff",
-      featured: true,
-      hasLogo: true,
-      id: "",
-      job: {
-        name: "",
-        salary: "",
-        type: "",
-        pay: "",
-        seniority_level: "",
-        functions: "",
-        summary: ""
-      },
-      company: {
-        name: "",
-        id: "",
-        logo: ""
-      },
-      tags: []
-    }
+    job: {}
   }),
   beforeMount() {},
   methods: {
@@ -845,34 +825,31 @@ export default {
     submitJobData: {
       handler(val) {
         let backgroundColour = !val.hasBrandColour ? "#ffffff" : val.colour;
-        let tags = [];
-        tags.push({ name: val.primaryTag });
+        let tags = "";
 
-        if (val.extraTags) {
-          let extraTags = val.extraTags.split(",");
-          extraTags.map(tag => {
-            if (tag && tag.trim().length) {
-              tags.push({ name: tag });
-            }
-          });
+        if (val.primaryTags && val.primaryTags !== null) {
+          tags += val.primaryTag;
         }
+        if (val.extraTags && val.extraTags !== null) {
+          tags = tags + "," + val.extraTags;
+        }
+
+        console.log(tags);
 
         this.job = {
           colour: backgroundColour,
           featured: val.featured,
-          hasLogo: val.showCompanyLogo,
-          job: {
-            name: val.position,
-            pay: val.salary,
-            type: val.type,
-            seniority_level: val.seniorityLevel,
-            functions: val.functions,
-            summary: val.summary
-          },
+          title: val.position,
+          salary: val.salary,
+          type: val.type,
+          seniority_level: val.seniorityLevel,
+          functions: val.functions,
+          summary: val.summary,
           company: {
             name: val.companyName,
             logo: this.companyInformation.logoSrc
           },
+          datePosted: new Date(),
           tags: tags
         };
       },

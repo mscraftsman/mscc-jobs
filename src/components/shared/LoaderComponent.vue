@@ -1,6 +1,6 @@
 <template>
   <div class="showbox">
-    <div class="loader">
+    <div :class="['loader', {'small': small}]">
       <svg class="circular" viewBox="25 25 50 50">
         <circle
           class="path"
@@ -17,7 +17,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    small: {
+      default: false,
+      type: Boolean
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -29,6 +36,11 @@ $width: 100px;
   margin: 0 auto;
   width: $width;
   height: 200px;
+
+  &.small {
+    height: 70px;
+    width: 70px;
+  }
 
   &:before {
     content: "";

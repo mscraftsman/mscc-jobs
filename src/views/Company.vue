@@ -7,46 +7,59 @@
           class="header__section"
           :style="
             'background: url(/img/jobs/companies/' +
-              company.backgroundImage +
+              company.profile.backgroundImage +
               ')'
           "
         >
           <div class="container__fw">
-            <h2 v-if="company.name">{{ company.name }}</h2>
+            <h2 v-if="company.employerName">{{ company.employerName }}</h2>
           </div>
         </div>
         <section class="company__information">
           <div class="container__fw">
             <div class="block__content">
               <div class="company__logo">
-                <img src="/img/jobs/companies/mcb.jpg" alt class="logo">
+                <img :src="company.profile.image" alt class="logo">
               </div>
               <div class="company__details">
                 <div class="data">
                   <label>Founded</label>
-                  <div class="data__content" v-if="company.founded">{{ company.founded }}</div>
+                  <div
+                    class="data__content"
+                    v-if="company.profile.founded"
+                  >{{ company.profile.founded }}</div>
                 </div>
 
                 <div class="data">
                   <label>Phone</label>
-                  <div class="data__content" v-if="company.phone">{{ company.phone }}</div>
+                  <div
+                    class="data__content"
+                    v-if="company.profile.phone"
+                  >{{ company.profile.phone }}</div>
                 </div>
 
                 <div class="data">
                   <label>Company Size</label>
-                  <div class="data__content" v-if="company.size">{{ company.size }}</div>
+                  <div class="data__content" v-if="company.profile.size">{{ company.profile.size }}</div>
                 </div>
 
                 <div class="data">
                   <label>Industry</label>
-                  <div class="data__content" v-if="company.industry">{{ company.industry }}</div>
+                  <div
+                    class="data__content"
+                    v-if="company.profile.industry"
+                  >{{ company.profile.industry }}</div>
                 </div>
 
                 <div class="data">
                   <label>Website</label>
                   <div class="data__content">
-                    <a v-if="company.website" :href="company.website" target="_blank">
-                      {{ company.website }}
+                    <a
+                      v-if="company.profile.website"
+                      :href="company.profile.website"
+                      target="_blank"
+                    >
+                      {{ company.profile.website }}
                       <img
                         src="@/assets/img/external-link.svg"
                         alt
@@ -58,16 +71,19 @@
 
                 <div class="data">
                   <label>Address</label>
-                  <div class="data__content" v-if="company.address">{{ company.address }}</div>
+                  <div
+                    class="data__content"
+                    v-if="company.profile.address"
+                  >{{ company.profile.address }}</div>
                 </div>
 
                 <div class="data">
                   <label>Social</label>
                   <div class="data__content">
                     <SocialComponent
-                      :facebook="company.facebook"
-                      :twitter="company.twitter"
-                      :linkedin="company.linkedin"
+                      :facebook="company.profile.facebook"
+                      :twitter="company.profile.twitter"
+                      :linkedin="company.profile.linkedin"
                     />
                   </div>
                 </div>
@@ -81,7 +97,11 @@
               <div class="about">
                 <div class="block__content company__description">
                   <h3>About Company</h3>
-                  <div class="body__content" v-if="company.about" v-html="company.about"></div>
+                  <div
+                    class="body__content"
+                    v-if="company.profile.content"
+                    v-html="company.profile.content"
+                  ></div>
                 </div>
               </div>
 
@@ -91,18 +111,22 @@
                   <div class="body__content">
                     <GmapMap
                       v-if="
-                        company.location &&
-                          company.location.lat &&
-                          company.location.lng
+                        company.profile.location &&
+                          company.profile.location.lat &&
+                          company.profile.location.lng
                       "
-                      :center="company.location"
+                      :center="company.profile.location"
                       :zoom="15"
                       map-type-id="terrain"
                       style="width: 100%; height: 300px"
                     >
-                      <GmapMarker :position="company.location"/>
+                      <GmapMarker :position="company.profile.location"/>
                     </GmapMap>
-                    <a class="open__maps" :href="getMapsURL(company.location)" target="_blank">
+                    <a
+                      class="open__maps"
+                      :href="getMapsURL(company.profile.location)"
+                      target="_blank"
+                    >
                       Open in Google Maps
                       <img
                         class="icon"
@@ -123,12 +147,17 @@
             <div
               class="jobs__by-company"
               v-if="
-                getJobsByCompanyId(companyId) &&
-                  getJobsByCompanyId(companyId).length
+                company && company.listings.length
               "
             >
-              <template v-for="(job, index) in getJobsByCompanyId(companyId)">
-                <JobBlock :jobData="job" :key="index"/>
+              <template v-for="(job, index) in company.listings">
+                <JobBlock
+                  :jobData="job"
+                  :jobCompanyData="job"
+                  :isProfilePage="true"
+                  :profileId="profileId"
+                  :key="index"
+                />
               </template>
             </div>
 
@@ -157,34 +186,45 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getJobsByCompanyId: "jobs/getJobsByCompanyId",
-      getCompanyById: "companies/getCompanyById"
+      // getJobsByCompanyId: "jobs/getJobsByCompanyId",
+      getProfileById: "companies/getProfileById"
     }),
-    getCompanyData() {
-      return this.getCompanyById(this.companyId);
+    getProfileData() {
+      return this.getProfileById(this.profileId);
     }
   },
   data() {
     return {
       company: {},
-      companyId: null,
+      profileId: null,
       loading: true
     };
   },
   beforeMount() {
-    this.companyId = this.$route.params.id;
+    this.profileId = this.$route.params.id;
 
     //Get company data
     this.fetchCompanyData();
   },
   methods: {
     fetchCompanyData() {
-      if (typeof this.getCompanyData === "undefined") {
-        this.$store.dispatch("companies/getCompanyFromAPI", {
-          value: this.companyId
-        });
+      if (typeof this.getProfileData === "undefined") {
+        this.$store
+          .dispatch("companies/getProfileByIdFromApi", {
+            value: this.profileId
+          })
+          .then(response => {
+            console.log(response);
+
+            this.company = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            console.error(error);
+            this.$router.push({ name: "notFound" });
+          });
       } else {
-        this.company = this.getCompanyData;
+        this.company = this.getProfileData;
 
         //Set loading status
         this.loading = false;
@@ -196,17 +236,12 @@ export default {
       }
     }
   },
-  watch: {
-    getCompanyById: {
-      handler(val) {
-        this.fetchCompanyData();
-      },
-      deep: true,
-      immediate: true
-    }
-  },
+  watch: {},
   metaInfo() {
-    let title = this.company && this.company.name ? this.company.name : "";
+    let title =
+      this.company && this.company.employerName
+        ? this.company.employerName
+        : "";
     return {
       title: title
     };

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { JOBS_ENDPOINT } from "../constants";
+import { LATEST_JOBS_ENDPOINT, GET_JOB_ENDPOINT, USE_JSON } from "../constants";
 
 let addJob = ({ state, commit }, payload) => {
   commit("addJob", {
@@ -7,9 +7,9 @@ let addJob = ({ state, commit }, payload) => {
   });
 };
 
-let getJobsFromApi = ({ state, commit }, payload) => {
+let getLatestJobsFromApi = ({ state, commit }, payload) => {
   axios
-    .get(JOBS_ENDPOINT + "Get_Response_Sites_SiteId_Listings.json")
+    .get(LATEST_JOBS_ENDPOINT)
     .then(function(response) {
       let jobs = response.data;
 
@@ -21,7 +21,7 @@ let getJobsFromApi = ({ state, commit }, payload) => {
             value: job
           });
 
-          commit("setGroupedJobsByCompany", {
+          commit("setGroupedJobsByProfile", {
             value: job
           });
         });
@@ -38,33 +38,21 @@ let getJobsFromApi = ({ state, commit }, payload) => {
 let getJobFromApi = ({ state, commit }, payload) => {
   // Get single job from API
   let jobId = payload.value;
-  console.log(jobId);
-
   return new Promise((resolve, reject) => {
-    // Do something here... lets say, a http call
-
     axios
-      .get("/job", {
-        params: {
-          ID: jobId
-        }
-      })
+      .get(GET_JOB_ENDPOINT + "/" + jobId + USE_JSON)
       .then(function(response) {
         let job = response.data;
 
         console.log(job);
 
         // Add job to state
-        commit("addJob", {
-          value: job
-        });
-
-        commit("setGroupedJobsByCompany", {
+        commit("addJobFull", {
           value: job
         });
 
         // http success, call the mutator and change something in state
-        resolve(response); // Let the calling function know that http is done. You may send some data back
+        resolve(job); // Let the calling function know that http is done. You may send some data back
       })
       .catch(function(error) {
         console.log(error);
@@ -80,6 +68,6 @@ let getJobFromApi = ({ state, commit }, payload) => {
 
 export default {
   addJob,
-  getJobsFromApi,
+  getLatestJobsFromApi,
   getJobFromApi
 };

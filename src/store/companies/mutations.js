@@ -7,6 +7,26 @@ let addCompany = (state, payload) => {
   }
 };
 
+let addCustomer = (state, payload) => {
+  let customer = payload.value;
+  let IdCustomer = customer.customerId;
+
+  if (typeof state.customers[IdCustomer] === "undefined") {
+    state.customers[IdCustomer] = customer;
+  }
+};
+
+let addProfile = (state, payload) => {
+  let profileData = payload.value;
+  let profileId = profileData.profile.id;
+
+  if (typeof state.profiles[profileId] === "undefined") {
+    state.profiles[profileId] = profileData;
+  }
+};
+
 export default {
-  addCompany
+  addCompany,
+  addProfile,
+  addCustomer
 };

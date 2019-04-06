@@ -14,9 +14,15 @@ let getTechStack = state => {
   return state.tech_stack;
 };
 
+let getJobFullById = state => id => {
+  let job = state.jobsFull[id];
+  return job;
+};
+
 export default {
   getJobs,
   getJobsByCompanyId,
   getJobById,
-  getTechStack
+  getTechStack,
+  getJobFullById
 };
