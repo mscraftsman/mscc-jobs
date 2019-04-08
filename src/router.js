@@ -42,6 +42,11 @@ export default new Router({
       name: "notFound",
       component: () => import("./views/NotFound.vue")
     },
+    {
+      path: "/:id", // Generic
+      name: "GenericContent",
+      component: () => import("./views/Generic.vue")
+    },
     { path: "*", component: () => import("./views/NotFound.vue") }
   ],
   scrollBehavior(to, from, savedPosition) {

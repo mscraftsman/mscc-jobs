@@ -475,6 +475,11 @@ export default {
     url: null,
     jobId: null,
     loading: true,
+    allowedTypes: [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.template"
+    ],
     submitStatus: {
       error: false,
       success: false
@@ -596,9 +601,8 @@ export default {
           console.log(fileType);
 
           let allowedUploadSize = 5242880;
-          let allowedTypes = ["application/pdf"];
 
-          if (!allowedTypes.includes(fileType)) {
+          if (!this.allowedTypes.includes(fileType)) {
             this.CVUploadStatus.error = "Incorrect file type.";
             return;
           }
@@ -609,7 +613,10 @@ export default {
           }
 
           // TODO: Upload goes here and set status to true below
-          if (fileSize < allowedUploadSize && allowedTypes.includes(fileType)) {
+          if (
+            fileSize < allowedUploadSize &&
+            this.allowedTypes.includes(fileType)
+          ) {
             // Set uploading information true
             this.CVUploadStatus.uploading = true;
 
