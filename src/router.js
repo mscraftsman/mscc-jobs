@@ -43,7 +43,7 @@ export default new Router({
       component: () => import("./views/NotFound.vue")
     },
     {
-      path: "/:id", // Generic
+      path: "/page/:id", // Generic
       name: "GenericContent",
       component: () => import("./views/Generic.vue")
     },

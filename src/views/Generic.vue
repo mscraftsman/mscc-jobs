@@ -1,60 +1,34 @@
 <template>
   <div class="body__container generic__view">
-    <HeadingBreadcrumbs :breadcrumbs="breadcrumbs" pageTitle="Generic" :alertStatus="false"/>
+    <transition name="fade" mode="out-in">
+      <LoaderComponent v-if="loading"/>
+      <template v-else>
+        <HeadingBreadcrumbs :breadcrumbs="breadcrumbs" pageTitle="Generic" :alertStatus="false"/>
+        <div class="container__fw">
+          <div class="block__content styled__content">
+            <div class="body__content">
+              <h2>Generic page content title</h2>
 
-    <div class="container__fw">
-      <div class="block__content styled__content">
-        <div class="body__content">
-          <h2>Generic page content</h2>
-
-          <p>
-            This page was typed by hand. Anybody can do this, you don't need any
-            special "web creation" tools or HTML editors, and the pages you make can be
-            viewed from any browser. To see how this page was made, choose
-            <b>View Source</b> (or View Page Source, or View Document Source) in your
-            browser's menu. A simple web page like this one is just plain text with
-            HTML commands (markup) mixed in. HTML commands themselves are plain text.
-          </p>
-
-          <ul>
-            <li>A gromet</li>
-            <li>A widget</li>
-            <li>
-              A framus, which consists of the following components:
-              <ul>
-                <li>A doohickey.</li>
-                <li>
-                  A veeblefetzer -- these come in several colors:
-                  <ul>
-                    <li>Purple</li>
-                    <li>Purple</li>
-                    <li>Purple</li>
-                  </ul>
-                </li>
-                <li>A whatchamacallit.</li>
-              </ul>
-            </li>
-            <li>A doodad.</li>
-          </ul>
-
-          <h1>Heading One</h1>
-          <h2>Heading Two</h2>
-          <h3>Heading Three</h3>
-          <h4>Heading Four</h4>
-
-          <p>Most Web pages are created by hideous bloated "Web Authoring" tools, which are designed to force readers to use a Web browser (such as IE) that is made by the same company that made the Web-authoring tool (e.g. Front Page). If all you want is text with some pictures and links and maybe some tables, as opposed to spinning blinking popup holograms with streaming video and sound effects, it's best to keep it simple and do it yourself. This is how the Web started off in the HTML 1.0 days of the early 1990s. The ingenious thing was that it was self propogating. If you saw a web page with a certain effect and wanted to know how it was done, you could simply "view source" to get the "source code" and then adapt it to your own page. You can still do that with pages that look like this one, but since most Web pages are no longer made by hand, you'll often see tons of incomprehensible gibberish (the more special effects, the more gibberish).</p>
+              <p>content goes here</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </template>
+    </transition>
   </div>
 </template>
 
 <script>
 import HeadingBreadcrumbs from "@/components/shared/HeadingBreadcrumbs";
+import LoaderComponent from "@/components/shared/LoaderComponent";
+
+import { CONTENT_ENDPOINT } from "@/store/constants.js";
+import axios from "axios";
 
 export default {
   components: {
-    HeadingBreadcrumbs
+    HeadingBreadcrumbs,
+    LoaderComponent
   },
   data() {
     return {
@@ -63,8 +37,51 @@ export default {
           name: "Generic",
           path: "about"
         }
-      ]
+      ],
+      pageId: null,
+      loading: true,
+      content: null
     };
+  },
+  methods: {
+    getData() {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(CONTENT_ENDPOINT, {
+            params: {
+              id: this.pageId
+            }
+          })
+          .then(function(response) {
+            let data = response.data;
+            console.log(data);
+            resolve(data);
+          })
+          .catch(function(error) {
+            console.error(error);
+            reject(error);
+          });
+      });
+    }
+  },
+  beforeMount() {
+    this.pageId = this.$route.params.id;
+
+    this.getData()
+      .then(function(response) {
+        console.log(response);
+        this.loading = false; // Set loading to false
+
+        // Todo: Set content
+        this.content = response; // TBC
+      })
+      .catch(function(error) {
+        console.error(error);
+
+        if (error) {
+          this.$router.push({ name: "notFound" });
+        }
+      });
   },
   metaInfo: {
     title: "Generic"
