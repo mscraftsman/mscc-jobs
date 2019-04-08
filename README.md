@@ -21,7 +21,7 @@ You may run `node -v` to see your current node version
 Install all the required tools and configurations using Microsoft's windows-build-tools using 
 
 ```sh
-npm install --global --production windows-build-tools
+C:\> npm install --global --production windows-build-tools
 ```
 
 from an elevated PowerShell or CMD.exe (run as Administrator). Reference: https://github.com/nodejs/node-gyp
