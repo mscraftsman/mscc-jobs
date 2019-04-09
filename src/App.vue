@@ -14,6 +14,7 @@ import "normalize-css";
 import SiteHeader from "@/components/shared/SiteHeader.vue";
 import SiteFooter from "@/components/shared/SiteFooter.vue";
 import { mapGetters, mapActions } from "vuex";
+import { DROPBOX_APP_KEY } from "./store/constants";
 
 export default {
   name: "JobsInTechApp",
@@ -36,7 +37,18 @@ export default {
       lang: "en"
     }
   },
-  beforeMount() {}
+  beforeMount() {},
+  mounted() {
+    let dropboxScript = document.createElement('script');
+    dropboxScript.setAttribute('src', 'https://www.dropbox.com/static/api/2/dropins.js');
+    dropboxScript.setAttribute('id', 'dropboxjs');
+    dropboxScript.setAttribute('data-app-key', DROPBOX_APP_KEY);
+    document.head.appendChild(dropboxScript);
+
+    let oneDriveScript = document.createElement('script');
+    oneDriveScript.setAttribute('src', 'https://js.live.net/v7.0/OneDrive.js');
+    document.head.appendChild(oneDriveScript);
+  }
 };
 </script>
 
