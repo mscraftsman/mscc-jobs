@@ -400,6 +400,9 @@ import { VueEditor } from "vue2-editor";
 import ButtonComponent from "@/components/shared/ButtonComponent";
 import RecentJobs from "@/components/jobs/RecentJobs.vue";
 
+import axios from "axios";
+import { UPLOAD_ENDPOINT } from "../store/constants";
+
 import InputText from "@/components/forms/InputText";
 import InputTel from "@/components/forms/InputTel";
 import InputTextarea from "@/components/forms/InputTextarea";
@@ -503,7 +506,8 @@ export default {
       nationality: null,
       email: null,
       cover_letter: null,
-      agree: false
+      agree: false,
+      cvFileName: null
     },
     nationality: nationality,
     countries: countries
@@ -621,6 +625,26 @@ export default {
             this.CVUploadStatus.uploading = true;
 
             // TODO upload logic here
+            let formData = new FormData();
+            formData.append("file", this.$refs.cv_upload.files[0]);
+            axios
+              .post(UPLOAD_ENDPOINT, formData, {
+                headers: {
+                  "Content-Type": "multipart/form-data"
+                }
+              })
+              .then(response => {
+                console.log(response);
+                if (response.status === 200) {
+                  this.applicationData.cvFileName = response.data.fileName;
+                  this.CVUploadStatus.uploading = false;
+                  this.CVUploadStatus.success = true;
+                }
+              })
+              .catch(error => {
+                this.CVUploadStatus.uploading = false;
+                this.CVUploadStatus.error = "Uploading file failed. Please try again."
+              });
           }
         })
         .catch(e => {
@@ -647,7 +671,8 @@ export default {
         nationality: null,
         email: null,
         cover_letter: null,
-        agree: false
+        agree: false,
+        cvFileName: null
       };
     }
   },
