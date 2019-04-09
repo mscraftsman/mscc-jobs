@@ -233,6 +233,16 @@
                           <button
                             type="button"
                             class="upload__pc__button button__global blue override__visbility"
+                            @click="openOneDrivePicker()"
+                          >
+                            <img src="" class="icon">
+                            <span class="text">One Drive</span>
+                          </button>
+
+                          <button
+                            type="button"
+                            class="upload__pc__button button__global blue override__visbility"
+                            @click="openDropboxChooser()"
                           >
                             <img src="@/assets/img/dropbox.svg" class="icon">
                             <span class="text">Dropbox</span>
@@ -401,7 +411,7 @@ import ButtonComponent from "@/components/shared/ButtonComponent";
 import RecentJobs from "@/components/jobs/RecentJobs.vue";
 
 import axios from "axios";
-import { UPLOAD_ENDPOINT } from "../store/constants";
+import { UPLOAD_ENDPOINT, ONEDRIVE_CLIENT_ID } from "../store/constants";
 
 import InputText from "@/components/forms/InputText";
 import InputTel from "@/components/forms/InputTel";
@@ -483,6 +493,8 @@ export default {
       "application/msword",
       "application/vnd.openxmlformats-officedocument.wordprocessingml.template"
     ],
+    allowedUploadSize: 5242880,
+    allowedExtensions: [".pdf", ".doc", ".docx", ".rtf"],
     submitStatus: {
       error: false,
       success: false
@@ -507,7 +519,9 @@ export default {
       email: null,
       cover_letter: null,
       agree: false,
-      cvFileName: null
+      cvFileName: null,
+      cloudFileUrl: null,
+      hasCloudFile: false
     },
     nationality: nationality,
     countries: countries
@@ -604,21 +618,19 @@ export default {
           console.log(fileSize);
           console.log(fileType);
 
-          let allowedUploadSize = 5242880;
-
           if (!this.allowedTypes.includes(fileType)) {
             this.CVUploadStatus.error = "Incorrect file type.";
             return;
           }
 
-          if (fileSize > allowedUploadSize) {
+          if (fileSize > this.allowedUploadSize) {
             this.CVUploadStatus.error = "File size is above 5 Mb.";
             return;
           }
 
           // TODO: Upload goes here and set status to true below
           if (
-            fileSize < allowedUploadSize &&
+            fileSize < this.allowedUploadSize &&
             this.allowedTypes.includes(fileType)
           ) {
             // Set uploading information true
@@ -672,8 +684,80 @@ export default {
         email: null,
         cover_letter: null,
         agree: false,
-        cvFileName: null
+        cvFileName: null,
+        cloudFileUrl: null,
+        hasCloudFile: false
       };
+    },
+    openDropboxChooser() {
+      let options = {
+        success: (response) => {
+          console.log(response);
+          if (response && response.length > 0) {
+            if (response[0].bytes > this.allowedUploadSize) {
+              this.CVUploadStatus.error = "File size is above 5 Mb.";
+              return;
+            }
+            else {
+              this.CVInformation.fileName = response[0].name;
+              this.applicationData.cloudFileUrl = response[0].link;
+              this.applicationData.hasCloudFile = true;
+            }
+          }
+        },
+        cancel: () => {
+          this.CVInformation.fileName = null;
+        },
+        linkType: "direct",
+        multiselect: false,
+        extensions: this.allowedExtensions
+      };
+      Dropbox.choose(options);
+    },
+    openOneDrivePicker() {
+      let odOptions = {
+        clientId: ONEDRIVE_CLIENT_ID,
+        action: "download",
+        multiSelect: false,
+        openInNewWindow: true,
+        advanced: {
+          redirectUri: window.location.origin
+        },
+        success: (response) => {
+          console.log(response);
+          if (response && response.value.length > 0) {
+            let file = response.value[0];
+            let name = file["name"];
+            let size = file["size"];
+            let downloadUrl = file["@microsoft.graph.downloadUrl"];
+            let extension = name.substring(name.lastIndexOf("."));
+
+            if (!this.allowedExtensions.includes(extension)) {
+              this.CVUploadStatus.error = "Incorrect file type.";
+              return;
+            }
+            
+            if (size > this.allowedUploadSize) {
+              this.CVUploadStatus.error = "File size is above 5 Mb.";
+              return;
+            }
+
+            if (size <= this.allowedUploadSize && this.allowedExtensions.includes(extension)) {
+              this.CVInformation.fileName = name;
+              this.applicationData.cloudFileUrl = downloadUrl;
+              this.applicationData.hasCloudFile = true;
+            }
+          }
+        },
+        cancel: () => {
+          this.CVInformation.fileName = null;
+        },
+        error: (e) => {
+          this.CVUploadStatus.uploading = false;
+          this.CVUploadStatus.error = "Fetching file from OneDrive failed. Please try again."
+        }
+      };
+      OneDrive.open(odOptions);
     }
   },
   watch: {
