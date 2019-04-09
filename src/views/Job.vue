@@ -222,13 +222,13 @@
                             </label>
                           </div>
 
-                          <button
+                          <!-- <button
                             type="button"
                             class="upload__pc__button button__global blue override__visbility"
                           >
                             <img src="@/assets/img/drive.svg" class="icon">
                             <span class="text">Google Drive</span>
-                          </button>
+                          </button> -->
 
                           <button
                             type="button"
