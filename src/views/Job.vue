@@ -228,14 +228,14 @@
                           >
                             <img src="@/assets/img/drive.svg" class="icon">
                             <span class="text">Google Drive</span>
-                          </button> -->
+                          </button>-->
 
                           <button
                             type="button"
                             class="upload__pc__button button__global blue override__visbility"
                             @click="openOneDrivePicker()"
                           >
-                            <img src="" class="icon">
+                            <img src="@/assets/img/onedrive.svg" class="icon">
                             <span class="text">One Drive</span>
                           </button>
 
@@ -491,8 +491,8 @@ export default {
     allowedTypes: [
       "application/pdf",
       "application/msword",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.template",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/rtf"
     ],
     allowedUploadSize: 5242880,
     allowedExtensions: [".pdf", ".doc", ".docx", ".rtf"],
@@ -656,7 +656,8 @@ export default {
               })
               .catch(error => {
                 this.CVUploadStatus.uploading = false;
-                this.CVUploadStatus.error = "Uploading file failed. Please try again."
+                this.CVUploadStatus.error =
+                  "Uploading file failed. Please try again.";
               });
           }
         })
@@ -692,14 +693,13 @@ export default {
     },
     openDropboxChooser() {
       let options = {
-        success: (response) => {
+        success: response => {
           console.log(response);
           if (response && response.length > 0) {
             if (response[0].bytes > this.allowedUploadSize) {
               this.CVUploadStatus.error = "File size is above 5 Mb.";
               return;
-            }
-            else {
+            } else {
               this.CVInformation.fileName = response[0].name;
               this.applicationData.cloudFileUrl = response[0].link;
               this.applicationData.hasCloudFile = true;
@@ -724,7 +724,7 @@ export default {
         advanced: {
           redirectUri: window.location.origin
         },
-        success: (response) => {
+        success: response => {
           console.log(response);
           if (response && response.value.length > 0) {
             let file = response.value[0];
@@ -737,13 +737,16 @@ export default {
               this.CVUploadStatus.error = "Incorrect file type.";
               return;
             }
-            
+
             if (size > this.allowedUploadSize) {
               this.CVUploadStatus.error = "File size is above 5 Mb.";
               return;
             }
 
-            if (size <= this.allowedUploadSize && this.allowedExtensions.includes(extension)) {
+            if (
+              size <= this.allowedUploadSize &&
+              this.allowedExtensions.includes(extension)
+            ) {
               this.CVInformation.fileName = name;
               this.applicationData.cloudFileUrl = downloadUrl;
               this.applicationData.hasCloudFile = true;
@@ -753,9 +756,10 @@ export default {
         cancel: () => {
           this.CVInformation.fileName = null;
         },
-        error: (e) => {
+        error: e => {
           this.CVUploadStatus.uploading = false;
-          this.CVUploadStatus.error = "Fetching file from OneDrive failed. Please try again."
+          this.CVUploadStatus.error =
+            "Fetching file from OneDrive failed. Please try again.";
         }
       };
       OneDrive.open(odOptions);
