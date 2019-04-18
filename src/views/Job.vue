@@ -491,7 +491,8 @@ export default {
     allowedTypes: [
       "application/pdf",
       "application/msword",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.template"
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.template",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     ],
     allowedUploadSize: 5242880,
     allowedExtensions: [".pdf", ".doc", ".docx", ".rtf"],
