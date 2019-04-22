@@ -235,6 +235,7 @@
                             :options="CompanyLogoDropzoneOptions"
                             :useCustomSlot="true"
                             @vdropzone-success="companyLogoUploadSuccess"
+                            @vdropzone-sending="companyLogoUploadSending"
                           >
                             <div class="dropzone__content">
                               <img src="/img/utils/upload.svg" class="icon">
@@ -599,6 +600,8 @@ import "vue2-dropzone/dist/vue2Dropzone.min.css";
 
 import { mapGetters } from "vuex";
 
+import { UPLOAD_ENDPOINT, SITE_ID } from "../store/constants";
+
 export default {
   components: {
     JobBlock,
@@ -719,13 +722,13 @@ export default {
       packageInfo: null
     },
     CompanyLogoDropzoneOptions: {
-      url: "https://httpbin.org/post",
-      thumbnailWidth: 150,
-      maxFilesize: 0.5,
-      headers: { "My-Awesome-Header": "header value" },
+      url: UPLOAD_ENDPOINT,
+      resizeWidth: 300,
+      resizeHeight: 100,
       uploadMultiple: false,
-      acceptedFiles: ".jpeg, .jpg, .png, .gif, .svg",
-      maxFilesize: 1
+      acceptedFiles: ".jpeg, .jpg, .png, .gif, .gif",
+      maxFilesize: 1,
+      maxFiles: 1
     },
     packageInformation: [
       {
@@ -787,6 +790,15 @@ export default {
 
       let fileSrc = file.dataURL;
       this.companyInformation.logoSrc = fileSrc;
+    },
+    companyLogoUploadSending(file, xhr, formData) {
+      console.log(formData);
+      formData.append(
+        "type",
+        encodeURIComponent(
+          JSON.stringify({ store: "profile", type: "ProfileLogo" })
+        )
+      );
     },
     uncheck(val) {
       if (val === this.previouslySelectedPackage) {
