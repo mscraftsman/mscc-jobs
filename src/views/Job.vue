@@ -110,7 +110,7 @@
                   ></div>
                 </div>
 
-                <div class="block__content" v-if="jobData.applyUrl === null">
+                <div class="block__content" v-if="jobData.applyOnUrl === false">
                   <h3>Apply for this job</h3>
                   <form @submit.prevent="validateJobApplication" autocomplete="off">
                     <div class="body__content apply__grid__layout">
@@ -352,7 +352,7 @@
                   </form>
                 </div>
 
-                <div class="block__content" v-if="jobData.applyUrl !== null">
+                <div class="block__content" v-if="jobData.applyOnUrl === true">
                   <h3>Apply for this job</h3>
                   <div class="body__content">
                     <a
@@ -411,7 +411,12 @@ import ButtonComponent from "@/components/shared/ButtonComponent";
 import RecentJobs from "@/components/jobs/RecentJobs.vue";
 
 import axios from "axios";
-import { UPLOAD_ENDPOINT, ONEDRIVE_CLIENT_ID } from "../store/constants";
+import {
+  UPLOAD_ENDPOINT,
+  ONEDRIVE_CLIENT_ID,
+  APPLY_ENDPOINT,
+  SITE_ID
+} from "../store/constants";
 
 import InputText from "@/components/forms/InputText";
 import InputTel from "@/components/forms/InputTel";
@@ -522,7 +527,9 @@ export default {
       agree: false,
       cvFileName: null,
       cloudFileUrl: null,
-      hasCloudFile: false
+      hasCloudFile: false,
+      advertId: 0,
+      siteId: SITE_ID
     },
     nationality: nationality,
     countries: countries
@@ -578,19 +585,24 @@ export default {
 
       this.$validator.validateAll().then(result => {
         if (result) {
-          alert("TODO: send data");
-
-          // TODO: send data
-
           console.log(this.applicationData);
+          this.applicationData.advertId = this.jobId;
+          axios
+            .post(APPLY_ENDPOINT, this.applicationData)
+            .then(response => {
+              console.log(response);
+              if (response.status === 200) {
+                this.submitStatus.success = true;
+              }
+            })
+            .catch(e => {
+              console.error(e);
+              alert("Correct the errors!");
+              this.submitStatus.error = true;
+            });
 
-          // Set submit status
-          this.submitStatus.success = true;
           return;
         }
-
-        alert("Correct the errors!");
-        this.submitStatus.error = true;
       });
     },
     handleCVUpload(file) {
