@@ -27,6 +27,7 @@ const UPLOAD_ENDPOINT = ROOT_ENDPOINT + "/upload";
 // API Keys
 const DROPBOX_APP_KEY = "";
 const ONEDRIVE_CLIENT_ID = "";
+const CHECKOUT_KEY = "pk_test_dcefa1b7-7aca-4513-bb05-04d6c9a5c687";
 
 export {
   LATEST_JOBS_ENDPOINT,
@@ -43,5 +44,6 @@ export {
   UPLOAD_ENDPOINT,
   DROPBOX_APP_KEY,
   ONEDRIVE_CLIENT_ID,
-  SITE_ID
+  SITE_ID,
+  CHECKOUT_KEY
 };

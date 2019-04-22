@@ -530,6 +530,7 @@
                 </div>
               </div>
             </form>
+            <form class="payment-form" method="POST" action="http://localhost:8080/submit-job"></form>
           </div>
           <!-- SUBMIT JOB -->
           <!-- SIDEBAR -->
@@ -600,7 +601,7 @@ import "vue2-dropzone/dist/vue2Dropzone.min.css";
 
 import { mapGetters } from "vuex";
 
-import { UPLOAD_ENDPOINT, SITE_ID } from "../store/constants";
+import { UPLOAD_ENDPOINT, SITE_ID, CHECKOUT_KEY } from "../store/constants";
 
 export default {
   components: {
@@ -752,6 +753,25 @@ export default {
     job: {}
   }),
   beforeMount() {},
+  mounted() {
+    window.onload = () => {
+      window.CKOConfig = {
+        publicKey: CHECKOUT_KEY,
+        value: 100,
+        currency: "MUR",
+        paymentMode: "cards",
+        cardFormMode: "cardTokenisation",
+        cardTokenised: event => {
+          console.log(event.data.cardToken);
+        }
+      };
+
+      let script = document.createElement("script");
+      script.setAttribute("src", "https://cdn.checkout.com/sandbox/js/checkout.js");
+      script.setAttribute("async", "");
+      document.head.appendChild(script);
+    };
+  },
   methods: {
     validateSubmission() {
       // TODO: Check if file has been uploaded
