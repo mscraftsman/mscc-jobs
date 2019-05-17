@@ -110,7 +110,7 @@
                   ></div>
                 </div>
 
-                <div class="block__content" v-if="jobData.applyUrl === null">
+                <div class="block__content" v-if="jobData.applyOnUrl === false">
                   <h3>Apply for this job</h3>
                   <form @submit.prevent="validateJobApplication" autocomplete="off">
                     <div class="body__content apply__grid__layout">
@@ -222,17 +222,27 @@
                             </label>
                           </div>
 
-                          <button
+                          <!-- <button
                             type="button"
                             class="upload__pc__button button__global blue override__visbility"
                           >
                             <img src="@/assets/img/drive.svg" class="icon">
                             <span class="text">Google Drive</span>
+                          </button>-->
+
+                          <button
+                            type="button"
+                            class="upload__pc__button button__global blue override__visbility"
+                            @click="openOneDrivePicker()"
+                          >
+                            <img src="@/assets/img/onedrive.svg" class="icon">
+                            <span class="text">One Drive</span>
                           </button>
 
                           <button
                             type="button"
                             class="upload__pc__button button__global blue override__visbility"
+                            @click="openDropboxChooser()"
                           >
                             <img src="@/assets/img/dropbox.svg" class="icon">
                             <span class="text">Dropbox</span>
@@ -342,7 +352,7 @@
                   </form>
                 </div>
 
-                <div class="block__content" v-if="jobData.applyUrl !== null">
+                <div class="block__content" v-if="jobData.applyOnUrl === true">
                   <h3>Apply for this job</h3>
                   <div class="body__content">
                     <a
@@ -399,6 +409,14 @@ import LoaderComponent from "@/components/shared/LoaderComponent";
 import { VueEditor } from "vue2-editor";
 import ButtonComponent from "@/components/shared/ButtonComponent";
 import RecentJobs from "@/components/jobs/RecentJobs.vue";
+
+import axios from "axios";
+import {
+  UPLOAD_ENDPOINT,
+  ONEDRIVE_CLIENT_ID,
+  APPLY_ENDPOINT,
+  SITE_ID
+} from "../store/constants";
 
 import InputText from "@/components/forms/InputText";
 import InputTel from "@/components/forms/InputTel";
@@ -475,6 +493,14 @@ export default {
     url: null,
     jobId: null,
     loading: true,
+    allowedTypes: [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/rtf"
+    ],
+    allowedUploadSize: 5242880,
+    allowedExtensions: [".pdf", ".doc", ".docx", ".rtf"],
     submitStatus: {
       error: false,
       success: false
@@ -498,7 +524,12 @@ export default {
       nationality: null,
       email: null,
       cover_letter: null,
-      agree: false
+      agree: false,
+      cvFileName: null,
+      cloudFileUrl: null,
+      hasCloudFile: false,
+      advertId: 0,
+      siteId: SITE_ID
     },
     nationality: nationality,
     countries: countries
@@ -554,19 +585,24 @@ export default {
 
       this.$validator.validateAll().then(result => {
         if (result) {
-          alert("TODO: send data");
-
-          // TODO: send data
-
           console.log(this.applicationData);
+          this.applicationData.advertId = this.jobId;
+          axios
+            .post(APPLY_ENDPOINT, this.applicationData)
+            .then(response => {
+              console.log(response);
+              if (response.status === 200) {
+                this.submitStatus.success = true;
+              }
+            })
+            .catch(e => {
+              console.error(e);
+              alert("Correct the errors!");
+              this.submitStatus.error = true;
+            });
 
-          // Set submit status
-          this.submitStatus.success = true;
           return;
         }
-
-        alert("Correct the errors!");
-        this.submitStatus.error = true;
       });
     },
     handleCVUpload(file) {
@@ -595,25 +631,46 @@ export default {
           console.log(fileSize);
           console.log(fileType);
 
-          let allowedUploadSize = 5242880;
-          let allowedTypes = ["application/pdf"];
-
-          if (!allowedTypes.includes(fileType)) {
+          if (!this.allowedTypes.includes(fileType)) {
             this.CVUploadStatus.error = "Incorrect file type.";
             return;
           }
 
-          if (fileSize > allowedUploadSize) {
+          if (fileSize > this.allowedUploadSize) {
             this.CVUploadStatus.error = "File size is above 5 Mb.";
             return;
           }
 
           // TODO: Upload goes here and set status to true below
-          if (fileSize < allowedUploadSize && allowedTypes.includes(fileType)) {
+          if (
+            fileSize < this.allowedUploadSize &&
+            this.allowedTypes.includes(fileType)
+          ) {
             // Set uploading information true
             this.CVUploadStatus.uploading = true;
 
             // TODO upload logic here
+            let formData = new FormData();
+            formData.append("file", this.$refs.cv_upload.files[0]);
+            axios
+              .post(UPLOAD_ENDPOINT, formData, {
+                headers: {
+                  "Content-Type": "multipart/form-data"
+                }
+              })
+              .then(response => {
+                console.log(response);
+                if (response.status === 200) {
+                  this.applicationData.cvFileName = response.data.fileName;
+                  this.CVUploadStatus.uploading = false;
+                  this.CVUploadStatus.success = true;
+                }
+              })
+              .catch(error => {
+                this.CVUploadStatus.uploading = false;
+                this.CVUploadStatus.error =
+                  "Uploading file failed. Please try again.";
+              });
           }
         })
         .catch(e => {
@@ -640,8 +697,84 @@ export default {
         nationality: null,
         email: null,
         cover_letter: null,
-        agree: false
+        agree: false,
+        cvFileName: null,
+        cloudFileUrl: null,
+        hasCloudFile: false
       };
+    },
+    openDropboxChooser() {
+      let options = {
+        success: response => {
+          console.log(response);
+          if (response && response.length > 0) {
+            if (response[0].bytes > this.allowedUploadSize) {
+              this.CVUploadStatus.error = "File size is above 5 Mb.";
+              return;
+            } else {
+              this.CVInformation.fileName = response[0].name;
+              this.applicationData.cloudFileUrl = response[0].link;
+              this.applicationData.hasCloudFile = true;
+            }
+          }
+        },
+        cancel: () => {
+          this.CVInformation.fileName = null;
+        },
+        linkType: "direct",
+        multiselect: false,
+        extensions: this.allowedExtensions
+      };
+      Dropbox.choose(options);
+    },
+    openOneDrivePicker() {
+      let odOptions = {
+        clientId: ONEDRIVE_CLIENT_ID,
+        action: "download",
+        multiSelect: false,
+        openInNewWindow: true,
+        advanced: {
+          redirectUri: window.location.origin
+        },
+        success: response => {
+          console.log(response);
+          if (response && response.value.length > 0) {
+            let file = response.value[0];
+            let name = file["name"];
+            let size = file["size"];
+            let downloadUrl = file["@microsoft.graph.downloadUrl"];
+            let extension = name.substring(name.lastIndexOf("."));
+
+            if (!this.allowedExtensions.includes(extension)) {
+              this.CVUploadStatus.error = "Incorrect file type.";
+              return;
+            }
+
+            if (size > this.allowedUploadSize) {
+              this.CVUploadStatus.error = "File size is above 5 Mb.";
+              return;
+            }
+
+            if (
+              size <= this.allowedUploadSize &&
+              this.allowedExtensions.includes(extension)
+            ) {
+              this.CVInformation.fileName = name;
+              this.applicationData.cloudFileUrl = downloadUrl;
+              this.applicationData.hasCloudFile = true;
+            }
+          }
+        },
+        cancel: () => {
+          this.CVInformation.fileName = null;
+        },
+        error: e => {
+          this.CVUploadStatus.uploading = false;
+          this.CVUploadStatus.error =
+            "Fetching file from OneDrive failed. Please try again.";
+        }
+      };
+      OneDrive.open(odOptions);
     }
   },
   watch: {
