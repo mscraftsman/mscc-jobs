@@ -8,12 +8,11 @@ const LATEST_JOBS_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/latest";
 const JOBS_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/listings";
 const TAGS_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/popularjobs";
 const EMPLOYERS_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/employers";
-const CONTENT_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/content";
 const ARTICLES_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/articles";
 
 // GET w/ params
 
-const GET_ARTICLE_ENDPOINT = ROOT_ENDPOINT + "/article"; ///article/{articleId}
+const GET_ARTICLE_ENDPOINT = ROOT_ENDPOINT + "/articles"; ///article/{articleId}
 const GET_JOB_ENDPOINT = ROOT_ENDPOINT + "/jobs"; ///jobs/{jobId}
 
 // POST
@@ -37,7 +36,6 @@ export {
   JOBS_ENDPOINT,
   TAGS_ENDPOINT,
   EMPLOYERS_ENDPOINT,
-  CONTENT_ENDPOINT,
   ARTICLES_ENDPOINT,
   GET_JOB_ENDPOINT,
   GET_ARTICLE_ENDPOINT,

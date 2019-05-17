@@ -22,7 +22,7 @@
 import HeadingBreadcrumbs from "@/components/shared/HeadingBreadcrumbs";
 import LoaderComponent from "@/components/shared/LoaderComponent";
 
-import { CONTENT_ENDPOINT, GET_ARTICLE_ENDPOINT } from "@/store/constants.js";
+import { GET_ARTICLE_ENDPOINT } from "@/store/constants.js";
 import axios from "axios";
 
 export default {
