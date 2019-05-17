@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PROFILE_ENDPOINT, CUSTOMER_ENDPOINT, USE_JSON } from "../constants";
+import { PROFILE_ENDPOINT, CUSTOMER_ENDPOINT } from "../constants";
 
 // let getCompaniesFromApi = ({ state, commit }, payload) => {
 //   axios
@@ -27,7 +27,7 @@ let getCustomerByIdFromApi = ({ state, commit }, payload) => {
 
   return new Promise((resolve, reject) => {
     axios
-      .get(CUSTOMER_ENDPOINT + "/" + customerId + USE_JSON)
+      .get(CUSTOMER_ENDPOINT + "/" + customerId)
       .then(function(response) {
         let customer = response.data;
 
@@ -52,7 +52,7 @@ let getProfileByIdFromApi = ({ state, commit }, payload) => {
 
   return new Promise((resolve, reject) => {
     axios
-      .get(PROFILE_ENDPOINT + "/" + profileId + USE_JSON)
+      .get(PROFILE_ENDPOINT + "/" + profileId)
       .then(function(response) {
         let profile = response.data;
 

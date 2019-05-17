@@ -1,26 +1,26 @@
-const ROOT_ENDPOINT = "http://localhost:8080/";
-const SITE_ID = "mscc-jobs-json";
+const ROOT_ENDPOINT = "https://api.agilemedia.mu/v1/public";
+const SITE_ID = "/sites/1";
 const ROOT_ENDPOINT_SITE_ID = ROOT_ENDPOINT + SITE_ID;
 const USE_JSON = ".json";
 
 // GET
 
-const LATEST_JOBS_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/latest" + USE_JSON;
+const LATEST_JOBS_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/latest";
 const JOBS_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/listings";
 const TAGS_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/popularjobs";
 const EMPLOYERS_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/employers";
 
 // GET w/ params
 
-const GET_JOB_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/jobs"; ///jobs/{jobId}
+const GET_JOB_ENDPOINT = ROOT_ENDPOINT + "/jobs"; ///jobs/{jobId}
 
 // POST
 
 // POST w/ params
 const SEARCH_ENDPOINT = ROOT_ENDPOINT + "/search";
-const PROFILE_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/profile";
-const CUSTOMER_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/customer";
-const APPLY_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/apply";
+const PROFILE_ENDPOINT = ROOT_ENDPOINT + "/profile";
+const CUSTOMER_ENDPOINT = ROOT_ENDPOINT + "/customer";
+const APPLY_ENDPOINT = ROOT_ENDPOINT + "/apply";
 
 export {
   LATEST_JOBS_ENDPOINT,
