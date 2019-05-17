@@ -47,11 +47,7 @@ export default {
     getData() {
       return new Promise((resolve, reject) => {
         axios
-          .get(GET_ARTICLE_ENDPOINT, {
-            params: {
-              id: this.pageId
-            }
-          })
+          .get(GET_ARTICLE_ENDPOINT + "/" + this.pageId)
           .then(function(response) {
             let data = response.data;
             console.log(data);
