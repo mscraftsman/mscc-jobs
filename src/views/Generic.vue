@@ -22,7 +22,7 @@
 import HeadingBreadcrumbs from "@/components/shared/HeadingBreadcrumbs";
 import LoaderComponent from "@/components/shared/LoaderComponent";
 
-import { CONTENT_ENDPOINT } from "@/store/constants.js";
+import { CONTENT_ENDPOINT, GET_ARTICLE_ENDPOINT } from "@/store/constants.js";
 import axios from "axios";
 
 export default {
@@ -47,7 +47,7 @@ export default {
     getData() {
       return new Promise((resolve, reject) => {
         axios
-          .get(CONTENT_ENDPOINT, {
+          .get(GET_ARTICLE_ENDPOINT, {
             params: {
               id: this.pageId
             }
@@ -66,6 +66,7 @@ export default {
   },
   beforeMount() {
     this.pageId = this.$route.params.id;
+    this.url = this.$route.params.pathMatch;
 
     this.getData()
       .then(function(response) {
