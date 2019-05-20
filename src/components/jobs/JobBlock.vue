@@ -12,8 +12,8 @@
           >
             <div class="logo__outer">
               <img
-                v-if="profileData && profileData.profile.image"
-                :src="profileData.profile.image"
+                v-if="job && job.logo"
+                :src="job.logo"
                 alt
               >
               <div class="company__initial" v-else>
