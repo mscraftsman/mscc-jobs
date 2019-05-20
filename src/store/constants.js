@@ -1,11 +1,12 @@
-const ROOT_ENDPOINT = "http://localhost:8080/";
-const SITE_ID = "mscc-jobs-json";
-const ROOT_ENDPOINT_SITE_ID = ROOT_ENDPOINT + SITE_ID;
+const ROOT_ENDPOINT = "http://localhost:8000/v1/public";
+const SITE_ID = "1";
+const ROOT_ENDPOINT_SITE_ID = ROOT_ENDPOINT + "/sites/" + SITE_ID;
 const USE_JSON = ".json";
+const DEFAULT_RADIUS_MILES = 25;
 
 // GET
 
-const LATEST_JOBS_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/latest" + USE_JSON;
+const LATEST_JOBS_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/latest";
 const JOBS_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/listings";
 const TAGS_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/popularjobs";
 const EMPLOYERS_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/employers";
@@ -13,7 +14,7 @@ const CONTENT_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/content";
 
 // GET w/ params
 
-const GET_JOB_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/jobs"; ///jobs/{jobId}
+const GET_JOB_ENDPOINT = ROOT_ENDPOINT + "/jobs"; ///jobs/{jobId}
 
 // POST
 
@@ -21,12 +22,13 @@ const GET_JOB_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/jobs"; ///jobs/{jobId}
 const SEARCH_ENDPOINT = ROOT_ENDPOINT + "/search";
 const PROFILE_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/profile";
 const CUSTOMER_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/customer";
-const APPLY_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/apply";
+const APPLY_ENDPOINT = ROOT_ENDPOINT + "/apply";
 const UPLOAD_ENDPOINT = ROOT_ENDPOINT + "/upload";
 
 // API Keys
-const DROPBOX_APP_KEY = "";
-const ONEDRIVE_CLIENT_ID = "";
+const DROPBOX_APP_KEY = "h3sui3repsr5vrz";
+const ONEDRIVE_CLIENT_ID = "07596f63-8947-4097-9b47-a935f58187f0";
+const GOOGLE_MAPS_API_KEY = "AIzaSyB7zl_koRpb1sRKJwSr953wfPQu-Li6CHQ";
 
 export {
   LATEST_JOBS_ENDPOINT,
@@ -42,5 +44,8 @@ export {
   CONTENT_ENDPOINT,
   UPLOAD_ENDPOINT,
   DROPBOX_APP_KEY,
-  ONEDRIVE_CLIENT_ID
+  ONEDRIVE_CLIENT_ID,
+  SITE_ID,
+  GOOGLE_MAPS_API_KEY,
+  DEFAULT_RADIUS_MILES
 };
