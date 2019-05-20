@@ -1,5 +1,6 @@
 <template>
   <div class="body__container submit__a__job__view">
+    <VueScriptComponent :script="checkoutTag"/>
     <section class="submit__a__job">
       <HeadingBreadcrumbs :breadcrumbs="breadcrumbs" pageTitle="Submit a job" :alertStatus="false"/>
 
@@ -235,6 +236,7 @@
                             :options="CompanyLogoDropzoneOptions"
                             :useCustomSlot="true"
                             @vdropzone-success="companyLogoUploadSuccess"
+                            @vdropzone-sending="companyLogoUploadSending"
                           >
                             <div class="dropzone__content">
                               <img src="/img/utils/upload.svg" class="icon">
@@ -529,6 +531,7 @@
                 </div>
               </div>
             </form>
+            <form class="payment-form" method="POST" action="http://localhost:8080/submit-job"></form>
           </div>
           <!-- SUBMIT JOB -->
           <!-- SIDEBAR -->
@@ -597,7 +600,27 @@ import InputDate from "@/components/forms/InputDate";
 import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
 
+// vue-script-component
+import VueScriptComponent from "vue-script-component";
 import { mapGetters } from "vuex";
+import { UPLOAD_ENDPOINT, SITE_ID, CHECKOUT_KEY } from "../store/constants";
+
+let CheckoutTag = `
+<script>
+  window.onload = () => {
+  window.CKOConfig = {
+    publicKey: CHECKOUT_KEY,
+    value: 100,
+    currency: "MUR",
+    paymentMode: "cards",
+    cardFormMode: "cardTokenisation",
+    cardTokenised: event => {
+      console.log(event.data.cardToken);
+    }
+  };
+<\/script>
+<script src="https://cdn.checkout.com/sandbox/js/checkout.js" async><\/script>
+`;
 
 export default {
   components: {
@@ -616,7 +639,8 @@ export default {
     InputDate,
     HeadingBreadcrumbs,
     vueDropzone: vue2Dropzone,
-    InputMultiSelect
+    InputMultiSelect,
+    VueScriptComponent
   },
   computed: {
     ...mapGetters({
@@ -624,6 +648,7 @@ export default {
     })
   },
   data: () => ({
+    checkoutTag: CheckoutTag,
     breadcrumbs: [
       {
         name: "Submit a job",
@@ -719,13 +744,13 @@ export default {
       packageInfo: null
     },
     CompanyLogoDropzoneOptions: {
-      url: "https://httpbin.org/post",
-      thumbnailWidth: 150,
-      maxFilesize: 0.5,
-      headers: { "My-Awesome-Header": "header value" },
+      url: UPLOAD_ENDPOINT,
+      resizeWidth: 300,
+      resizeHeight: 100,
       uploadMultiple: false,
-      acceptedFiles: ".jpeg, .jpg, .png, .gif, .svg",
-      maxFilesize: 1
+      acceptedFiles: ".jpeg, .jpg, .png, .gif, .gif",
+      maxFilesize: 1,
+      maxFiles: 1
     },
     packageInformation: [
       {
@@ -749,6 +774,7 @@ export default {
     job: {}
   }),
   beforeMount() {},
+  mounted() {},
   methods: {
     validateSubmission() {
       // TODO: Check if file has been uploaded
@@ -787,6 +813,15 @@ export default {
 
       let fileSrc = file.dataURL;
       this.companyInformation.logoSrc = fileSrc;
+    },
+    companyLogoUploadSending(file, xhr, formData) {
+      console.log(formData);
+      formData.append(
+        "type",
+        encodeURIComponent(
+          JSON.stringify({ store: "profile", type: "ProfileLogo" })
+        )
+      );
     },
     uncheck(val) {
       if (val === this.previouslySelectedPackage) {
