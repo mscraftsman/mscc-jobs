@@ -29,10 +29,10 @@
                             v-if="jobData.seniority_level"
                           >{{jobData.seniority_level}}</div>
                         </div>
-                        <div class="data__cell">
+                        <!-- <div class="data__cell">
                           <label>Job Functions</label>
                           <div class="data__content" v-if="jobData.functions">{{jobData.functions}}</div>
-                        </div>
+                        </div> -->
                         <div class="data__cell">
                           <label>Start</label>
                           <div class="data__content" v-if="jobData.startDesc">{{jobData.startDesc}}</div>
@@ -65,8 +65,8 @@
                         :to="{name: 'profileSingle', params: { id: jobData.customerId}}"
                       >-->
                       <img
-                        v-if="customerData && customerData.profile && customerData.profile.image"
-                        :src="customerData.profile.image"
+                        
+                        :src="jobData.logo"
                         alt
                       >
                       <!-- </router-link> -->
@@ -83,14 +83,14 @@
                   ></div>
                 </div>
 
-                <div class="block__content">
+                <!-- <div class="block__content">
                   <h3>Responsibilities</h3>
                   <div
                     class="body__content styled__content"
                     v-if="jobData.responsibilities"
                     v-html="jobData.responsibilities"
                   ></div>
-                </div>
+                </div> -->
 
                 <div class="block__content">
                   <h3>Requirements</h3>
@@ -110,7 +110,7 @@
                   ></div>
                 </div>
 
-                <div class="block__content" v-if="jobData.applyUrl === null">
+                <div class="block__content" v-if="jobData.applyOnUrl === false">
                   <h3>Apply for this job</h3>
                   <form @submit.prevent="validateJobApplication" autocomplete="off">
                     <div class="body__content apply__grid__layout">
@@ -352,7 +352,7 @@
                   </form>
                 </div>
 
-                <div class="block__content" v-if="jobData.applyUrl !== null">
+                <div class="block__content" v-if="jobData.applyOnUrl === true">
                   <h3>Apply for this job</h3>
                   <div class="body__content">
                     <a
@@ -411,7 +411,7 @@ import ButtonComponent from "@/components/shared/ButtonComponent";
 import RecentJobs from "@/components/jobs/RecentJobs.vue";
 
 import axios from "axios";
-import { UPLOAD_ENDPOINT, ONEDRIVE_CLIENT_ID } from "../store/constants";
+import { UPLOAD_ENDPOINT, ONEDRIVE_CLIENT_ID, APPLY_ENDPOINT, SITE_ID } from "../store/constants";
 
 import InputText from "@/components/forms/InputText";
 import InputTel from "@/components/forms/InputTel";
@@ -522,7 +522,9 @@ export default {
       agree: false,
       cvFileName: null,
       cloudFileUrl: null,
-      hasCloudFile: false
+      hasCloudFile: false,
+      advertId: 0,
+      siteId: SITE_ID
     },
     nationality: nationality,
     countries: countries
@@ -583,6 +585,15 @@ export default {
           // TODO: send data
 
           console.log(this.applicationData);
+          this.applicationData.advertId = this.jobId;
+          axios
+            .post(APPLY_ENDPOINT, this.applicationData)
+            .then(response => {
+              console.log(response);
+            })
+            .catch(e => {
+              console.error(e);
+            });
 
           // Set submit status
           this.submitStatus.success = true;
