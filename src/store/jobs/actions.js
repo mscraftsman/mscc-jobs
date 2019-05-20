@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LATEST_JOBS_ENDPOINT, GET_JOB_ENDPOINT, USE_JSON } from "../constants";
+import { LATEST_JOBS_ENDPOINT, GET_JOB_ENDPOINT } from "../constants";
 
 let addJob = ({ state, commit }, payload) => {
   commit("addJob", {
@@ -40,7 +40,7 @@ let getJobFromApi = ({ state, commit }, payload) => {
   let jobId = payload.value;
   return new Promise((resolve, reject) => {
     axios
-      .get(GET_JOB_ENDPOINT + "/" + jobId + USE_JSON)
+      .get(GET_JOB_ENDPOINT + "/" + jobId)
       .then(function(response) {
         let job = response.data;
 
