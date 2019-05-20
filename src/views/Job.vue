@@ -411,16 +411,12 @@ import ButtonComponent from "@/components/shared/ButtonComponent";
 import RecentJobs from "@/components/jobs/RecentJobs.vue";
 
 import axios from "axios";
-<<<<<<< HEAD
-import { UPLOAD_ENDPOINT, ONEDRIVE_CLIENT_ID, APPLY_ENDPOINT, SITE_ID } from "../store/constants";
-=======
 import {
   UPLOAD_ENDPOINT,
   ONEDRIVE_CLIENT_ID,
   APPLY_ENDPOINT,
   SITE_ID
 } from "../store/constants";
->>>>>>> 6ae6895d369471f31aaaf85777e7434c08355bf6
 
 import InputText from "@/components/forms/InputText";
 import InputTel from "@/components/forms/InputTel";
@@ -595,11 +591,6 @@ export default {
             .post(APPLY_ENDPOINT, this.applicationData)
             .then(response => {
               console.log(response);
-<<<<<<< HEAD
-            })
-            .catch(e => {
-              console.error(e);
-=======
               if (response.status === 200) {
                 this.submitStatus.success = true;
               }
@@ -608,7 +599,6 @@ export default {
               console.error(e);
               alert("Correct the errors!");
               this.submitStatus.error = true;
->>>>>>> 6ae6895d369471f31aaaf85777e7434c08355bf6
             });
 
           return;
