@@ -45,14 +45,10 @@ import {
 import { filter } from "minimatch";
 
 export default {
-  components: {
-    JobsListing
-  },
   data() {
     return {
       location: null,
       title: null,
-      tag: "test it",
       filter: {
         id: null,
         keyword: null,
