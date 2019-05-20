@@ -34,15 +34,123 @@
 </template>
 
 <script>
+import axios from "axios";
+import JobsListing from "@/components/jobs/JobsListing";
+import {
+  SEARCH_ENDPOINT,
+  SITE_ID,
+  GOOGLE_MAPS_API_KEY,
+  DEFAULT_RADIUS_MILES
+} from "../../store/constants";
+import { filter } from "minimatch";
+
 export default {
+  components: {
+    JobsListing
+  },
   data() {
     return {
       location: null,
-      title: null
+      title: null,
+      tag: "test it",
+      filter: {
+        id: null,
+        keyword: null,
+        Seed: 0,
+        Offset: 0,
+        Limit: 0,
+        Live: 0,
+        JobType: 0,
+        ContractType: 0,
+        Radius: 0,
+        latitude: 0.0,
+        longitude: 0.0,
+        StartDate: null,
+        EndDate: null,
+        HasStartDate: false,
+        HasEndDate: false,
+        IsCountry: false,
+        StartMonth: 0,
+        EndMonth: 0,
+        locationValue: null
+      }
+     
     };
   },
   methods: {
-    execSearch() {}
+    SanitizeModel: function() {
+      this.filter.id = SITE_ID;
+      this.filter.keyword = this.title;
+      this.filter.locationValue = this.location;
+      this.filter.ContractType = -1;
+      this.filter.EndDate = "2017-12-01";
+      this.filter.HasStartDate = false;
+      this.filter.HasEndDate = false;
+      this.filter.JobType = -1;
+      this.filter.Live = -1;
+      this.filter.Radius = DEFAULT_RADIUS_MILES;
+      this.filter.Seed = 5;
+      this.filter.StartDate = "1753-01-01";
+      this.filter.Offset = 0;
+    },
+    GetCoordinateByLocation: function() {
+      if (this.location !== null) {
+        axios
+          .get(
+            "https://maps.googleapis.com/maps/api/geocode/json?address= " +
+              this.filter.locationValue +
+              "&key=" +
+              GOOGLE_MAPS_API_KEY
+          )
+          .then(response => {
+            if (response.data.status === "OK") {
+              this.filter.latitude =
+                response.data.results[0].geometry.location.lat;
+              this.filter.longitude =
+                response.data.results[0].geometry.location.lng;
+
+              if (response.data.results[0].types[0] === "country") {
+                this.filter.IsCountry = true;
+              }
+            }
+          })
+          .catch(e => {
+            console.error(e);
+          });
+      }
+    },
+    execSearch() {
+      this.SanitizeModel();
+      // this.GetCoordinateByLocation();
+      axios
+        .post(SEARCH_ENDPOINT, {
+          id: this.filter.id,
+          keyword: this.filter.keyword,
+          searchid: this.filter.Seed,
+          offset: this.filter.Offset,
+          limit: this.filter.Limit,
+          inhouse: this.filter.Live,
+          employment: this.filter.JobType,
+          contract: this.filter.ContractType,
+          latitude: this.filter.latitude,
+          longitude: this.filter.longitude,
+          radius: this.filter.Radius,
+          startdate: this.filter.StartDate,
+          enddate: this.filter.EndDate,
+          hasstartdate: this.filter.HasStartDate,
+          hasenddate: this.filter.HasEndDate,
+          startmonth: this.filter.StartMonth,
+          endmonth: this.filter.EndMonth,
+          location: this.filter.locationValue
+        })
+        .then(response => {
+          console.log(response.data);
+          this.listingPageTitle = "wedwef";
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    }
   }
 };
 </script>
