@@ -75,7 +75,7 @@ export default {
   },
   methods: {
     SanitizeModel: function() {
-      this.filter.id = SITE_ID;
+      this.filter.id = SITE_ID.replace("/sites/", "");
       this.filter.keyword = this.title;
       this.filter.locationValue = this.location;
       this.filter.ContractType = -1;
@@ -141,7 +141,6 @@ export default {
         })
         .then(response => {
           console.log(response.data);
-          this.listingPageTitle = "wedwef";
         })
         .catch(e => {
           console.error(e);
