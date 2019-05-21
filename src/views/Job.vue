@@ -32,7 +32,7 @@
                         <!-- <div class="data__cell">
                           <label>Job Functions</label>
                           <div class="data__content" v-if="jobData.functions">{{jobData.functions}}</div>
-                        </div> -->
+                        </div>-->
                         <div class="data__cell">
                           <label>Start</label>
                           <div class="data__content" v-if="jobData.startDesc">{{jobData.startDesc}}</div>
@@ -64,11 +64,7 @@
                         class="logo"
                         :to="{name: 'profileSingle', params: { id: jobData.customerId}}"
                       >-->
-                      <img
-                        
-                        :src="jobData.logo"
-                        alt
-                      >
+                      <img :src="jobData.logo" alt>
                       <!-- </router-link> -->
                     </div>
                   </div>
@@ -90,7 +86,7 @@
                     v-if="jobData.responsibilities"
                     v-html="jobData.responsibilities"
                   ></div>
-                </div> -->
+                </div>-->
 
                 <div class="block__content">
                   <h3>Requirements</h3>
@@ -585,8 +581,9 @@ export default {
 
       this.$validator.validateAll().then(result => {
         if (result) {
-          console.log(this.applicationData);
           this.applicationData.advertId = this.jobId;
+          this.applicationData.siteId = SITE_ID.replace("/sites/", "");
+          console.log(this.applicationData);
           axios
             .post(APPLY_ENDPOINT, this.applicationData)
             .then(response => {
