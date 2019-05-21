@@ -1,5 +1,5 @@
 // const ROOT_ENDPOINT = "http://localhost:8000/v1/public";
- const ROOT_ENDPOINT = "https://api.agilemedia.mu/v1/public";
+const ROOT_ENDPOINT = "https://api.agilemedia.mu/v1/public";
 const SITE_ID = "/sites/1";
 const ROOT_ENDPOINT_SITE_ID = ROOT_ENDPOINT + SITE_ID;
 const DEFAULT_RADIUS_MILES = 25;
