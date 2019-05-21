@@ -8,7 +8,7 @@
       <div class="logo">
         <template v-if="!isPreview">
           <router-link
-            :to="{ name: 'profileSingle', params: { id: job.profileId || this.profileId  } }"
+            :to="{ name: 'profileSingle', params: { id: job.profileId || this.profileId } }"
           >
             <div class="logo__outer">
               <img
@@ -18,8 +18,8 @@
               >
               <div class="company__initial" v-else>
                 <span
-                  v-if="profileData && profileData.employerName"
-                >{{ getCompanyInitial(profileData. employerName) }}</span>
+                  v-if="job && job.employerName"
+                >{{ getCompanyInitial(job.employerName) }}</span>
               </div>
             </div>
           </router-link>
@@ -50,10 +50,10 @@
         <div>
           <template v-if="!isPreview">
             <router-link
-              v-if="(profileData && profileData.employerName)"
+              v-if="(job && job.employerName)"
               :to="{ name: 'profileSingle', params: { id: job.profileId || this.profileId } }"
               class="company"
-            >{{ profileData.employerName || jobCompanyData.jobTitle }}</router-link>
+            >{{ job.employerName || jobCompanyData.jobTitle }}</router-link>
           </template>
           <template v-else>
             <div class="company" v-if="previewData.company.name">{{ previewData.company.name }}</div>
