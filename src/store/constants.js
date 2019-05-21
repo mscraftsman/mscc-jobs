@@ -1,5 +1,5 @@
-// const ROOT_ENDPOINT = "http://localhost:8000/v1/public";
-const ROOT_ENDPOINT = "https://api.agilemedia.mu/v1/public";
+const ROOT_ENDPOINT = "http://localhost:8000/v1/public";
+// const ROOT_ENDPOINT = "https://api.agilemedia.mu/v1/public";
 const SITE_ID = "/sites/1";
 const ROOT_ENDPOINT_SITE_ID = ROOT_ENDPOINT + SITE_ID;
 const DEFAULT_RADIUS_MILES = 25;
@@ -28,8 +28,8 @@ const UPLOAD_ENDPOINT = ROOT_ENDPOINT + "/upload";
 
 // API Keys
 const GOOGLEMAPS_KEY = "AIzaSyDXeL4nVhBIVIjuWX9eaPh0ILzCuhIZxCs";
-const DROPBOX_APP_KEY = "";
-const ONEDRIVE_CLIENT_ID = "";
+const DROPBOX_APP_KEY = "h3sui3repsr5vrz";
+const ONEDRIVE_CLIENT_ID = "07596f63-8947-4097-9b47-a935f58187f0";
 const CHECKOUT_KEY = "pk_test_dcefa1b7-7aca-4513-bb05-04d6c9a5c687";
 
 export {
