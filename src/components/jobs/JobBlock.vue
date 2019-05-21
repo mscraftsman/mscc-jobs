@@ -131,15 +131,15 @@
               <label>Seniority Level</label>
               <div class="data__content">{{ fullView.seniority_level }}</div>
             </div>
-            <div class="data__cell">
+            <!-- <div class="data__cell">
               <label>Job Functions</label>
               <div class="data__content">{{ fullView.functions }}</div>
-            </div>
+            </div> -->
           </div>
           <div class="row-2">
             <div class="data__cell">
               <label>About this job</label>
-              <div class="data__content" v-html="fullView.summary"></div>
+              <div class="data__content" v-html="fullView.jobDesc"></div>
             </div>
             <div class="data__cell">
               <div class="tags white__bg">
@@ -192,21 +192,21 @@
             <label>Seniority Level</label>
             <div class="data__content">{{ previewData.seniority_level }}</div>
           </div>
-          <div class="data__cell">
+          <!-- <div class="data__cell">
             <label>Job Functions</label>
             <div class="data__content">{{ previewData.functions }}</div>
-          </div>
+          </div> -->
         </div>
         <div class="row-2">
           <div class="data__cell">
             <label>About this job</label>
-            <div class="data__content" v-html="previewData.summary"></div>
+            <div class="data__content" v-html="previewData.jobDesc"></div>
           </div>
           <div class="data__cell">
             <div class="tags white__bg">
               <ul>
                 <li v-for="(tag, index) in tagsPreview(previewData.tags)" :key="index">
-                  <span class="tag">{{ tag }}</span>
+                 <span class="tag">{{ tag }}</span>
                 </li>
               </ul>
             </div>
