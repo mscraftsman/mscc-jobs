@@ -590,12 +590,14 @@ export default {
               console.log(response);
               if (response.status === 200) {
                 this.submitStatus.success = true;
+                this.submitStatus.error = false;
               }
             })
             .catch(e => {
               console.error(e);
               alert("Correct the errors!");
               this.submitStatus.error = true;
+              this.submitStatus.success = false;
             });
 
           return;
