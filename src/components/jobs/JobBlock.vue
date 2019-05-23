@@ -8,7 +8,7 @@
       <div class="logo">
         <template v-if="!isPreview">
           <router-link
-            :to="{ name: 'profileSingle', params: { id: job.profileId || this.profileId } }"
+            :to="{ name: 'profileSingle', params: { id: job.profile || this.profile } }"
           >
             <div class="logo__outer">
               <img
@@ -18,8 +18,8 @@
               >
               <div class="company__initial" v-else>
                 <span
-                  v-if="job && job.employerName"
-                >{{ getCompanyInitial(job.employerName) }}</span>
+                  v-if="job && job.company"
+                >{{ getCompanyInitial(job.company) }}</span>
               </div>
             </div>
           </router-link>
@@ -39,7 +39,7 @@
         <div>
           <template v-if="!isPreview">
             <router-link
-              :to="{ name: 'jobsSingle', params: { id: job.advertId || jobCompanyData.id } }"
+              :to="{ name: 'jobsSingle', params: { id: job.id || jobCompanyData.id } }"
               class="title"
             >{{ job.title || jobCompanyData.jobTitle }}</router-link>
           </template>
@@ -50,10 +50,10 @@
         <div>
           <template v-if="!isPreview">
             <router-link
-              v-if="(job && job.employerName)"
-              :to="{ name: 'profileSingle', params: { id: job.profileId || this.profileId } }"
+              v-if="(job && job.company)"
+              :to="{ name: 'profileSingle', params: { id: job.profile || this.profile } }"
               class="company"
-            >{{ job.employerName || jobCompanyData.jobTitle }}</router-link>
+            >{{ job.company || jobCompanyData.jobTitle }}</router-link>
           </template>
           <template v-else>
             <div class="company" v-if="previewData.company.name">{{ previewData.company.name }}</div>
@@ -91,7 +91,7 @@
       <div class="apply__button">
         <template v-if="!isPreview">
           <ButtonComponent
-            :url="{ name: 'jobsSingle', params: { id: job.advertId || this.jobCompanyData.id } }"
+            :url="{ name: 'jobsSingle', params: { id: job.id || this.jobCompanyData.id }, hash: '#apply' }"
             color="yellow"
             classStyle="apply__job__button"
             text="Apply"
@@ -263,7 +263,7 @@ export default {
       type: Boolean,
       default: false
     },
-    profileId: {
+    profile: {
       type: String,
       default: null
     }
@@ -289,8 +289,7 @@ export default {
       getProfileById: "companies/getProfileById"
     }),
     getFullViewData() {
-      console.log(this.job.advertId);
-      return this.getJobFullById(this.job.advertId);
+      return this.getJobFullById(this.job.id);
     },
     backgroundColor() {
       if (this.theme === "theme-default") {
@@ -304,11 +303,11 @@ export default {
       }
     },
     // company() {
-    //   return this.getCompanyById(this.job.profileId);
+    //   return this.getCompanyById(this.job.profile);
     // },
-    profile() {
-      return this.getProfileById(this.job.profileId);
-    },
+    // profile() {
+    //   return this.getProfileById(this.job.profile);
+    // },
     tags() {
       let tags = this.job.tags;
       let tagsArr = tags.split(",").map(function(item) {
@@ -365,7 +364,7 @@ export default {
       if (!this.fullView) {
         this.$store
           .dispatch("jobs/getJobFromApi", {
-            value: this.job.advertId || this.jobCompanyData.id
+            value: this.job.id || this.jobCompanyData.id
           })
           .then(response => {
             this.fullView = response;
@@ -405,18 +404,17 @@ export default {
     },
     jobData: {
       handler(val) {
-        if (val.profileId !== null && this.isPreview === false) {
-          this.getProfile(this.job.profileId);
+        if (val.profile !== null && this.isPreview === false) {
+          this.getProfile(this.job.profile);
         }
       },
       deep: true,
       immediate: true
     },
-    profileId: {
+    profile: {
       handler(val) {
         if (val !== null) {
-          console.log(this.profileId);
-          this.getProfile(this.profileId);
+          this.getProfile(this.profile);
         }
       },
       deep: true,
