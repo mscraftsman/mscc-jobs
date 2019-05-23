@@ -28,7 +28,7 @@
                     class="data__content"
                     v-if="company.profile.founded"
                   >{{ company.profile.founded }}</div>
-                </div> -->
+                </div>-->
 
                 <div class="data">
                   <label>Phone</label>
@@ -41,7 +41,7 @@
                 <!-- <div class="data">
                   <label>Company Size</label>
                   <div class="data__content" v-if="company.profile.size">{{ company.profile.size }}</div>
-                </div> -->
+                </div>-->
 
                 <div class="data">
                   <label>Industry</label>
@@ -77,7 +77,7 @@
                   >{{ company.profile.address }}</div>
                 </div>
 
-                <div class="data">
+                <div class="data" v-if="company.profile.facebook || company.profile.twitter || company.profile.linkedin">
                   <label>Social</label>
                   <div class="data__content">
                     <SocialComponent
@@ -111,17 +111,13 @@
                   <div class="body__content">
                     <GmapMap
                       v-if="
-                        company.profile.location &&
-                          company.profile.location.lat &&
-                          company.profile.location.lng
+                        this.lat && this.lng
                       "
-                      :center="company.profile.location"
+                      :center="{lat: this.lat, lng: this.lng}"
                       :zoom="15"
-                      map-type-id="terrain"
+                      map-type-id="roadmap"
                       style="width: 100%; height: 300px"
-                    >
-                      <GmapMarker :position="company.profile.location"/>
-                    </GmapMap>
+                    ></GmapMap>
                     <a
                       class="open__maps"
                       :href="getMapsURL(company.profile.location)"
@@ -196,8 +192,10 @@ export default {
   data() {
     return {
       company: {},
-      profileId: null,
-      loading: true
+      profileId: 0,
+      loading: true,
+      lat: 0.0,
+      lng: 0.0
     };
   },
   beforeMount() {
@@ -217,6 +215,15 @@ export default {
             console.log(response);
 
             this.company = response;
+            if(this.company.listings.length > 0){
+                var listing = this.company.listings[0];
+                if(listing.markers.length > 0){
+                  var marker = listing.markers[0];
+                  this.lat = marker.latitude;
+                  this.lng = marker.longitude;
+                }
+            }
+            console.log(this.company);
             this.loading = false;
           })
           .catch(error => {
@@ -232,7 +239,7 @@ export default {
     },
     getMapsURL(position) {
       if (typeof position !== "undefined") {
-        return "http://maps.google.com/?q=" + 0.000 + "," + 0.000 ;
+        return "http://maps.google.com/?q=" + this.lat + "," + this.lng;
       }
     }
   },
