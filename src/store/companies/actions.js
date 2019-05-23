@@ -31,8 +31,6 @@ let getCustomerByIdFromApi = ({ state, commit }, payload) => {
       .then(function(response) {
         let customer = response.data;
 
-        console.log(customer);
-
         commit("addCustomer", {
           value: customer
         });
@@ -48,11 +46,11 @@ let getCustomerByIdFromApi = ({ state, commit }, payload) => {
 };
 
 let getProfileByIdFromApi = ({ state, commit }, payload) => {
-  let profileId = payload.value;
+  let profile = payload.value;
 
   return new Promise((resolve, reject) => {
     axios
-      .get(PROFILE_ENDPOINT + "/" + profileId)
+      .get(PROFILE_ENDPOINT + "/" + profile)
       .then(function(response) {
         let profile = response.data;
 
@@ -71,16 +69,15 @@ let getProfileByIdFromApi = ({ state, commit }, payload) => {
 };
 
 let getProfileByPostRequest = ({ state, commit }, payload) => {
-  let profileId = payload.value;
+  let profile = payload.value;
 
   return new Promise((resolve, reject) => {
     axios
       .post(PROFILE_ENDPOINT, {
-        Profile: profileId,
+        Profile: profile,
         Customer: "0"
       })
       .then(function(response) {
-        console.log(response.data);
         let profile = response.data;
 
         commit("addProfile", {
