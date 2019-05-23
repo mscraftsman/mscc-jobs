@@ -6,7 +6,7 @@
         <div
           class="header__section"
           :style="
-            'background: url(/img/jobs/companies/' +
+            'background: url(' +
               company.profile.backgroundImage +
               ')'
           "
@@ -22,13 +22,13 @@
                 <img :src="company.profile.image" alt class="logo">
               </div>
               <div class="company__details">
-                <div class="data">
+                <!-- <div class="data">
                   <label>Founded</label>
                   <div
                     class="data__content"
                     v-if="company.profile.founded"
                   >{{ company.profile.founded }}</div>
-                </div>
+                </div> -->
 
                 <div class="data">
                   <label>Phone</label>
@@ -38,10 +38,10 @@
                   >{{ company.profile.phone }}</div>
                 </div>
 
-                <div class="data">
+                <!-- <div class="data">
                   <label>Company Size</label>
                   <div class="data__content" v-if="company.profile.size">{{ company.profile.size }}</div>
-                </div>
+                </div> -->
 
                 <div class="data">
                   <label>Industry</label>
@@ -210,7 +210,7 @@ export default {
     fetchCompanyData() {
       if (typeof this.getProfileData === "undefined") {
         this.$store
-          .dispatch("companies/getProfileByIdFromApi", {
+          .dispatch("companies/getProfileByPostRequest", {
             value: this.profileId
           })
           .then(response => {
@@ -232,7 +232,7 @@ export default {
     },
     getMapsURL(position) {
       if (typeof position !== "undefined") {
-        return "http://maps.google.com/?q=" + position.lat + "," + position.lng;
+        return "http://maps.google.com/?q=" + 0.000 + "," + 0.000 ;
       }
     }
   },
