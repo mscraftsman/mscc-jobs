@@ -50,7 +50,7 @@ let getJobFromApi = ({ state, commit }, payload) => {
       .then(function(response) {
         let job = response.data;
 
-        console.log(job);
+        // console.log(job);
 
         // Add job to state
         commit("addJobFull", {

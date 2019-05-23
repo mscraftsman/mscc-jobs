@@ -3,7 +3,7 @@ let getJobs = state => {
 };
 
 let getJobById = state => id => {
-  return state.jobs.find(job => job.id == id);
+  return state.jobsFull[id];
 };
 
 let getJobsByCompanyId = state => id => {

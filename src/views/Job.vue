@@ -147,7 +147,7 @@
                         v-model="applicationData.mobile"
                         v-validate="'required|numeric|min:7'"
                         :message="errors.first('mobile')"
-                      /> -->
+                      />-->
 
                       <InputTextarea
                         label="Residential address"
@@ -165,7 +165,7 @@
                         v-validate="'required|numeric'"
                         :message="errors.first('postalcode')"
                       />
-                      <br/>
+                      <br>
 
                       <InputSelect
                         label="Country"
@@ -383,7 +383,7 @@
                   </div>
                 </div>
 
-                <RecentJobs :notIncludeId="jobData.id"/>
+                <RecentJobs v-if="jobData" :notIncludeId="jobData.id"/>
 
                 <!-- Social -->
                 <h2>Share this opening</h2>
