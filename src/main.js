@@ -10,12 +10,14 @@ import VModal from "vue-js-modal";
 import Meta from "vue-meta";
 import VueTimeago from "vue-timeago";
 
+import { GOOGLEMAPS_KEY } from "../src/store/constants";
+
 Vue.config.productionTip = false;
 
 Vue.use(VeeValidate);
 Vue.use(VueGoogleMaps, {
   load: {
-    key: "AIzaSyDXeL4nVhBIVIjuWX9eaPh0ILzCuhIZxCs",
+    key: GOOGLEMAPS_KEY,
     libraries: "places"
   }
 });
