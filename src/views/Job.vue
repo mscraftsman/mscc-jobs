@@ -107,7 +107,7 @@
                 </div>
 
                 <div class="block__content" v-if="jobData.applyOnUrl === false">
-                  <h3>Apply for this job</h3>
+                  <h3 id="apply">Apply for this job</h3>
                   <form @submit.prevent="validateJobApplication" autocomplete="off">
                     <div class="body__content apply__grid__layout">
                       <InputText
@@ -125,21 +125,29 @@
                         :message="errors.first('lastName')"
                       />
 
+                      <InputEmail
+                        label="Email"
+                        name="email"
+                        v-model="applicationData.email"
+                        v-validate="'required|email'"
+                        :message="errors.first('email')"
+                      />
+
                       <InputTel
-                        label="Telephone number"
+                        label="Telephone/Mobile number"
                         name="telephone"
                         v-model="applicationData.telephone"
                         v-validate="'required|numeric|min:7'"
                         :message="errors.first('telephone')"
                       />
 
-                      <InputTel
+                      <!-- <InputTel
                         label="Mobile number"
                         name="mobile"
                         v-model="applicationData.mobile"
                         v-validate="'required|numeric|min:7'"
                         :message="errors.first('mobile')"
-                      />
+                      /> -->
 
                       <InputTextarea
                         label="Residential address"
@@ -150,13 +158,14 @@
                         :message="errors.first('address')"
                       />
 
-                      <InputNumeric
+                      <InputText
                         label="Postal Code"
                         name="postalcode"
                         v-model="applicationData.postal_code"
                         v-validate="'required|numeric'"
                         :message="errors.first('postalcode')"
                       />
+                      <br/>
 
                       <InputSelect
                         label="Country"
@@ -178,14 +187,6 @@
                         optionText="nationality"
                         v-validate="'required'"
                         :message="errors.first('nationality')"
-                      />
-
-                      <InputEmail
-                        label="Email"
-                        name="email"
-                        v-model="applicationData.email"
-                        v-validate="'required|email'"
-                        :message="errors.first('email')"
                       />
 
                       <InputEditor
@@ -353,6 +354,8 @@
                   <div class="body__content">
                     <a
                       :href="jobData.applyUrl"
+                      target="_blank"
+                      rel="noopener noreferer"
                       class="submit__job__button button__global blue override__visbility"
                     >
                       <img class="icon" src="@/assets/img/external-link-light.svg" alt>
@@ -583,11 +586,9 @@ export default {
         if (result) {
           this.applicationData.advertId = this.jobId;
           this.applicationData.siteId = SITE_ID.replace("/sites/", "");
-          console.log(this.applicationData);
           axios
             .post(APPLY_ENDPOINT, this.applicationData)
             .then(response => {
-              console.log(response);
               if (response.status === 200) {
                 this.submitStatus.success = true;
                 this.submitStatus.error = false;
@@ -605,13 +606,9 @@ export default {
       });
     },
     handleCVUpload(file) {
-      console.log("file upload triggered");
-
       // Resets alerts
       this.CVUploadStatus.error = null;
       this.CVUploadStatus.success = false;
-
-      console.log(this.$refs);
 
       convertFileToBinary(this.$refs.cv_upload.files[0])
         .then(data => {
@@ -625,11 +622,6 @@ export default {
           this.CVInformation.fileSize = fileSize;
 
           // Data contains file data
-          console.log(data);
-          console.log(fileName);
-          console.log(fileSize);
-          console.log(fileType);
-
           if (!this.allowedTypes.includes(fileType)) {
             this.CVUploadStatus.error = "Incorrect file type.";
             return;
@@ -658,7 +650,6 @@ export default {
                 }
               })
               .then(response => {
-                console.log(response);
                 if (response.status === 200) {
                   this.applicationData.cvFileName = response.data.fileName;
                   this.CVUploadStatus.uploading = false;
@@ -705,7 +696,6 @@ export default {
     openDropboxChooser() {
       let options = {
         success: response => {
-          console.log(response);
           if (response && response.length > 0) {
             if (response[0].bytes > this.allowedUploadSize) {
               this.CVUploadStatus.error = "File size is above 5 Mb.";
@@ -736,7 +726,6 @@ export default {
           redirectUri: window.location.origin
         },
         success: response => {
-          console.log(response);
           if (response && response.value.length > 0) {
             let file = response.value[0];
             let name = file["name"];
