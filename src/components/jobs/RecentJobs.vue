@@ -11,11 +11,11 @@
         <router-link
           :to="{ name: 'jobsSingle', params: { id: job.id } }"
           class="title"
-          >{{ job.job.name }}</router-link
+          >{{ job.name }}</router-link
         >
         <router-link
           class="company"
-          :to="{ name: 'companySingle', params: { id: job.company.id } }"
+          :to="{ name: 'profileSingle', params: { id: job.profileId } }"
           >{{ job.company.name }}</router-link
         >
       </div>
