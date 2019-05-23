@@ -20,7 +20,14 @@
 
       <div class="jobs__listing">
         <div class="jobs">
-          <JobBlock v-for="(job, index) in jobs" :jobData="job" :key="index"/>
+          <template v-if="jobs && jobs.length">
+            <JobBlock
+              v-if="jobs && jobs.length"
+              v-for="(job, index) in jobs"
+              :jobData="job"
+              :key="index"
+            />
+          </template>
 
           <div class="load__more-jobs">
             <button class="load_more__button button__global outline blue">Load more</button>

@@ -8,31 +8,37 @@ let addJob = ({ state, commit }, payload) => {
 };
 
 let getLatestJobsFromApi = ({ state, commit }, payload) => {
-  axios
-    .get(LATEST_JOBS_ENDPOINT)
-    .then(function(response) {
-      let jobs = response.data;
+  // Get latest jobs array only if not fetched
+  if (state.getLatestJobsStatus === false) {
+    axios
+      .get(LATEST_JOBS_ENDPOINT)
+      .then(function(response) {
+        let jobs = response.data;
 
-      console.log(jobs);
+        // console.log(jobs);
 
-      if (jobs && jobs.length) {
-        jobs.map(job => {
-          commit("addJob", {
-            value: job
+        if (jobs && jobs.length) {
+          jobs.map(job => {
+            commit("addJob", {
+              value: job
+            });
+
+            commit("setGroupedJobsByProfile", {
+              value: job
+            });
           });
-
-          commit("setGroupedJobsByProfile", {
-            value: job
-          });
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      })
+      .then(function() {
+        // always executed
+        commit("setLatestJobsStatus", {
+          value: true
         });
-      }
-    })
-    .catch(function(error) {
-      console.log(error);
-    })
-    .then(function() {
-      // always executed
-    });
+      });
+  }
 };
 
 let getJobFromApi = ({ state, commit }, payload) => {
