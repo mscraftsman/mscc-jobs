@@ -70,9 +70,37 @@ let getProfileByIdFromApi = ({ state, commit }, payload) => {
   });
 };
 
+let getProfileByPostRequest = ({ state, commit }, payload) => {
+  let profileId = payload.value;
+
+  return new Promise((resolve, reject) => {
+    axios
+      .post(PROFILE_ENDPOINT, {
+        Profile: profileId,
+        Customer: "0"
+      })
+      .then(function(response) {
+        console.log(response.data);
+        let profile = response.data;
+
+        commit("addProfile", {
+          value: profile
+        });
+
+        resolve(profile);
+      })
+      .catch(function(error) {
+        console.log(error);
+        reject(error);
+      })
+      .then(function() {});
+  });
+};
+
 export default {
   // getCompaniesFromApi,
   // getCompanyFromApi,
   getProfileByIdFromApi,
-  getCustomerByIdFromApi
+  getCustomerByIdFromApi,
+  getProfileByPostRequest
 };
