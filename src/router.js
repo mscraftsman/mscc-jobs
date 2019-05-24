@@ -19,21 +19,6 @@ export default new Router({
       component: () => import("./views/About.vue")
     },
     {
-      path: "/privacy", // Generic
-      name: "privacyPolicy",
-      component: () => import("./views/Generic.vue")
-    },
-    {
-      path: "/terms", // Generic
-      name: "termsOfUse",
-      component: () => import("./views/Generic.vue")
-    },
-    {
-      path: "/contact", // Generic
-      name: "contact",
-      component: () => import("./views/Generic.vue")
-    },
-    {
       path: "/jobs",
       name: "jobs",
       component: () => import("./views/Jobs.vue")
@@ -54,16 +39,26 @@ export default new Router({
       component: () => import("./views/SubmitAJob.vue")
     },
     {
+      path: "/privacy", // Generic
+      name: "privacyPolicy",
+      component: () => import("./views/Generic.vue")
+    },
+    {
+      path: "/terms", // Generic
+      name: "termsOfUse",
+      component: () => import("./views/Generic.vue")
+    },
+    {
+      path: "/contact", // Generic
+      name: "contact",
+      component: () => import("./views/Generic.vue")
+    },
+    {
       path: "/404",
       name: "notFound",
       component: () => import("./views/NotFound.vue")
     },
-    {
-      path: "/page/:id", // Generic
-      name: "GenericContent",
-      component: () => import("./views/Generic.vue")
-    },
-    { path: "*", component: () => import("./views/NotFound.vue") }
+    { path: "*", component: () => import("./views/Generic.vue") }
   ],
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
