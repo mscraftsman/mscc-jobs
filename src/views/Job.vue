@@ -13,7 +13,32 @@
                     <div class="job__details">
                       <h2 v-if="jobData.jobTitle">{{jobData.jobTitle}}</h2>
 
+                      <div class="data__cell">
+                        <label>Emloyer name</label>
+                        <div class="title__company">
+                          <template v-if="jobData.employerName">
+                            <router-link
+                              v-if="(jobData && jobData.profileId)"
+                              :to="{ name: 'profileSingle', params: { id: jobData.profileId } }"
+                              class="company"
+                            >{{ jobData.employerName }}</router-link>
+                          </template>
+                        </div>
+                      </div>
+
                       <div class="row-1">
+                        <!-- <div class="data__cell">
+                          <label>Emloyer name</label>
+                          <div class="title__company">
+                            <template v-if="jobData.employerName">
+                              <router-link
+                                v-if="(jobData && jobData.profileId)"
+                                :to="{ name: 'profileSingle', params: { id: jobData.profileId } }"
+                                class="company"
+                              >{{ jobData.employerName }}</router-link>
+                            </template>
+                          </div>
+                        </div> -->
                         <div class="data__cell">
                           <label>Type</label>
                           <div class="data__content" v-if="jobData.type">{{jobData.type}}</div>
@@ -785,6 +810,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.title__company {
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .title {
+    font-family: var(--font-Poppins);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: normal;
+    display: inline-block;
+    color: var(--color-primary);
+  }
+
+  .company {
+    display: inline-block;
+    color: var(--color-secondary);
+    font-family: var(--font-Roboto);
+    font-weight: 300;
+  }
+}
+
 h2 {
   color: var(--site-text-color);
 }
@@ -809,6 +861,7 @@ h2 {
       line-height: normal;
       margin-top: 0;
       color: var(--site-text-color);
+      margin-bottom: auto;
     }
 
     label {
