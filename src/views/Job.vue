@@ -576,23 +576,6 @@ export default {
           .then(response => {
             this.jobData = response;
             this.loading = false;
-
-            return response.customerId;
-          })
-          .then(customerId => {
-            // GET COMPANY DATA
-            if (typeof this.customer === "undefined") {
-              this.$store
-                .dispatch("companies/getCustomerByIdFromApi", {
-                  value: customerId
-                })
-                .then(response => {
-                  this.customerData = response;
-                })
-                .catch(error => {
-                  console.error(error);
-                });
-            }
           })
           .catch(error => {
             console.error(error);
