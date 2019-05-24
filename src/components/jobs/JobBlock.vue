@@ -353,12 +353,17 @@ export default {
     },
     openLowerSection(event) {
       console.log(event);
-      if (
-        event.srcElement &&
-        (event.srcElement.className != "title" ||
-          event.srcElement.className != "company" ||
-          event.srcElement.className != "company__logo")
-      ) {
+
+      let restrictedList = [
+        "title",
+        "company",
+        "company__logo",
+        "text on__desktop_only on__mobile_only"
+      ];
+
+      let clickedClassName = event.srcElement.className;
+
+      if (event.srcElement && !restrictedList.includes(clickedClassName)) {
         this.state = !this.state;
       }
     },
