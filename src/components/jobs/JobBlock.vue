@@ -11,11 +11,7 @@
             <div class="logo__outer">
               <img v-if="job && job.logo" :src="job.logo" alt>
               <div class="company__initial" v-else>
-<<<<<<< HEAD
-                <span v-if="job && job.employerName">{{ getCompanyInitial(job.employerName) }}</span>
-=======
                 <span v-if="job && job.company">{{ getCompanyInitial(job.company) }}</span>
->>>>>>> 116b231ea170eb97e36652be4be17a1c888309c4
               </div>
             </div>
           </router-link>
