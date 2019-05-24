@@ -2,18 +2,23 @@
   <div class="body__container generic__view">
     <transition name="fade" mode="out-in">
       <LoaderComponent v-if="loading"/>
-      <template v-else>
-        <HeadingBreadcrumbs :breadcrumbs="breadcrumbs" pageTitle="Generic" :alertStatus="false"/>
+      <div v-else>
+        <HeadingBreadcrumbs 
+          :breadcrumbs="breadcrumbs" 
+          :pageTitle="contentData.title" 
+          :alertStatus="false"
+        />
+
         <div class="container__fw">
           <div class="block__content styled__content">
             <div class="body__content">
-              <h2>{{ content.title }}</h2>
+              <h2 v-if="contentData.title">{{ contentData.title }}</h2>
 
               <p>content goes here</p>
             </div>
           </div>
         </div>
-      </template>
+      </div>
     </transition>
   </div>
 </template>
@@ -21,75 +26,69 @@
 <script>
 import HeadingBreadcrumbs from "@/components/shared/HeadingBreadcrumbs";
 import LoaderComponent from "@/components/shared/LoaderComponent";
+import { mapGetters } from "vuex";
 
-import { GET_ARTICLE_ENDPOINT, ARTICLES_ENDPOINT, ARTICLE_ENDPOINT } from "@/store/constants.js";
 import axios from "axios";
+import { 
+  GET_ARTICLE_ENDPOINT, 
+  ARTICLES_ENDPOINT, 
+  ARTICLE_ENDPOINT,
+  SITE_ID 
+} from "@/store/constants.js";
 
 export default {
   components: {
     HeadingBreadcrumbs,
     LoaderComponent
   },
-  data() {
-    return {
-      breadcrumbs: [
-        {
-          name: "Generic",
-          path: "about"
-        }
-      ],
-      pageId: null,
-      loading: true,
-      content: null
-    };
+  computed: {
+    ...mapGetters({
+      getContent: "shared/getContentFromApi"
+    }),
   },
-  methods: {
-    SanitizeModel: function() {},
-    getData() {
-      this.SanitizeModel();
-      return new Promise((resolve, reject) => {
-        axios
-          // .get(GET_ARTICLE_ENDPOINT + "/" + this.pageId)
-          // .get(GET_ARTICLE_ENDPOINT + "/" + this.url)
-          .post(ARTICLE_ENDPOINT, {
-            alias: this.url,
-            site: 1,
-            type: "article"
-          })
-          .then(function(response) {
-            let data = response.data[0];
-            this.content = data; // TBC
-            resolve(data);
-          })
-          .catch(function(error) {
-            console.error(error);
-            reject(error);
-          });
-      });
-    }
-  },
+  data: () => ({
+    contentData: {},
+    pageId: null,
+    url: null,
+    loading: true
+  }),
   beforeMount() {
     this.pageId = this.$route.params.id;
     this.url = this.$route.path;
 
-    this.getData()
-      .then(function(response) {
-        console.log(response);
-        // this.loading = false; // Set loading to false
-
-        // Todo: Set content
-        this.content = response; // TBC
-      })
-      .catch(function(error) {
-        console.error(error);
-
-        if (error) {
-          // this.$router.push({ name: "notFound" });
-        }
-      });
+    // Get generic content
+    this.fetchContentData();
   },
-  metaInfo: {
-    title: "Generic"
+  methods: {
+    fetchContentData() {
+//      if (typeof this.getContentData === "undefined") {
+        // FYR https://stackoverflow.com/questions/40165766/returning-promises-from-vuex-actions
+        this.$store
+          .dispatch("shared/getContentFromApi", {
+            value: this.$route.path,
+            site: SITE_ID
+          })
+          .then(response => {
+            this.contentData = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            console.error(error);
+            this.$router.push({ name: "notFound" });
+          });
+    //   } else {
+    //     this.contentData = this.getContentData;
+    //     //Set loading status
+    //     this.loading = false;
+    //   }
+    }
+  },
+  metaInfo() {
+    let title = 
+      this.contentData && this.contentData.title ? this.contentData.title : "Generic";
+    return {
+      title: title
+    };
   }
 };
 </script>
