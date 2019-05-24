@@ -3,23 +3,15 @@
     <div
       class="upper__section"
       :style="'background-color:' + backgroundColor + ';'"
-      @click="openLowerSection()"
+      @click="openLowerSection($event)"
     >
       <div class="logo">
         <template v-if="!isPreview">
-          <router-link
-            :to="{ name: 'profileSingle', params: { id: job.profile || this.profile } }"
-          >
+          <router-link :to="{ name: 'profileSingle', params: { id: job.profile || this.profile } }">
             <div class="logo__outer">
-              <img
-                v-if="job && job.logo"
-                :src="job.logo"
-                alt
-              >
+              <img v-if="job && job.logo" :src="job.logo" alt>
               <div class="company__initial" v-else>
-                <span
-                  v-if="job && job.company"
-                >{{ getCompanyInitial(job.company) }}</span>
+                <span v-if="job && job.company">{{ getCompanyInitial(job.company) }}</span>
               </div>
             </div>
           </router-link>
@@ -134,7 +126,7 @@
             <!-- <div class="data__cell">
               <label>Job Functions</label>
               <div class="data__content">{{ fullView.functions }}</div>
-            </div> -->
+            </div>-->
           </div>
           <div class="row-2">
             <div class="data__cell">
@@ -195,7 +187,7 @@
           <!-- <div class="data__cell">
             <label>Job Functions</label>
             <div class="data__content">{{ previewData.functions }}</div>
-          </div> -->
+          </div>-->
         </div>
         <div class="row-2">
           <div class="data__cell">
@@ -206,7 +198,7 @@
             <div class="tags white__bg">
               <ul>
                 <li v-for="(tag, index) in tagsPreview(previewData.tags)" :key="index">
-                 <span class="tag">{{ tag }}</span>
+                  <span class="tag">{{ tag }}</span>
                 </li>
               </ul>
             </div>
@@ -352,8 +344,14 @@ export default {
 
       return tagsArr;
     },
-    openLowerSection() {
-      this.state = !this.state;
+    openLowerSection(event) {
+      if (
+        event.srcElement &&
+        (event.srcElement.className != "title" ||
+          event.srcElement.className != "company")
+      ) {
+        this.state = !this.state;
+      }
     },
     getCompanyInitial(value) {
       if (value) {
