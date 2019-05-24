@@ -152,20 +152,18 @@
               </div>
             </div>
             <div class="data__cell">
-              <div>
-                <template >
-                  <ButtonComponent
-                    :url="{ name: 'jobsSingle', params: { id: job.advertId || this.jobCompanyData.id } }"
-                    color="yellow"
-                    classStyle="apply__job__button"
-                    text="Apply"
-                    :iconOnDesktop="false"
-                    :iconOnMobile="false"
-                    :textOnMobile="true"
-                    :textOnDesktop="true"
-                    icon="/img/utils/icon-bold.svg"
-                  />
-                </template>
+              <div class="apply__button">
+                <ButtonComponent
+                  :to="{ name: 'jobsSingle', params: { id: job.id || this.jobCompanyData.id }, hash: '#apply' }"
+                  color="yellow"
+                  classStyle="apply__job__button"
+                  text="Apply"
+                  :iconOnDesktop="false"
+                  :iconOnMobile="false"
+                  :textOnMobile="true"
+                  :textOnDesktop="true"
+                  icon="/img/utils/icon-bold.svg"
+                />
               </div>
             </div>
           </div>

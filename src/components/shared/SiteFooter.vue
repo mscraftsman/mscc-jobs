@@ -134,14 +134,14 @@ export default {
   data() {
     return {
       items: [
-        {
-          path: { name: "about" },
-          text: "About"
-        },
-        {
-          path: { name: "jobs" },
-          text: "Jobs"
-        },
+        // {
+        //   path: { name: "about" },
+        //   text: "About"
+        // },
+        // {
+        //   path: { name: "jobs" },
+        //   text: "Jobs"
+        // },
         {
           path: { name: "privacyPolicy" },
           text: "Privacy Policy"
