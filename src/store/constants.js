@@ -1,7 +1,7 @@
 // const ROOT_ENDPOINT = "http://localhost:8000/v1/public";
 const ROOT_ENDPOINT = "https://api.agilemedia.mu/v1/public";
-const SITE_ID = "/sites/1";
-const ROOT_ENDPOINT_SITE_ID = ROOT_ENDPOINT + SITE_ID;
+const SITE_ID = "1";
+const ROOT_ENDPOINT_SITE_ID = ROOT_ENDPOINT + "/sites/" + SITE_ID;
 const DEFAULT_RADIUS_MILES = 25;
 
 // GET
@@ -24,6 +24,7 @@ const SEARCH_ENDPOINT = ROOT_ENDPOINT + "/search";
 const PROFILE_ENDPOINT = ROOT_ENDPOINT + "/profile";
 const CUSTOMER_ENDPOINT = ROOT_ENDPOINT + "/customer";
 const APPLY_ENDPOINT = ROOT_ENDPOINT + "/apply";
+const ARTICLE_ENDPOINT = ROOT_ENDPOINT + "/articles/filter";
 const UPLOAD_ENDPOINT = ROOT_ENDPOINT + "/upload";
 
 // API Keys
@@ -45,6 +46,7 @@ export {
   PROFILE_ENDPOINT,
   CUSTOMER_ENDPOINT,
   APPLY_ENDPOINT,
+  ARTICLE_ENDPOINT,
   UPLOAD_ENDPOINT,
   GOOGLEMAPS_KEY,
   DROPBOX_APP_KEY,

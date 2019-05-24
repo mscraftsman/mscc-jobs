@@ -13,6 +13,18 @@
                     <div class="job__details">
                       <h2 v-if="jobData.jobTitle">{{jobData.jobTitle}}</h2>
 
+                      <div class="data__cell">
+                        <div class="title__company">
+                          <template v-if="jobData.employerName">
+                            <router-link
+                              v-if="(jobData && jobData.profileId)"
+                              :to="{ name: 'profileSingle', params: { id: jobData.profileId } }"
+                              class="company"
+                            >{{ jobData.employerName }}</router-link>
+                          </template>
+                        </div>
+                      </div>
+
                       <div class="row-1">
                         <div class="data__cell">
                           <label>Type</label>
@@ -383,12 +395,30 @@
                   </div>
                 </div>
 
-                <RecentJobs v-if="jobData" :notIncludeId="jobData.id"/>
+                <div class="block__content" v-if="this.jobByProfile.length > 0">
+                  <h3>More Jobs</h3>
+                  <div class="body__content">
+                    <div class="recent__jobs">
+                      <div
+                        class="job__block"
+                        v-for="(job, index) in this.jobByProfile"
+                        :key="index"
+                      >
+                        <router-link
+                          :to="{ name: 'jobsSingle', params: { id: job.id } }"
+                          class="title"
+                        >{{ job.name }}</router-link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-                <!-- Social -->
-                <h2>Share this opening</h2>
-                <SocialSharingComponent :url="url" :title="jobData.jobTitle"/>
-                <!-- Social -->
+                <div class="block__content" v-if="this.jobByProfile.length > 0">
+                  <h3>Share this opening</h3>
+                  <div class="body__content">
+                    <SocialSharingComponent :url="url" :title="jobData.jobTitle"/>
+                  </div>
+                </div>
               </div>
               <!-- SIDEBAR -->
             </div>
@@ -457,10 +487,14 @@ export default {
   computed: {
     ...mapGetters({
       getJobById: "jobs/getJobById",
-      getCustomerById: "companies/getCustomerById"
+      getCustomerById: "companies/getCustomerById",
+      getProfileById: "companies/getProfileById"
     }),
     getJobData() {
       return this.getJobById(this.jobId);
+    },
+    getProfileData() {
+      return this.getProfileById(this.jobData.profileId);
     },
     // company() {
     //   let companyData = this.getCompanyById(this.jobId);
@@ -487,6 +521,9 @@ export default {
   },
   data: () => ({
     jobData: {},
+    company: {},
+    jobByProfile: [],
+    listingByProfile: [],
     companyData: {},
     customerData: {},
     url: null,
@@ -550,25 +587,57 @@ export default {
           })
           .then(response => {
             this.jobData = response;
-            this.loading = false;
+            if (this.jobData !== "undefined") {
+              if (typeof this.getProfileData === "undefined") {
+                var profileId = this.jobData.profileId;
+                this.$store
+                  .dispatch("companies/getProfileByPostRequest", {
+                    value: profileId
+                  })
+                  .then(response => {
+                    this.company = response;
+                    if (this.company.listings.length > 0) {
+                      var listings = this.company.listings;
 
+                      for (let i = 0; i < listings.length; i++) {
+                        var list = {
+                          id: 0,
+                          name: null
+                        };
+
+                        list.id = listings[i].id;
+                        list.name = listings[i].jobTitle;
+
+                        this.jobByProfile.push(list);
+                      }
+                    }
+                  })
+                  .catch(error => {
+                    console.error(error);
+                  });
+              } else {
+                this.company = this.getProfileData;
+              }
+            }
+
+            this.loading = false;
             return response.customerId;
           })
-          .then(customerId => {
-            // GET COMPANY DATA
-            if (typeof this.customer === "undefined") {
-              this.$store
-                .dispatch("companies/getCustomerByIdFromApi", {
-                  value: customerId
-                })
-                .then(response => {
-                  this.customerData = response;
-                })
-                .catch(error => {
-                  console.error(error);
-                });
-            }
-          })
+          // .then(customerId => {
+          //   // GET COMPANY DATA
+          //   if (typeof this.customer === "undefined") {
+          //     this.$store
+          //       .dispatch("companies/getCustomerByIdFromApi", {
+          //         value: customerId
+          //       })
+          //       .then(response => {
+          //         this.customerData = response;
+          //       })
+          //       .catch(error => {
+          //         console.error(error);
+          //       });
+          //   }
+          // })
           .catch(error => {
             console.error(error);
             this.$router.push({ name: "notFound" });
@@ -785,6 +854,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.title__company {
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .title {
+    font-family: var(--font-Poppins);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: normal;
+    display: inline-block;
+    color: var(--color-primary);
+  }
+
+  .company {
+    display: inline-block;
+    color: var(--color-secondary);
+    font-family: var(--font-Roboto);
+    font-weight: 300;
+  }
+}
+
 h2 {
   color: var(--site-text-color);
 }
@@ -809,6 +905,7 @@ h2 {
       line-height: normal;
       margin-top: 0;
       color: var(--site-text-color);
+      margin-bottom: auto;
     }
 
     label {
@@ -844,6 +941,36 @@ h2 {
   }
 }
 
+.recent__jobs {
+  .job__block {
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-gray-light);
+    margin-bottom: 10px;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    .title {
+      text-decoration: none;
+      color: var(--color-light);
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      display: block;
+    }
+    .company {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: normal;
+      font-weight: 100;
+      text-decoration: none;
+      color: var(--color-light);
+      display: block;
+    }
+  }
+}
 .apply__grid__layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
