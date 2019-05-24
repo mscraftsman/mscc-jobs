@@ -72,12 +72,20 @@
                       </div>
                     </div>
                     <div class="company__logo" v-if="jobData.customerId">
-                      <!-- <router-link
-                        class="logo"
-                        :to="{name: 'profileSingle', params: { id: jobData.customerId}}"
-                      >-->
-                      <img :src="jobData.logo" alt>
-                      <!-- </router-link> -->
+                      <div v-if="jobData.logo">
+                        <router-link
+                          :to="{ name: 'profileSingle', params: { id: this.jobData.profileId } }"
+                        >
+                          <div class="logo__outer">
+                            <img v-if="jobData && jobData.logo" :src="jobData.logo" alt>
+                            <div class="company__initial" v-else>
+                              <span
+                                v-if="jobData && job.employerName"
+                              >{{ getCompanyInitial(job.employerName) }}</span>
+                            </div>
+                          </div>
+                        </router-link>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -578,6 +586,11 @@ export default {
     this.fetchJobData();
   },
   methods: {
+    getCompanyInitial(value) {
+      if (value) {
+        return value.substring(0, 2);
+      }
+    },
     fetchJobData() {
       if (typeof this.getJobData === "undefined") {
         // FYR https://stackoverflow.com/questions/40165766/returning-promises-from-vuex-actions
@@ -878,6 +891,7 @@ export default {
     color: var(--color-secondary);
     font-family: var(--font-Roboto);
     font-weight: 300;
+    margin-bottom: 30px;
   }
 }
 
