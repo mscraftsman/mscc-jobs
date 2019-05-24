@@ -133,6 +133,8 @@
               <label>About this job</label>
               <div class="data__content" v-html="fullView.jobDesc"></div>
             </div>
+          </div>
+          <div class="row-3" v-if="false">
             <div class="data__cell">
               <div class="tags white__bg">
                 <ul>
@@ -151,19 +153,31 @@
                 </ul>
               </div>
             </div>
+          </div>
+          <div class="row-4">
             <div class="data__cell">
               <div class="apply__button">
-                <ButtonComponent
-                  :to="{ name: 'jobsSingle', params: { id: job.id || this.jobCompanyData.id }, hash: '#apply' }"
-                  color="yellow"
-                  classStyle="apply__job__button"
-                  text="Apply"
-                  :iconOnDesktop="false"
-                  :iconOnMobile="false"
-                  :textOnMobile="true"
-                  :textOnDesktop="true"
-                  icon="/img/utils/icon-bold.svg"
-                />
+                <template v-if="!isPreview">
+                  <ButtonComponent
+                    :url="{ name: 'jobsSingle', params: { id: job.id || this.jobCompanyData.id }, hash: '#apply' }"
+                    color="yellow"
+                    classStyle="apply__job__button"
+                    text="Apply"
+                    :iconOnDesktop="false"
+                    :iconOnMobile="false"
+                    :textOnMobile="true"
+                    :textOnDesktop="true"
+                    icon="/img/utils/icon-bold.svg"
+                  />
+                </template>
+                <template v-else>
+                  <button
+                    type="button"
+                    class="button__global apply__job__button yellow override__visbility"
+                  >
+                    <span class="text">Apply</span>
+                  </button>
+                </template>
               </div>
             </div>
           </div>
@@ -630,6 +644,10 @@ export default {
         }
       }
     }
+
+    .row-4 {
+      text-align: center;
+    }
   }
 }
 
@@ -720,7 +738,7 @@ export default {
     }
 
     .lower__section {
-      .row-2 {
+      .row-4 {
         .data__cell {
           .apply__button,
           .tags {
