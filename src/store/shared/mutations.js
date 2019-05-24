@@ -11,7 +11,14 @@ let switchTheme = (state, payload) => {
   }
 };
 
+let setContentFull = (state, payload) => {
+  if (typeof state.contentFull[payload.value.slug] === "undefined") {
+    state.contentFull[payload.value.slug] = payload.value;
+  }
+};
+
 export default {
   setMenuStatus,
-  switchTheme
+  switchTheme,
+  setContentFull
 };

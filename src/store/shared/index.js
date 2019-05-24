@@ -5,6 +5,7 @@ import mutations from "./mutations";
 const state = {
   menuState: false,
   currentTheme: 0,
+  contentFull: {},
   themes: ["theme-default", "theme-dark", "theme-terminal"]
 };
 

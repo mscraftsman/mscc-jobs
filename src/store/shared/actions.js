@@ -28,7 +28,7 @@ let getContentFromApi = ({ state, commit }, payload) => {
         let content = response.data[0];
 
         if (content) {
-          commit("addContentFull", {
+          commit("setContentFull", {
             value: content
           });
 
@@ -37,11 +37,11 @@ let getContentFromApi = ({ state, commit }, payload) => {
           reject("Content not found");
         }
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.error(error);
         reject(error);
       })
-      .then(function () {
+      .then(function() {
         // always executed
       });
   });

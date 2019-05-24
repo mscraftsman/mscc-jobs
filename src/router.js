@@ -40,12 +40,12 @@ export default new Router({
     },
     {
       path: "/privacy", // Generic
-      name: "privacyPolicy",
+      name: "privacy",
       component: () => import("./views/Generic.vue")
     },
     {
       path: "/terms", // Generic
-      name: "termsOfUse",
+      name: "terms",
       component: () => import("./views/Generic.vue")
     },
     {
