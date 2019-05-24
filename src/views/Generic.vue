@@ -7,7 +7,7 @@
         <div class="container__fw">
           <div class="block__content styled__content">
             <div class="body__content">
-              <h2>Generic page content title</h2>
+              <h2>{{ content.title }}</h2>
 
               <p>content goes here</p>
             </div>
@@ -22,7 +22,7 @@
 import HeadingBreadcrumbs from "@/components/shared/HeadingBreadcrumbs";
 import LoaderComponent from "@/components/shared/LoaderComponent";
 
-import { GET_ARTICLE_ENDPOINT } from "@/store/constants.js";
+import { GET_ARTICLE_ENDPOINT, ARTICLES_ENDPOINT, ARTICLE_ENDPOINT } from "@/store/constants.js";
 import axios from "axios";
 
 export default {
@@ -44,13 +44,21 @@ export default {
     };
   },
   methods: {
+    SanitizeModel: function() {},
     getData() {
+      this.SanitizeModel();
       return new Promise((resolve, reject) => {
         axios
-          .get(GET_ARTICLE_ENDPOINT + "/" + this.pageId)
+          // .get(GET_ARTICLE_ENDPOINT + "/" + this.pageId)
+          // .get(GET_ARTICLE_ENDPOINT + "/" + this.url)
+          .post(ARTICLE_ENDPOINT, {
+            alias: this.url,
+            site: 1,
+            type: "article"
+          })
           .then(function(response) {
-            let data = response.data;
-            console.log(data);
+            let data = response.data[0];
+            this.content = data; // TBC
             resolve(data);
           })
           .catch(function(error) {
@@ -62,12 +70,12 @@ export default {
   },
   beforeMount() {
     this.pageId = this.$route.params.id;
-    this.url = this.$route.params.pathMatch;
+    this.url = this.$route.path;
 
     this.getData()
       .then(function(response) {
         console.log(response);
-        this.loading = false; // Set loading to false
+        // this.loading = false; // Set loading to false
 
         // Todo: Set content
         this.content = response; // TBC
@@ -76,7 +84,7 @@ export default {
         console.error(error);
 
         if (error) {
-          this.$router.push({ name: "notFound" });
+          // this.$router.push({ name: "notFound" });
         }
       });
   },
