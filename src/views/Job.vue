@@ -14,7 +14,6 @@
                       <h2 v-if="jobData.jobTitle">{{jobData.jobTitle}}</h2>
 
                       <div class="data__cell">
-                        <label>Emloyer name</label>
                         <div class="title__company">
                           <template v-if="jobData.employerName">
                             <router-link
@@ -27,18 +26,6 @@
                       </div>
 
                       <div class="row-1">
-                        <!-- <div class="data__cell">
-                          <label>Emloyer name</label>
-                          <div class="title__company">
-                            <template v-if="jobData.employerName">
-                              <router-link
-                                v-if="(jobData && jobData.profileId)"
-                                :to="{ name: 'profileSingle', params: { id: jobData.profileId } }"
-                                class="company"
-                              >{{ jobData.employerName }}</router-link>
-                            </template>
-                          </div>
-                        </div> -->
                         <div class="data__cell">
                           <label>Type</label>
                           <div class="data__content" v-if="jobData.type">{{jobData.type}}</div>
@@ -85,12 +72,20 @@
                       </div>
                     </div>
                     <div class="company__logo" v-if="jobData.customerId">
-                      <!-- <router-link
-                        class="logo"
-                        :to="{name: 'profileSingle', params: { id: jobData.customerId}}"
-                      >-->
-                      <img :src="jobData.logo" alt>
-                      <!-- </router-link> -->
+                      <div v-if="jobData.logo">
+                        <router-link
+                          :to="{ name: 'profileSingle', params: { id: this.jobData.profileId } }"
+                        >
+                          <div class="logo__outer">
+                            <img v-if="jobData && jobData.logo" :src="jobData.logo" alt>
+                            <div class="company__initial" v-else>
+                              <span
+                                v-if="jobData && job.employerName"
+                              >{{ getCompanyInitial(job.employerName) }}</span>
+                            </div>
+                          </div>
+                        </router-link>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -408,12 +403,30 @@
                   </div>
                 </div>
 
-                <RecentJobs v-if="jobData" :notIncludeId="jobData.id"/>
+                <div class="block__content" v-if="this.jobByProfile.length > 0">
+                  <h3>More Jobs</h3>
+                  <div class="body__content">
+                    <div class="recent__jobs">
+                      <div
+                        class="job__block"
+                        v-for="(job, index) in this.jobByProfile"
+                        :key="index"
+                      >
+                        <router-link
+                          :to="{ name: 'jobsSingle', params: { id: job.id } }"
+                          class="title"
+                        >{{ job.name }}</router-link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-                <!-- Social -->
-                <h2>Share this opening</h2>
-                <SocialSharingComponent :url="url" :title="jobData.jobTitle"/>
-                <!-- Social -->
+                <div class="block__content" v-if="this.jobByProfile.length > 0">
+                  <h3>Share this opening</h3>
+                  <div class="body__content">
+                    <SocialSharingComponent :url="url" :title="jobData.jobTitle"/>
+                  </div>
+                </div>
               </div>
               <!-- SIDEBAR -->
             </div>
@@ -482,10 +495,14 @@ export default {
   computed: {
     ...mapGetters({
       getJobById: "jobs/getJobById",
-      getCustomerById: "companies/getCustomerById"
+      getCustomerById: "companies/getCustomerById",
+      getProfileById: "companies/getProfileById"
     }),
     getJobData() {
       return this.getJobById(this.jobId);
+    },
+    getProfileData() {
+      return this.getProfileById(this.jobData.profileId);
     },
     // company() {
     //   let companyData = this.getCompanyById(this.jobId);
@@ -512,6 +529,9 @@ export default {
   },
   data: () => ({
     jobData: {},
+    company: {},
+    jobByProfile: [],
+    listingByProfile: [],
     companyData: {},
     customerData: {},
     url: null,
@@ -566,6 +586,11 @@ export default {
     this.fetchJobData();
   },
   methods: {
+    getCompanyInitial(value) {
+      if (value) {
+        return value.substring(0, 2);
+      }
+    },
     fetchJobData() {
       if (typeof this.getJobData === "undefined") {
         // FYR https://stackoverflow.com/questions/40165766/returning-promises-from-vuex-actions
@@ -575,8 +600,57 @@ export default {
           })
           .then(response => {
             this.jobData = response;
+            if (this.jobData !== "undefined") {
+              if (typeof this.getProfileData === "undefined") {
+                var profileId = this.jobData.profileId;
+                this.$store
+                  .dispatch("companies/getProfileByPostRequest", {
+                    value: profileId
+                  })
+                  .then(response => {
+                    this.company = response;
+                    if (this.company.listings.length > 0) {
+                      var listings = this.company.listings;
+
+                      for (let i = 0; i < listings.length; i++) {
+                        var list = {
+                          id: 0,
+                          name: null
+                        };
+
+                        list.id = listings[i].id;
+                        list.name = listings[i].jobTitle;
+
+                        this.jobByProfile.push(list);
+                      }
+                    }
+                  })
+                  .catch(error => {
+                    console.error(error);
+                  });
+              } else {
+                this.company = this.getProfileData;
+              }
+            }
+
             this.loading = false;
+            return response.customerId;
           })
+          // .then(customerId => {
+          //   // GET COMPANY DATA
+          //   if (typeof this.customer === "undefined") {
+          //     this.$store
+          //       .dispatch("companies/getCustomerByIdFromApi", {
+          //         value: customerId
+          //       })
+          //       .then(response => {
+          //         this.customerData = response;
+          //       })
+          //       .catch(error => {
+          //         console.error(error);
+          //       });
+          //   }
+          // })
           .catch(error => {
             console.error(error);
             this.$router.push({ name: "notFound" });
@@ -817,6 +891,7 @@ export default {
     color: var(--color-secondary);
     font-family: var(--font-Roboto);
     font-weight: 300;
+    margin-bottom: 30px;
   }
 }
 
@@ -880,6 +955,36 @@ h2 {
   }
 }
 
+.recent__jobs {
+  .job__block {
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-gray-light);
+    margin-bottom: 10px;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    .title {
+      text-decoration: none;
+      color: var(--color-light);
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      display: block;
+    }
+    .company {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: normal;
+      font-weight: 100;
+      text-decoration: none;
+      color: var(--color-light);
+      display: block;
+    }
+  }
+}
 .apply__grid__layout {
   display: grid;
   grid-template-columns: 1fr 1fr;

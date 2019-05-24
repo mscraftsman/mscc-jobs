@@ -2,7 +2,9 @@
   <div id="app" :class="[theme, 'app']">
     <SiteHeader/>
     <div class="view">
-      <router-view :key="$route.path"/>
+      <transition name="fade__page" mode="out-in">
+        <router-view :key="$route.path"/>
+      </transition>
     </div>
     <SiteFooter/>
     <!-- <div class="theme-switcher" @click="switchTheme()">{{ themes[currentTheme] }}</div> -->
@@ -39,14 +41,17 @@ export default {
   },
   beforeMount() {},
   mounted() {
-    let dropboxScript = document.createElement('script');
-    dropboxScript.setAttribute('src', 'https://www.dropbox.com/static/api/2/dropins.js');
-    dropboxScript.setAttribute('id', 'dropboxjs');
-    dropboxScript.setAttribute('data-app-key', DROPBOX_APP_KEY);
+    let dropboxScript = document.createElement("script");
+    dropboxScript.setAttribute(
+      "src",
+      "https://www.dropbox.com/static/api/2/dropins.js"
+    );
+    dropboxScript.setAttribute("id", "dropboxjs");
+    dropboxScript.setAttribute("data-app-key", DROPBOX_APP_KEY);
     document.head.appendChild(dropboxScript);
 
-    let oneDriveScript = document.createElement('script');
-    oneDriveScript.setAttribute('src', 'https://js.live.net/v7.0/OneDrive.js');
+    let oneDriveScript = document.createElement("script");
+    oneDriveScript.setAttribute("src", "https://js.live.net/v7.0/OneDrive.js");
     document.head.appendChild(oneDriveScript);
   }
 };
@@ -119,6 +124,15 @@ body {
 }
 .fade-enter,
 .fade-leave-to {
+  opacity: 0;
+}
+
+.fade__page-enter-active,
+.fade__page-leave-active {
+  transition: opacity 0.3s;
+}
+.fade__page-enter,
+.fade__page-leave-to {
   opacity: 0;
 }
 

@@ -9,7 +9,7 @@
         <template v-if="!isPreview">
           <router-link :to="{ name: 'profileSingle', params: { id: job.profile || this.profile } }">
             <div class="logo__outer">
-              <img v-if="job && job.logo" :src="job.logo" alt>
+              <img v-if="job && job.logo" :src="job.logo" alt class="company__logo">
               <div class="company__initial" v-else>
                 <span v-if="job && job.company">{{ getCompanyInitial(job.company) }}</span>
               </div>
@@ -366,11 +366,18 @@ export default {
       return tagsArr;
     },
     openLowerSection(event) {
-      if (
-        event.srcElement &&
-        (event.srcElement.className != "title" ||
-          event.srcElement.className != "company")
-      ) {
+      console.log(event);
+
+      let restrictedList = [
+        "title",
+        "company",
+        "company__logo",
+        "text on__desktop_only on__mobile_only"
+      ];
+
+      let clickedClassName = event.srcElement.className;
+
+      if (event.srcElement && !restrictedList.includes(clickedClassName)) {
         this.state = !this.state;
       }
     },
