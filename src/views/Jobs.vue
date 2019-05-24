@@ -29,6 +29,9 @@ export default {
     };
   },
   mounted() {},
+  beforeMount() {
+
+  },
   metaInfo: {
     title: "Jobs"
   }
