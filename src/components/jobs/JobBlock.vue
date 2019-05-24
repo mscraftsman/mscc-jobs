@@ -154,7 +154,7 @@
             <div class="data__cell">
               <div class="apply__button">
                 <ButtonComponent
-                  :to="{ name: 'jobsSingle', params: { id: job.id || this.jobCompanyData.id  } }"
+                  :to="{ name: 'jobsSingle', params: { id: job.id || this.jobCompanyData.id }, hash: '#apply' }"
                   color="yellow"
                   classStyle="apply__job__button"
                   text="Apply"
