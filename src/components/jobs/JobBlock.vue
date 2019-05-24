@@ -11,15 +11,9 @@
             :to="{ name: 'profileSingle', params: { id: job.profileId || this.profileId } }"
           >
             <div class="logo__outer">
-              <img
-                v-if="job && job.logo"
-                :src="job.logo"
-                alt
-              >
+              <img v-if="job && job.logo" :src="job.logo" alt>
               <div class="company__initial" v-else>
-                <span
-                  v-if="job && job.employerName"
-                >{{ getCompanyInitial(job.employerName) }}</span>
+                <span v-if="job && job.employerName">{{ getCompanyInitial(job.employerName) }}</span>
               </div>
             </div>
           </router-link>
@@ -134,7 +128,7 @@
             <!-- <div class="data__cell">
               <label>Job Functions</label>
               <div class="data__content">{{ fullView.functions }}</div>
-            </div> -->
+            </div>-->
           </div>
           <div class="row-2">
             <div class="data__cell">
@@ -160,18 +154,20 @@
               </div>
             </div>
             <div class="data__cell">
-              <div class="apply__button">
-                <ButtonComponent
-                  :to="{ name: 'jobsSingle', params: { id: job.id || this.jobCompanyData.id  } }"
-                  color="yellow"
-                  classStyle="apply__job__button"
-                  text="Apply"
-                  :iconOnDesktop="false"
-                  :iconOnMobile="false"
-                  :textOnMobile="true"
-                  :textOnDesktop="true"
-                  icon="/img/utils/icon-bold.svg"
-                />
+              <div>
+                <template >
+                  <ButtonComponent
+                    :url="{ name: 'jobsSingle', params: { id: job.advertId || this.jobCompanyData.id } }"
+                    color="yellow"
+                    classStyle="apply__job__button"
+                    text="Apply"
+                    :iconOnDesktop="false"
+                    :iconOnMobile="false"
+                    :textOnMobile="true"
+                    :textOnDesktop="true"
+                    icon="/img/utils/icon-bold.svg"
+                  />
+                </template>
               </div>
             </div>
           </div>
@@ -195,7 +191,7 @@
           <!-- <div class="data__cell">
             <label>Job Functions</label>
             <div class="data__content">{{ previewData.functions }}</div>
-          </div> -->
+          </div>-->
         </div>
         <div class="row-2">
           <div class="data__cell">
@@ -206,19 +202,26 @@
             <div class="tags white__bg">
               <ul>
                 <li v-for="(tag, index) in tagsPreview(previewData.tags)" :key="index">
-                 <span class="tag">{{ tag }}</span>
+                  <span class="tag">{{ tag }}</span>
                 </li>
               </ul>
             </div>
           </div>
           <div class="data__cell">
             <div class="apply__button">
-              <button
-                type="button"
-                class="button__global apply__job__button yellow override__visbility"
-              >
-                <span class="text">Apply</span>
-              </button>
+              <template>
+                <ButtonComponent
+                  :url="{ name: 'jobsSingle', params: { id: job.advertId || this.jobCompanyData.id } }"
+                  color="yellow"
+                  classStyle="apply__job__button"
+                  text="Apply"
+                  :iconOnDesktop="false"
+                  :iconOnMobile="false"
+                  :textOnMobile="true"
+                  :textOnDesktop="true"
+                  icon="/img/utils/icon-bold.svg"
+                />
+              </template>
             </div>
           </div>
         </div>
