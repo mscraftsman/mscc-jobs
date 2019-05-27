@@ -4,6 +4,7 @@ import mutations from "./mutations";
 
 const state = {
   jobs: [],
+  jobsSearched: [],
   jobsFull: {},
   getLatestJobsStatus: false,
   jobsGroupedByCompanyId: {},

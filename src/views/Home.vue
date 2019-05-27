@@ -5,6 +5,7 @@
       :breadcrumbs="breadcrumbs"
       :pageTitle="listingPageTitle"
       :alertStatus="listingAlert"
+      :isHomepage="true"
     />
   </div>
 </template>

@@ -2,6 +2,10 @@ let getJobs = state => {
   return state.jobs;
 };
 
+let getJobsSearched = state => {
+  return state.jobsSearched;
+};
+
 let getJobById = state => id => {
   return state.jobsFull[id];
 };
@@ -24,5 +28,6 @@ export default {
   getJobsByCompanyId,
   getJobById,
   getTechStack,
-  getJobFullById
+  getJobFullById,
+  getJobsSearched
 };

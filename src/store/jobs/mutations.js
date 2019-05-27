@@ -8,6 +8,16 @@ let addJob = (state, payload) => {
   }
 };
 
+let addJobSearched = (state, payload) => {
+  // state.jobs = [...state.jobs, ...[payload.value]];
+
+  let job = state.jobsSearched.find(job => job.id == payload.value.id);
+
+  if (typeof job === "undefined") {
+    state.jobsSearched = [...state.jobsSearched, ...[payload.value]];
+  }
+};
+
 let setGroupedJobsByCompany = (state, payload) => {
   let job = payload.value;
   let IdCompanyOfJob = job.profile;
@@ -52,5 +62,6 @@ export default {
   setGroupedJobsByCompany,
   addJobFull,
   setGroupedJobsByProfile,
-  setLatestJobsStatus
+  setLatestJobsStatus,
+  addJobSearched
 };

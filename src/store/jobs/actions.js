@@ -72,8 +72,41 @@ let getJobFromApi = ({ state, commit }, payload) => {
   });
 };
 
+let executeJobsSearch = ({ state, commit }, payload) => {
+  // Get jobs based on search
+
+  console.log(payload);
+
+  axios
+    .get(LATEST_JOBS_ENDPOINT, payload)
+    .then(function(response) {
+      let jobs = response.data;
+
+      console.log(jobs);
+
+      if (jobs && jobs.length) {
+        jobs.map(job => {
+          commit("addJobSearched", {
+            value: job
+          });
+
+          // commit("setGroupedJobsByProfile", {
+          //   value: job
+          // });
+        });
+      }
+    })
+    .catch(function(error) {
+      console.log(error);
+    })
+    .then(function() {
+      // always executed
+    });
+};
+
 export default {
   addJob,
   getLatestJobsFromApi,
-  getJobFromApi
+  getJobFromApi,
+  executeJobsSearch
 };

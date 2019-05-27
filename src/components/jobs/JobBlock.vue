@@ -56,7 +56,10 @@
         <ul>
           <template v-if="!isPreview && tags">
             <li v-for="(tag, index) in tags" :key="index">
-              <router-link class="tag" :to="{ name: 'jobs', query: { tag: tag } }">
+              <router-link
+                class="tag"
+                :to="{ name: 'jobs', query: { tag: encodeURIComponent(tag) } }"
+              >
                 {{
                 tag
                 }}
@@ -366,13 +369,15 @@ export default {
       return tagsArr;
     },
     openLowerSection(event) {
-      console.log(event);
+      // console.log(event);
 
       let restrictedList = [
         "title",
         "company",
         "company__logo",
-        "text on__desktop_only on__mobile_only"
+        "text on__desktop_only on__mobile_only",
+        "tag",
+        "tag router-link-exact-active router-link-active"
       ];
 
       let clickedClassName = event.srcElement.className;
