@@ -1,5 +1,5 @@
 <template>
-  <div class="views job-listing__view">
+  <div class="views job-listing__view" id="joblisting">
     <HeadingBreadcrumbs
       :breadcrumbs="breadcrumbs"
       :pageTitle="pageTitle"
@@ -20,29 +20,39 @@
 
       <div class="jobs__listing">
         <div class="jobs">
-          <template v-if="isHomepage && jobs && jobs.length">
-            <template v-for="(job, index) in jobs">
-              <transition-group name="addjobblock" :key="index">
-                <JobBlock v-if="index <= limit" :jobData="job" :key="index"/>
-              </transition-group>
-            </template>
+          <transition name="fade" mode="out-in">
+            <LoaderComponent v-if="loading" key="loader"/>
 
-            <div class="load__more-jobs" v-if="loadMoreVisibility">
-              <button
-                class="load_more__button button__global outline blue"
-                @click="addJobs()"
-              >Load more</button>
+            <div key="search-results" v-else>
+              <template
+                v-if="isSearch === false ? (jobs && jobs.length > 0) : false || isSearch === true ? (searchResults && searchResults.length > 0) : false"
+              >
+                <transition-group name="addjobblock">
+                  <JobBlock
+                    v-for="(job, index) in (!isSearch ? jobs : searchResults)"
+                    v-if="index <= limit"
+                    :jobData="job"
+                    :key="index"
+                  />
+                </transition-group>
+
+                <div class="load__more-jobs" v-if="loadMoreVisibility">
+                  <button
+                    class="load_more__button button__global outline blue"
+                    @click="addJobs()"
+                  >Load more</button>
+                </div>
+              </template>
+              <template v-else>
+                <h3>No results</h3>
+              </template>
             </div>
-          </template>
-
-          <template v-if="!isHomepage && jobsSearched && jobsSearched.length">
-            <JobBlock
-              v-if="jobsSearched && jobsSearched.length"
-              v-for="(job, index) in jobsSearched"
-              :jobData="job"
-              :key="index"
-            />
-          </template>
+          </transition>
+          <!-- <template v-if="isHomepage && triggerSearch && jobSearchResult && jobSearchResult.length">
+            <transition-group name="addjobblock">
+              <JobBlock v-for="(job, index) in jobSearchResult" :jobData="job" :key="index"/>
+            </transition-group>
+          </template>-->
         </div>
         <div class="sidebar">
           <div class="sidebar__block">
@@ -57,11 +67,13 @@
 import HeadingBreadcrumbs from "@/components/shared/HeadingBreadcrumbs";
 import JobBlock from "@/components/jobs/JobBlock";
 import { mapGetters } from "vuex";
+import LoaderComponent from "@/components/shared/LoaderComponent";
 
 export default {
   components: {
     HeadingBreadcrumbs,
-    JobBlock
+    JobBlock,
+    LoaderComponent
   },
   props: {
     breadcrumbs: {
@@ -81,6 +93,20 @@ export default {
     isHomepage: {
       type: Boolean,
       default: false
+    },
+    searchResults: {
+      type: Array,
+      default: () => {
+        return [];
+      }
+    },
+    loading: {
+      type: Boolean,
+      default: true
+    },
+    isSearch: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -93,40 +119,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      jobs: "jobs/getJobs",
-      jobsSearched: "jobs/getJobsSearched"
+      jobs: "jobs/getJobs"
+      // jobsSearched: "jobs/getJobsSearched"
     })
   },
   beforeMount() {
-    // this.$store.dispatch("companies/getCompaniesFromApi");
-
-    // Only if homepage, get latest jobs from API
-    if (this.isHomepage) {
-      // props
-      this.$store.dispatch("jobs/getLatestJobsFromApi");
-    } else {
-      //Do search as per query in url
-      let searchTag = false;
-      let searchKeyword = false;
-      let searchLocation = false;
-      let payload = {};
-
-      if (typeof this.$route.query.tag !== "undefined") {
-        payload.tag = decodeURIComponent(this.$route.query.tag);
-      }
-
-      if (typeof this.$route.query.keyword !== "undefined") {
-        payload.keyword = decodeURIComponent(this.$route.query.keyword);
-      }
-
-      if (typeof this.$route.query.location !== "undefined") {
-        payload.location = decodeURIComponent(this.$route.query.location);
-      }
-
-      // Dispatch action which executes search
-      this.$store.dispatch("jobs/executeJobsSearch", payload);
-    }
-
     // Check if route has params
     this.checkRoute();
   },
@@ -202,13 +199,16 @@ export default {
 
 .addjobblock-enter-active,
 .addjobblock-leave-active {
-  transition: opacity 0.3s;
-  transform: translateY(0px);
+  transition: all 1s;
 }
 .addjobblock-enter,
 .addjobblock-leave-to {
   opacity: 0;
   transform: translateY(30px);
+}
+
+.addjobblock-enter-active {
+  transition-delay: 0.2s;
 }
 
 @media (max-width: 1024px) {
