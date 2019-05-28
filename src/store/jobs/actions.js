@@ -1,5 +1,9 @@
 import axios from "axios";
-import { LATEST_JOBS_ENDPOINT, GET_JOB_ENDPOINT } from "../constants";
+import {
+  LATEST_JOBS_ENDPOINT,
+  GET_JOB_ENDPOINT,
+  SEARCH_ENDPOINT
+} from "../constants";
 
 let addJob = ({ state, commit }, payload) => {
   commit("addJob", {
@@ -10,34 +14,39 @@ let addJob = ({ state, commit }, payload) => {
 let getLatestJobsFromApi = ({ state, commit }, payload) => {
   // Get latest jobs array only if not fetched
   if (state.getLatestJobsStatus === false) {
-    axios
-      .get(LATEST_JOBS_ENDPOINT)
-      .then(function(response) {
-        let jobs = response.data;
+    return new Promise((resolve, reject) => {
+      axios
+        .get(LATEST_JOBS_ENDPOINT)
+        .then(function(response) {
+          let jobs = response.data;
 
-        // console.log(jobs);
+          // console.log(jobs);
 
-        if (jobs && jobs.length) {
-          jobs.map(job => {
-            commit("addJob", {
-              value: job
+          if (jobs && jobs.length) {
+            jobs.map(job => {
+              commit("addJob", {
+                value: job
+              });
+
+              commit("setGroupedJobsByProfile", {
+                value: job
+              });
             });
+          }
 
-            commit("setGroupedJobsByProfile", {
-              value: job
-            });
+          resolve(jobs);
+        })
+        .catch(function(error) {
+          console.log(error);
+          reject(error);
+        })
+        .then(function() {
+          // always executed
+          commit("setLatestJobsStatus", {
+            value: true
           });
-        }
-      })
-      .catch(function(error) {
-        console.log(error);
-      })
-      .then(function() {
-        // always executed
-        commit("setLatestJobsStatus", {
-          value: true
         });
-      });
+    });
   }
 };
 
@@ -73,35 +82,57 @@ let getJobFromApi = ({ state, commit }, payload) => {
 };
 
 let executeJobsSearch = ({ state, commit }, payload) => {
-  // Get jobs based on search
-
   console.log(payload);
 
-  axios
-    .get(LATEST_JOBS_ENDPOINT, payload)
-    .then(function(response) {
-      let jobs = response.data;
+  let searchObj = {
+    id: payload.value.id,
+    keyword: payload.value.keyword,
+    searchid: payload.value.Seed,
+    offset: payload.value.Offset,
+    limit: payload.value.Limit,
+    inhouse: payload.value.Live,
+    employment: payload.value.JobType,
+    contract: payload.value.ContractType,
+    latitude: payload.value.latitude,
+    longitude: payload.value.longitude,
+    radius: payload.value.Radius,
+    startdate: payload.value.StartDate,
+    enddate: payload.value.EndDate,
+    hasstartdate: payload.value.HasStartDate,
+    hasenddate: payload.value.HasEndDate,
+    startmonth: payload.value.StartMonth,
+    endmonth: payload.value.EndMonth,
+    location: payload.value.locationValue
+  };
 
-      console.log(jobs);
+  console.log(searchObj);
 
-      if (jobs && jobs.length) {
-        jobs.map(job => {
-          commit("addJobSearched", {
-            value: job
+  return new Promise((resolve, reject) => {
+    axios
+      .post(SEARCH_ENDPOINT, searchObj)
+      .then(function(response) {
+        let jobs = response.data;
+
+        console.log(jobs);
+
+        if (jobs.listings && jobs.listings.length) {
+          jobs.listings.map(job => {
+            commit("addJobSearched", {
+              value: job
+            });
           });
+        }
 
-          // commit("setGroupedJobsByProfile", {
-          //   value: job
-          // });
-        });
-      }
-    })
-    .catch(function(error) {
-      console.log(error);
-    })
-    .then(function() {
-      // always executed
-    });
+        resolve(jobs.listings);
+      })
+      .catch(function(error) {
+        console.error(error);
+        reject(error);
+      })
+      .then(function() {
+        // always executed
+      });
+  });
 };
 
 export default {
