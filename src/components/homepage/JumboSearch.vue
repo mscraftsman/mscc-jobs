@@ -41,10 +41,20 @@ import {
   SITE_ID,
   GOOGLE_MAPS_API_KEY,
   DEFAULT_RADIUS_MILES
-} from "../../store/constants";
+} from "@/store/constants";
 import { filter } from "minimatch";
 
 export default {
+  props: {
+    keywordValue: {
+      type: String,
+      default: null
+    },
+    locationValue: {
+      type: String,
+      default: null
+    }
+  },
   data() {
     return {
       location: null,
@@ -70,7 +80,6 @@ export default {
         EndMonth: 0,
         locationValue: null
       }
-     
     };
   },
   methods: {
@@ -118,33 +127,36 @@ export default {
     execSearch() {
       this.SanitizeModel();
       // this.GetCoordinateByLocation();
-      axios
-        .post(SEARCH_ENDPOINT, {
-          id: this.filter.id,
-          keyword: this.filter.keyword,
-          searchid: this.filter.Seed,
-          offset: this.filter.Offset,
-          limit: this.filter.Limit,
-          inhouse: this.filter.Live,
-          employment: this.filter.JobType,
-          contract: this.filter.ContractType,
-          latitude: this.filter.latitude,
-          longitude: this.filter.longitude,
-          radius: this.filter.Radius,
-          startdate: this.filter.StartDate,
-          enddate: this.filter.EndDate,
-          hasstartdate: this.filter.HasStartDate,
-          hasenddate: this.filter.HasEndDate,
-          startmonth: this.filter.StartMonth,
-          endmonth: this.filter.EndMonth,
-          location: this.filter.locationValue
-        })
-        .then(response => {
-          console.log(response.data);
-        })
-        .catch(e => {
-          console.error(e);
-        });
+
+      if (this.title !== null || this.location !== null) {
+        this.$emit("searchTriggered", this.filter);
+      }
+    }
+  },
+  watch: {
+    keywordValue: {
+      handler(val) {
+        if (
+          String(val).trim().length &&
+          typeof String(val).trim() !== "undefined"
+        ) {
+          this.title = val;
+        }
+      },
+      deep: true,
+      immediate: true
+    },
+    locationValue: {
+      handler(val) {
+        if (
+          String(val).trim().length &&
+          typeof String(val).trim() !== "undefined"
+        ) {
+          this.location = val;
+        }
+      },
+      deep: true,
+      immediate: true
     }
   }
 };

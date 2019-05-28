@@ -7,7 +7,9 @@
     >
       <div class="logo">
         <template v-if="!isPreview">
-          <router-link :to="{ name: 'profileSingle', params: { id: job.profile || this.profile } }">
+          <router-link
+            :to="{ name: 'profileSingle', params: { id: job.profile || this.profile || this.jobData.profileId} }"
+          >
             <div class="logo__outer">
               <img v-if="job && job.logo" :src="job.logo" alt class="company__logo">
               <div class="company__initial" v-else>
@@ -31,7 +33,7 @@
         <div>
           <template v-if="!isPreview">
             <router-link
-              :to="{ name: 'jobsSingle', params: { id: job.id || jobCompanyData.id } }"
+              :to="{ name: 'jobsSingle', params: { id: job.id || jobCompanyData.id ||  this.jobData.advertId } }"
               class="title"
             >{{ job.title || jobCompanyData.jobTitle }}</router-link>
           </template>
@@ -42,10 +44,10 @@
         <div>
           <template v-if="!isPreview">
             <router-link
-              v-if="(job && job.company)"
-              :to="{ name: 'profileSingle', params: { id: job.profile || this.profile } }"
+              v-if="(job && job.company) || (this.jobData && this.jobData.profileId) "
+              :to="{ name: 'profileSingle', params: { id: job.profile || this.profile || this.jobData.profileId } }"
               class="company"
-            >{{ job.company || jobCompanyData.jobTitle }}</router-link>
+            >{{ job.employerName || job.company || jobCompanyData.jobTitle }}</router-link>
           </template>
           <template v-else>
             <div class="company" v-if="previewData.company.name">{{ previewData.company.name }}</div>
@@ -58,7 +60,7 @@
             <li v-for="(tag, index) in tags" :key="index">
               <router-link
                 class="tag"
-                :to="{ name: 'jobs', query: { tag: encodeURIComponent(tag) } }"
+                :to="{ name: 'jobs', query: { keyword: encodeURIComponent(tag) } }"
               >
                 {{
                 tag
@@ -86,7 +88,7 @@
       <div class="apply__button">
         <template v-if="!isPreview">
           <ButtonComponent
-            :url="{ name: 'jobsSingle', params: { id: job.id || this.jobCompanyData.id }, hash: '#apply' }"
+            :url="{ name: 'jobsSingle', params: { id: job.id || this.jobCompanyData.id || this.jobData.advertId}, hash: '#apply' }"
             color="yellow"
             classStyle="apply__job__button"
             text="Apply"
@@ -395,7 +397,8 @@ export default {
       if (!this.fullView) {
         this.$store
           .dispatch("jobs/getJobFromApi", {
-            value: this.job.id || this.jobCompanyData.id
+            value:
+              this.job.id || this.jobCompanyData.id || this.jobData.advertId
           })
           .then(response => {
             this.fullView = response;
