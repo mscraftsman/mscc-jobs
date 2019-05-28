@@ -9,6 +9,7 @@ import VueTheMask from "vue-the-mask";
 import VModal from "vue-js-modal";
 import Meta from "vue-meta";
 import VueTimeago from "vue-timeago";
+import VueScrollTo from "vue-scrollto";
 
 import { GOOGLEMAPS_KEY } from "../src/store/constants";
 
@@ -29,6 +30,8 @@ Vue.use(VueTimeago, {
   name: "Timeago",
   locale: "en"
 });
+
+Vue.use(VueScrollTo);
 
 new Vue({
   router,
