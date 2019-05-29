@@ -19,7 +19,15 @@
               <img src="@/assets/img/location.svg" alt>
             </div>
             <div class="field">
-              <input type="text" class="input" placeholder="location" v-model="location">
+              <!-- <input type="text" class="input" placeholder="location" v-model="location"> -->
+              <gmap-autocomplete
+                class="input"
+                placeholder="location"
+                @place_changed="setLocation"
+                :options="options"
+                :value="locationDisplayValue"
+                ref="locationAutocomplete"
+              ></gmap-autocomplete>
             </div>
           </div>
           <div class="search__button">
@@ -36,15 +44,18 @@
 <script>
 import axios from "axios";
 import JobsListing from "@/components/jobs/JobsListing";
+import Utils from "@/components/utils";
+
 import {
   SEARCH_ENDPOINT,
   SITE_ID,
-  GOOGLE_MAPS_API_KEY,
+  GOOGLEMAPS_KEY,
   DEFAULT_RADIUS_MILES
 } from "@/store/constants";
 import { filter } from "minimatch";
 
 export default {
+  extends: Utils,
   props: {
     keywordValue: {
       type: String,
@@ -53,11 +64,19 @@ export default {
     locationValue: {
       type: String,
       default: null
+    },
+    locationLat: {
+      type: Number,
+      default: 0.0
+    },
+    locationLng: {
+      type: Number,
+      default: 0.0
     }
   },
   data() {
     return {
-      location: null,
+      location: {},
       title: null,
       filter: {
         id: null,
@@ -79,14 +98,42 @@ export default {
         StartMonth: 0,
         EndMonth: 0,
         locationValue: null
-      }
+      },
+      options: {
+        bounds: {
+          north: -19.9795,
+          south: -20.5391,
+          east: 57.808026,
+          west: 57.309035
+        },
+        strictBounds: true
+      },
+      locationDisplayValue: null
     };
   },
   methods: {
     SanitizeModel: function() {
       this.filter.id = SITE_ID.replace("/sites/", "");
       this.filter.keyword = this.title;
-      this.filter.locationValue = this.location;
+
+      if (
+        this.location &&
+        this.location.formatted_address &&
+        this.location.geometry
+      ) {
+        this.filter.locationValue = this.location.formatted_address;
+        this.filter.latitude = this.location.geometry.location.lat();
+        this.filter.longitude = this.location.geometry.location.lng();
+      }
+
+      let location = this.$refs["locationAutocomplete"].$refs.input.value;
+      if (location === "") {
+        this.filter.locationValue = null;
+        this.filter.latitude = 0.0;
+        this.filter.longitude = 0.0;
+        this.locationDisplayValue = null;
+      }
+
       this.filter.ContractType = -1;
       this.filter.EndDate = "2017-12-01";
       this.filter.HasStartDate = false;
@@ -98,48 +145,21 @@ export default {
       this.filter.StartDate = "1753-01-01";
       this.filter.Offset = 0;
     },
-    GetCoordinateByLocation: function() {
-      if (this.location !== null) {
-        axios
-          .get(
-            "https://maps.googleapis.com/maps/api/geocode/json?address= " +
-              this.filter.locationValue +
-              "&key=" +
-              GOOGLE_MAPS_API_KEY
-          )
-          .then(response => {
-            if (response.data.status === "OK") {
-              this.filter.latitude =
-                response.data.results[0].geometry.location.lat;
-              this.filter.longitude =
-                response.data.results[0].geometry.location.lng;
-
-              if (response.data.results[0].types[0] === "country") {
-                this.filter.IsCountry = true;
-              }
-            }
-          })
-          .catch(e => {
-            console.error(e);
-          });
-      }
-    },
     execSearch() {
       this.SanitizeModel();
       // this.GetCoordinateByLocation();
-
       if (this.title !== null || this.location !== null) {
         this.$emit("searchTriggered", this.filter);
       }
+    },
+    setLocation(location) {
+      this.location = location;
     }
   },
   watch: {
     keywordValue: {
       handler(val) {
-        if (
-          String(val).trim().length &&
-          typeof String(val).trim() !== "undefined"
-        ) {
+        if (val) {
           this.title = val;
         }
       },
@@ -148,11 +168,27 @@ export default {
     },
     locationValue: {
       handler(val) {
-        if (
-          String(val).trim().length &&
-          typeof String(val).trim() !== "undefined"
-        ) {
-          this.location = val;
+        if (val) {
+          this.location.formatted_address = val;
+          this.locationDisplayValue = val;
+        }
+      },
+      deep: true,
+      immediate: true
+    },
+    locationLat: {
+      handler(val) {
+        if (val) {
+          this.location.lat = val;
+        }
+      },
+      deep: true,
+      immediate: true
+    },
+    locationLng: {
+      handler(val) {
+        if (val) {
+          this.location.lng = val;
         }
       },
       deep: true,

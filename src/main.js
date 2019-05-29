@@ -11,7 +11,7 @@ import Meta from "vue-meta";
 import VueTimeago from "vue-timeago";
 import VueScrollTo from "vue-scrollto";
 
-import { GOOGLEMAPS_KEY } from "../src/store/constants";
+import { GOOGLEMAPS_KEY } from "@/store/constants";
 
 Vue.config.productionTip = false;
 
@@ -19,7 +19,8 @@ Vue.use(VeeValidate);
 Vue.use(VueGoogleMaps, {
   load: {
     key: GOOGLEMAPS_KEY,
-    libraries: "places"
+    libraries: "places",
+    country: ["mu"]
   }
 });
 Vue.use(VueTheMask);

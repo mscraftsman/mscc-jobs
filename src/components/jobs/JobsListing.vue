@@ -7,14 +7,27 @@
     />
 
     <div class="container__fw">
-      <div class="filtered__content" v-if="hasTag">
-        <div class="heading">Showing results:</div>
-        <div class="tags white__bg">
-          <ul>
-            <li>
-              <span class="tag">{{hasTag}}</span>
-            </li>
-          </ul>
+      <div class="filtered__content" v-if="isSearch">
+        <div class="heading">
+          <span v-if="keywordValue" class="keyword__search">
+            Keyword:
+            <button class="search__button" alt="Remove" @click="removeKeyword()">
+              {{keywordValue}}
+              <span class="remove__icon">
+                <img src="@/assets/img/close.svg" alt>
+              </span>
+            </button>
+          </span>
+
+          <span v-if="locationValue">
+            Location:
+            <button class="search__button" alt="Remove" @click="removeLocation()">
+              {{locationValue}}
+              <span class="remove__icon">
+                <img src="@/assets/img/close.svg" alt>
+              </span>
+            </button>
+          </span>
         </div>
       </div>
 
@@ -107,12 +120,18 @@ export default {
     isSearch: {
       type: Boolean,
       default: true
+    },
+    keywordValue: {
+      type: String,
+      default: null
+    },
+    locationValue: {
+      type: String,
+      default: null
     }
   },
   data() {
     return {
-      hasParams: false,
-      hasTag: false,
       limit: 9,
       loadMoreVisibility: true
     };
@@ -123,19 +142,14 @@ export default {
       // jobsSearched: "jobs/getJobsSearched"
     })
   },
-  beforeMount() {
-    // Check if route has params
-    this.checkRoute();
-  },
+  beforeMount() {},
   methods: {
-    checkRoute() {
-      this.hasTag =
-        typeof this.$route.query.tag !== "undefined"
-          ? decodeURIComponent(this.$route.query.tag)
-          : false;
-    },
     addJobs() {
       let jobsLength = this.jobs.length;
+
+      if (this.isSearch) {
+        jobsLength = this.searchResults.length;
+      }
 
       if (jobsLength > this.limit) {
         this.limit = this.limit + 10;
@@ -145,17 +159,40 @@ export default {
       }
     },
     checkLoadMoreButtonVisbility() {
-      let jobsLength = this.jobs.length;
+      let jobsLength = this.jobs && this.jobs.length ? this.jobs.length : 0;
+
+      if (this.isSearch) {
+        jobsLength =
+          this.searchResults && this.searchResults.length
+            ? this.searchResults.length
+            : 0;
+      }
+
       if (jobsLength > this.limit) {
         this.loadMoreVisibility = true;
       } else if (this.limit >= jobsLength) {
         this.loadMoreVisibility = false;
       }
+    },
+    removeKeyword() {
+      this.$emit("removeKeyword", true);
+    },
+    removeLocation() {
+      this.$emit("removeLocation", true);
     }
   },
   watch: {
-    $route(to, from) {
-      this.checkRoute();
+    jobs: {
+      handler(val) {
+        this.checkLoadMoreButtonVisbility();
+      },
+      deep: true
+    },
+    searchResults: {
+      handler(val) {
+        this.checkLoadMoreButtonVisbility();
+      },
+      deep: true
     }
   }
 };
@@ -194,6 +231,37 @@ export default {
     font-size: 13px;
     color: var(--color-light);
     margin-right: 10px;
+  }
+}
+
+.search__button {
+  height: 30px;
+  border-radius: 100px;
+  padding: 0 15px;
+  padding-right: 6px;
+  border: 0;
+  background: var(--color-dark);
+  color: white;
+  margin-left: 10px;
+  box-shadow: 0px 4px 18px var(--color-light);
+}
+
+.keyword__search {
+  margin-right: 20px;
+}
+
+.remove__icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  padding: 2px;
+  background: var(--color-light);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 8px;
   }
 }
 

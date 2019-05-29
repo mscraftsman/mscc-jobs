@@ -23,6 +23,10 @@ let getLatestJobsFromApi = ({ state, commit }, payload) => {
           // console.log(jobs);
 
           if (jobs && jobs.length) {
+            commit("clearJobs", {
+              value: []
+            });
+
             jobs.map(job => {
               commit("addJob", {
                 value: job
@@ -82,8 +86,6 @@ let getJobFromApi = ({ state, commit }, payload) => {
 };
 
 let executeJobsSearch = ({ state, commit }, payload) => {
-  console.log(payload);
-
   let searchObj = {
     id: payload.value.id,
     keyword: payload.value.keyword,
@@ -105,16 +107,11 @@ let executeJobsSearch = ({ state, commit }, payload) => {
     location: payload.value.locationValue
   };
 
-  console.log(searchObj);
-
   return new Promise((resolve, reject) => {
     axios
       .post(SEARCH_ENDPOINT, searchObj)
       .then(function(response) {
         let jobs = response.data;
-
-        console.log(jobs);
-
         if (jobs.listings && jobs.listings.length) {
           jobs.listings.map(job => {
             commit("addJobSearched", {

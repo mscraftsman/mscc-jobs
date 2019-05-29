@@ -4,6 +4,8 @@
       @searchTriggered="searchTriggered"
       :keywordValue="search.keyword"
       :locationValue="search.location"
+      :locationLat="search.lat"
+      :locationLng="search.lng"
     />
     <JobsListing
       :breadcrumbs="breadcrumbs"
@@ -13,6 +15,10 @@
       :isSearch="isSearch"
       :searchResults="jobs"
       :loading="loading"
+      :keywordValue="search.keyword"
+      :locationValue="search.location"
+      @removeKeyword="removeKeyword"
+      @removeLocation="removeLocation"
     />
   </div>
 </template>
@@ -21,6 +27,7 @@
 import SiteHeader from "@/components/shared/SiteHeader.vue";
 import JumboSearch from "@/components/homepage/JumboSearch.vue";
 import JobsListing from "@/components/jobs/JobsListing.vue";
+import Utils from "@/components/utils";
 
 import {
   SEARCH_ENDPOINT,
@@ -51,7 +58,9 @@ export default {
       isSearch: false,
       search: {
         keyword: null,
-        location: null
+        location: null,
+        lat: 0.0,
+        lng: 0.0
       },
       filter: {
         id: null,
@@ -78,60 +87,104 @@ export default {
   },
   methods: {
     searchTriggered(val) {
-      console.log(val);
-
       // -------- To build URL -------
       let keyword = val.keyword;
       let location = val.locationValue;
+      let lng = val.longitude;
+      let lat = val.latitude;
+
       let query = {};
-      if (String(keyword).trim().length && keyword !== null) {
+      if (keyword) {
         query.keyword = keyword;
+        this.search.keyword = keyword;
+      } else {
+        this.search.keyword = null;
       }
-      if (String(location).trim().length && location !== null) {
+      if (location) {
         query.location = location;
+        this.search.location = location;
+      } else {
+        this.search.location = null;
+      }
+      if (lng) {
+        query.lng = lng;
+        this.search.lng = lng;
+      } else {
+        this.search.lng = 0.0;
+      }
+      if (lat) {
+        query.lat = lat;
+        this.search.lat = lng;
+      } else {
+        this.search.lat = 0.0;
       }
       // -------- To build URL -------
 
       if (
         typeof val.keyword !== "undefined" ||
-        typeof val.locationValue !== "undefined"
+        (typeof val.locationValue !== "undefined" &&
+          typeof val.lng !== "undefined" &&
+          typeof val.lat !== "undefined")
       ) {
         // Push to router
         this.$router.push({ name: "home", query: query });
-
+        // Set loading
         this.loading = true;
-        this.isSearch = true;
-        this.$store
-          .dispatch("jobs/executeJobsSearch", { value: val })
-          .then(response => {
-            console.log(response);
-            this.jobs = response;
-            this.loading = false;
-            this.$scrollTo("#joblisting", "0.3s", {
-              offset: -50
-            });
-          })
-          .catch(error => {
-            console.error(error);
+
+        // if no value is set, get latest jobs
+        if (
+          (keyword === null || keyword === "") &&
+          (location === null || location === "")
+        ) {
+          // Job Listing title
+          this.listingPageTitle = "Latest jobs";
+          this.fetchData();
+          this.$scrollTo("#joblisting", "0.3s", {
+            offset: -50
           });
+        } else {
+          // Set searching
+          this.isSearch = true;
+          this.$store
+            .dispatch("jobs/executeJobsSearch", { value: val })
+            .then(response => {
+              this.jobs = response;
+              this.loading = false;
+              this.$scrollTo("#joblisting", "0.3s", {
+                offset: -50
+              });
+
+              // Job Listing title
+              this.listingPageTitle = "Displaying results for:";
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }
       }
     },
     fetchData() {
       this.$store
         .dispatch("jobs/getLatestJobsFromApi")
         .then(response => {
-          console.log(response);
           this.jobs = response;
           this.loading = false;
+          this.isSearch = false;
         })
         .catch(error => {
           console.error(error);
         });
     },
-    sanitizeModel: function() {
+    sanitizeModel() {
       this.filter.id = SITE_ID.replace("/sites/", "");
       this.filter.keyword = this.search.keyword;
-      this.filter.locationValue = this.search.location;
+
+      if (this.search.location && this.search.lat && this.search.lng) {
+        this.filter.locationValue = this.search.location;
+        this.filter.latitude = this.search.lat;
+        this.filter.longitude = this.search.lng;
+      }
+
       this.filter.ContractType = -1;
       this.filter.EndDate = "2017-12-01";
       this.filter.HasStartDate = false;
@@ -146,6 +199,8 @@ export default {
     checkURL() {
       let keyword = this.$route.query.keyword;
       let location = this.$route.query.location;
+      let lng = this.$route.query.lng;
+      let lat = this.$route.query.lat;
 
       if (typeof keyword !== "undefined") {
         this.search.keyword = keyword;
@@ -155,15 +210,40 @@ export default {
         this.search.location = location;
       }
 
+      if (typeof lng !== "undefined") {
+        this.search.lng = Number(lng);
+      }
+
+      if (typeof lat !== "undefined") {
+        this.search.lat = Number(lat);
+      }
+
       // Sanitize model
       this.sanitizeModel();
 
       //Check URL if has params or now else fetch latest jobs
-      if (typeof keyword !== "undefined" || typeof location !== "undefined") {
+      if (
+        typeof keyword !== "undefined" ||
+        (typeof location !== "undefined" &&
+          typeof lng !== "undefined" &&
+          typeof lat !== "undefined")
+      ) {
         this.searchTriggered(this.filter);
       } else {
         this.fetchData();
       }
+    },
+    removeKeyword() {
+      this.search.keyword = null;
+      this.$router.replace({ keyword: null });
+      this.checkURL();
+    },
+    removeLocation() {
+      this.search.location = null;
+      this.search.lng = 0.0;
+      this.search.lat = 0.0;
+      this.$router.replace({ location: null, lat: null, lng: null });
+      this.checkURL();
     }
   },
   beforeMount() {

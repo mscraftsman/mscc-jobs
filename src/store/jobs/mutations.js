@@ -8,6 +8,10 @@ let addJob = (state, payload) => {
   }
 };
 
+let clearJobs = (state, payload) => {
+  state.jobs = payload.value;
+};
+
 let addJobSearched = (state, payload) => {
   // state.jobs = [...state.jobs, ...[payload.value]];
 
@@ -63,5 +67,6 @@ export default {
   addJobFull,
   setGroupedJobsByProfile,
   setLatestJobsStatus,
-  addJobSearched
+  addJobSearched,
+  clearJobs
 };
