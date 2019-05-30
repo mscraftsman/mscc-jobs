@@ -1,14 +1,14 @@
 <template>
   <div class="showbox">
-    <div :class="['loader', {'small': small}]">
+    <div :class="['loader', {'small': small}, {'tiny': tiny}]">
       <svg class="circular" viewBox="25 25 50 50">
         <circle
-          class="path"
+          :class="['path', {'tiny': tiny}]"
           cx="50"
           cy="50"
           r="20"
           fill="none"
-          stroke-width="2"
+          :stroke-width="!tiny ? 2 : 4"
           stroke-miterlimit="10"
         ></circle>
       </svg>
@@ -20,6 +20,10 @@
 export default {
   props: {
     small: {
+      default: false,
+      type: Boolean
+    },
+    tiny: {
       default: false,
       type: Boolean
     }
@@ -40,6 +44,11 @@ $width: 100px;
   &.small {
     height: 70px;
     width: 70px;
+  }
+
+  &.tiny {
+    height: 30px;
+    width: 30px;
   }
 
   &:before {
@@ -67,6 +76,10 @@ $width: 100px;
   stroke-dashoffset: 0;
   animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
   stroke-linecap: round;
+
+  &.tiny {
+    animation: dash 1.5s ease-in-out infinite, colorless 6s ease-in-out infinite;
+  }
 }
 
 @keyframes rotate {
@@ -104,6 +117,16 @@ $width: 100px;
   80%,
   90% {
     stroke: var(--color-green);
+  }
+}
+
+@keyframes colorless {
+  100%,
+  0% {
+    stroke: var(--color-white);
+  }
+  100% {
+    stroke: var(--color-white);
   }
 }
 

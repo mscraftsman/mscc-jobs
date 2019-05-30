@@ -11,7 +11,13 @@
               <img src="@/assets/img/binoc.svg" alt>
             </div>
             <div class="field">
-              <input type="text" class="input" placeholder="job title, keyword" v-model="title">
+              <input
+                type="text"
+                class="input"
+                placeholder="job title, keyword"
+                v-model="title"
+                v-on:keyup.enter="execSearch()"
+              >
             </div>
           </div>
           <div class="field__location">
@@ -27,12 +33,20 @@
                 :options="options"
                 :value="locationDisplayValue"
                 ref="locationAutocomplete"
+                v-on:keyup.enter="execSearch()"
               ></gmap-autocomplete>
             </div>
           </div>
           <div class="search__button">
-            <button class="search" @click="execSearch">
-              <img src="@/assets/img/binoc.svg" alt>
+            <button
+              :class="['search', {'loading' : loading}]"
+              @click="execSearch"
+              :disabled="loading === true"
+            >
+              <transition name="fade" mode="out-in">
+                <img src="@/assets/img/binoc.svg" v-if="!loading">
+                <LoaderComponent :tiny="true" v-else key="loader"/>
+              </transition>
             </button>
           </div>
         </div>
@@ -45,6 +59,7 @@
 import axios from "axios";
 import JobsListing from "@/components/jobs/JobsListing";
 import Utils from "@/components/utils";
+import LoaderComponent from "@/components/shared/LoaderComponent";
 
 import {
   SEARCH_ENDPOINT,
@@ -56,6 +71,9 @@ import { filter } from "minimatch";
 
 export default {
   extends: Utils,
+  components: {
+    LoaderComponent
+  },
   props: {
     keywordValue: {
       type: String,
@@ -72,10 +90,15 @@ export default {
     locationLng: {
       type: Number,
       default: 0.0
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
+      buttonState: false,
       location: {},
       title: null,
       filter: {
@@ -149,6 +172,7 @@ export default {
       this.SanitizeModel();
       // this.GetCoordinateByLocation();
       if (this.title !== null || this.location !== null) {
+        this.buttonState = true;
         this.$emit("searchTriggered", this.filter);
       }
     },
@@ -294,6 +318,16 @@ export default {
           outline: none;
           border: 0;
           transition: all 0.3s ease-in-out;
+
+          &.loader,
+          &[disabled] {
+            background: var(--color-dark);
+            box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.73);
+
+            &:hover {
+              box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.73);
+            }
+          }
 
           &:hover {
             box-shadow: 0px 4px 25px rgba(255, 228, 0, 0.8);
