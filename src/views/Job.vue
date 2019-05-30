@@ -385,6 +385,17 @@
                     </div>
                   </div>
                 </div>
+                <div v-else>
+                  <div class="block__content">
+                    <h3>Application closed</h3>
+                    <div
+                      class="body__content styled__content"
+                     
+                    >
+                      <p>Applications for this job listing are now closed. We thank you for your interest and invite you to look up other job opportunities.</p>
+                    </div>
+                  </div>
+                </div>
               </div>
               <!-- JOB -->
               <!-- SIDEBAR -->
