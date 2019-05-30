@@ -126,161 +126,235 @@
                   ></div>
                 </div>
 
-                <div class="block__content" v-if="jobData.applyOnUrl === false">
-                  <h3 id="apply">Apply for this job</h3>
-                  <form @submit.prevent="validateJobApplication" autocomplete="off">
-                    <div class="body__content apply__grid__layout">
-                      <InputText
-                        label="First Name"
-                        name="firstName"
-                        v-model="applicationData.firstName"
-                        v-validate="'required'"
-                        :message="errors.first('firstName')"
-                      />
-                      <InputText
-                        label="Last Name"
-                        name="lastName"
-                        v-model="applicationData.lastName"
-                        v-validate="'required'"
-                        :message="errors.first('lastName')"
-                      />
+                <div v-if="jobData.applyStatus">
+                  <div class="block__content" v-if="jobData.applyOnUrl === false">
+                    <h3 id="apply">Apply for this job</h3>
+                    <form @submit.prevent="validateJobApplication" autocomplete="off">
+                      <div class="body__content apply__grid__layout">
+                        <InputText
+                          label="First Name"
+                          name="firstName"
+                          v-model="applicationData.firstName"
+                          v-validate="'required'"
+                          :message="errors.first('firstName')"
+                        />
+                        <InputText
+                          label="Last Name"
+                          name="lastName"
+                          v-model="applicationData.lastName"
+                          v-validate="'required'"
+                          :message="errors.first('lastName')"
+                        />
 
-                      <InputEmail
-                        label="Email"
-                        name="email"
-                        v-model="applicationData.email"
-                        v-validate="'required|email'"
-                        :message="errors.first('email')"
-                      />
+                        <InputEmail
+                          label="Email"
+                          name="email"
+                          v-model="applicationData.email"
+                          v-validate="'required|email'"
+                          :message="errors.first('email')"
+                        />
 
-                      <InputTel
-                        label="Telephone/Mobile number"
-                        name="telephone"
-                        v-model="applicationData.telephone"
-                        v-validate="'required|numeric|min:7'"
-                        :message="errors.first('telephone')"
-                      />
+                        <InputTel
+                          label="Telephone/Mobile number"
+                          name="telephone"
+                          v-model="applicationData.telephone"
+                          v-validate="'required|numeric|min:7'"
+                          :message="errors.first('telephone')"
+                        />
 
-                      <!-- <InputTel
+                        <!-- <InputTel
                         label="Mobile number"
                         name="mobile"
                         v-model="applicationData.mobile"
                         v-validate="'required|numeric|min:7'"
                         :message="errors.first('mobile')"
-                      />-->
+                        />-->
 
-                      <InputTextarea
-                        label="Residential address"
-                        :full="true"
-                        name="address"
-                        v-model="applicationData.address"
-                        v-validate="'required'"
-                        :message="errors.first('address')"
-                      />
+                        <InputTextarea
+                          label="Residential address"
+                          :full="true"
+                          name="address"
+                          v-model="applicationData.address"
+                          v-validate="'required'"
+                          :message="errors.first('address')"
+                        />
 
-                      <InputText
-                        label="Postal Code"
-                        name="postalcode"
-                        v-model="applicationData.postal_code"
-                        v-validate="'required|numeric'"
-                        :message="errors.first('postalcode')"
-                      />
-                      <br>
+                        <InputText
+                          label="Postal Code"
+                          name="postalcode"
+                          v-model="applicationData.postal_code"
+                          v-validate="'required|numeric'"
+                          :message="errors.first('postalcode')"
+                        />
+                        <br>
 
-                      <InputSelect
-                        label="Country"
-                        name="country"
-                        v-model="applicationData.country"
-                        :values="countries"
-                        optionValue="name"
-                        optionText="name"
-                        v-validate="'required'"
-                        :message="errors.first('country')"
-                      />
+                        <InputSelect
+                          label="Country"
+                          name="country"
+                          v-model="applicationData.country"
+                          :values="countries"
+                          optionValue="name"
+                          optionText="name"
+                          v-validate="'required'"
+                          :message="errors.first('country')"
+                        />
 
-                      <InputSelect
-                        label="Nationality"
-                        name="nationality"
-                        v-model="applicationData.nationality"
-                        :values="nationality"
-                        optionValue="nationality"
-                        optionText="nationality"
-                        v-validate="'required'"
-                        :message="errors.first('nationality')"
-                      />
+                        <InputSelect
+                          label="Nationality"
+                          name="nationality"
+                          v-model="applicationData.nationality"
+                          :values="nationality"
+                          optionValue="nationality"
+                          optionText="nationality"
+                          v-validate="'required'"
+                          :message="errors.first('nationality')"
+                        />
 
-                      <InputEditor
-                        label="Cover Letter"
-                        name="coverLetter"
-                        :full="true"
-                        v-model="applicationData.cover_letter"
-                        v-validate="'required'"
-                        :message="errors.first('coverLetter')"
-                      />
+                        <InputEditor
+                          label="Cover Letter"
+                          name="coverLetter"
+                          :full="true"
+                          v-model="applicationData.cover_letter"
+                          v-validate="'required'"
+                          :message="errors.first('coverLetter')"
+                        />
 
-                      <!-- CV upload -->
-                      <div :class="['input__block', 'full']">
-                        <label>Upload your curriculum vitae (.doc, .docx, .pdf or .rtf )</label>
+                        <!-- CV upload -->
+                        <div :class="['input__block', 'full']">
+                          <label>Upload your curriculum vitae (.doc, .docx, .pdf or .rtf )</label>
 
-                        <div class="upload__options">
-                          <div class="upload__cv__button">
-                            <input
-                              id="cv_upload"
-                              type="file"
-                              ref="cv_upload"
-                              @change="handleCVUpload()"
-                            >
-                            <label
-                              for="cv_upload"
-                              class="upload__pc__button button__global blue override__visbility not__block"
-                            >
-                              <img src="@/assets/img/pc.svg" class="icon">
-                              <span class="text">From Device</span>
-                            </label>
-                          </div>
+                          <div class="upload__options">
+                            <div class="upload__cv__button">
+                              <input
+                                id="cv_upload"
+                                type="file"
+                                ref="cv_upload"
+                                @change="handleCVUpload()"
+                              >
+                              <label
+                                for="cv_upload"
+                                class="upload__pc__button button__global blue override__visbility not__block"
+                              >
+                                <img src="@/assets/img/pc.svg" class="icon">
+                                <span class="text">From Device</span>
+                              </label>
+                            </div>
 
-                          <!-- <button
+                            <!-- <button
                             type="button"
                             class="upload__pc__button button__global blue override__visbility"
                           >
                             <img src="@/assets/img/drive.svg" class="icon">
                             <span class="text">Google Drive</span>
-                          </button>-->
+                            </button>-->
 
-                          <button
-                            type="button"
-                            class="upload__pc__button button__global blue override__visbility"
-                            @click="openOneDrivePicker()"
-                          >
-                            <img src="@/assets/img/onedrive.svg" class="icon">
-                            <span class="text">One Drive</span>
-                          </button>
+                            <button
+                              type="button"
+                              class="upload__pc__button button__global blue override__visbility"
+                              @click="openOneDrivePicker()"
+                            >
+                              <img src="@/assets/img/onedrive.svg" class="icon">
+                              <span class="text">One Drive</span>
+                            </button>
 
-                          <button
-                            type="button"
-                            class="upload__pc__button button__global blue override__visbility"
-                            @click="openDropboxChooser()"
-                          >
-                            <img src="@/assets/img/dropbox.svg" class="icon">
-                            <span class="text">Dropbox</span>
-                          </button>
-                        </div>
-
-                        <div class="file__name" v-if="CVInformation.fileName !== null">
-                          File name:
-                          <span>{{CVInformation.fileName}}</span>
-                        </div>
-
-                        <div class="upload__in__progress" v-if="CVUploadStatus.uploading">
-                          <div class="icon">
-                            <div class="loading"></div>
+                            <button
+                              type="button"
+                              class="upload__pc__button button__global blue override__visbility"
+                              @click="openDropboxChooser()"
+                            >
+                              <img src="@/assets/img/dropbox.svg" class="icon">
+                              <span class="text">Dropbox</span>
+                            </button>
                           </div>
-                          <div class="text">Upload in progress</div>
+
+                          <div class="file__name" v-if="CVInformation.fileName !== null">
+                            File name:
+                            <span>{{CVInformation.fileName}}</span>
+                          </div>
+
+                          <div class="upload__in__progress" v-if="CVUploadStatus.uploading">
+                            <div class="icon">
+                              <div class="loading"></div>
+                            </div>
+                            <div class="text">Upload in progress</div>
+                          </div>
+
+                          <div
+                            :class="['input__block', 'full', 'response__message', 'error__upload__wrapper']"
+                            v-if="this.CVUploadStatus.error"
+                          >
+                            <div class="icon__wrapper">
+                              <div class="icon">
+                                <img src="@/assets/img/error_white.svg" alt>
+                              </div>
+                            </div>
+                            <div class="message">
+                              <h4>Upload Error</h4>
+                              <p>{{this.CVUploadStatus.error}}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- CV upload -->
+                        <div :class="['input__block', 'full']">
+                          <div class="checkbox__styled border__top">
+                            <div class="checkbox__accept">
+                              <input
+                                type="checkbox"
+                                required
+                                id="accept__job__conditions"
+                                v-model="applicationData.agree"
+                              >
+                              <label for="accept__job__conditions">
+                                <span></span>
+                              </label>
+                            </div>
+                            <label
+                              class="checkbox__text"
+                              for="accept__job__conditions"
+                            >I accept that my data is being transmitted etc..</label>
+                          </div>
+                        </div>
+
+                        <div :class="['input__block', 'full', 'submit__buttons']">
+                          <button
+                            type="button"
+                            class="submit__application__button button__global green override__visbility"
+                            @click="validateJobApplication()"
+                            :disabled="applicationData.agree === false"
+                          >
+                            <div class="icon">
+                              <div class="loading"></div>
+                            </div>
+                            <span class="text">Submit Application</span>
+                          </button>
+
+                          <button
+                            type="reset"
+                            class="reset__application__button button__global yellow override__visbility"
+                            @click="resetForm()"
+                          >
+                            <span class="text">Reset</span>
+                          </button>
                         </div>
 
                         <div
-                          :class="['input__block', 'full', 'response__message', 'error__upload__wrapper']"
-                          v-if="this.CVUploadStatus.error"
+                          :class="['input__block', 'full', 'response__message', 'success']"
+                          v-if="submitStatus.success"
+                        >
+                          <div class="icon__wrapper">
+                            <div class="icon">
+                              <img src="@/assets/img/success.svg" alt>
+                            </div>
+                          </div>
+                          <div class="message">
+                            <h4>Success !</h4>
+                            <p>Your application has been sent !</p>
+                          </div>
+                        </div>
+
+                        <div
+                          :class="['input__block', 'full', 'response__message', 'error']"
+                          v-if="submitStatus.error"
                         >
                           <div class="icon__wrapper">
                             <div class="icon">
@@ -288,99 +362,27 @@
                             </div>
                           </div>
                           <div class="message">
-                            <h4>Upload Error</h4>
-                            <p>{{this.CVUploadStatus.error}}</p>
+                            <h4>Error !</h4>
+                            <p>There is an error in your application</p>
                           </div>
                         </div>
                       </div>
-                      <!-- CV upload -->
-                      <div :class="['input__block', 'full']">
-                        <div class="checkbox__styled border__top">
-                          <div class="checkbox__accept">
-                            <input
-                              type="checkbox"
-                              required
-                              id="accept__job__conditions"
-                              v-model="applicationData.agree"
-                            >
-                            <label for="accept__job__conditions">
-                              <span></span>
-                            </label>
-                          </div>
-                          <label
-                            class="checkbox__text"
-                            for="accept__job__conditions"
-                          >I accept that my data is being transmitted etc..</label>
-                        </div>
-                      </div>
+                    </form>
+                  </div>
 
-                      <div :class="['input__block', 'full', 'submit__buttons']">
-                        <button
-                          type="button"
-                          class="submit__application__button button__global green override__visbility"
-                          @click="validateJobApplication()"
-                          :disabled="applicationData.agree === false"
-                        >
-                          <div class="icon">
-                            <div class="loading"></div>
-                          </div>
-                          <span class="text">Submit Application</span>
-                        </button>
-
-                        <button
-                          type="reset"
-                          class="reset__application__button button__global yellow override__visbility"
-                          @click="resetForm()"
-                        >
-                          <span class="text">Reset</span>
-                        </button>
-                      </div>
-
-                      <div
-                        :class="['input__block', 'full', 'response__message', 'success']"
-                        v-if="submitStatus.success"
+                  <div class="block__content" v-if="jobData.applyOnUrl === true">
+                    <h3>Apply for this job</h3>
+                    <div class="body__content">
+                      <a
+                        :href="jobData.applyUrl"
+                        target="_blank"
+                        rel="noopener noreferer"
+                        class="submit__job__button button__global blue override__visbility"
                       >
-                        <div class="icon__wrapper">
-                          <div class="icon">
-                            <img src="@/assets/img/success.svg" alt>
-                          </div>
-                        </div>
-                        <div class="message">
-                          <h4>Success !</h4>
-                          <p>Your application has been sent !</p>
-                        </div>
-                      </div>
-
-                      <div
-                        :class="['input__block', 'full', 'response__message', 'error']"
-                        v-if="submitStatus.error"
-                      >
-                        <div class="icon__wrapper">
-                          <div class="icon">
-                            <img src="@/assets/img/error_white.svg" alt>
-                          </div>
-                        </div>
-                        <div class="message">
-                          <h4>Error !</h4>
-                          <p>There is an error in your application</p>
-                        </div>
-                      </div>
+                        <img class="icon" src="@/assets/img/external-link-light.svg" alt>
+                        <div class="text">Apply on website</div>
+                      </a>
                     </div>
-                  </form>
-                </div>
-
-                <div class="block__content" v-if="jobData.applyOnUrl === true">
-                  <h3>Apply for this job</h3>
-                  <div class="body__content">
-                    <a
-                      :href="jobData.applyUrl"
-                      target="_blank"
-                      rel="noopener noreferer"
-                      class="submit__job__button button__global blue override__visbility"
-                    >
-                      <img class="icon" src="@/assets/img/external-link-light.svg" alt>
-                      <div class="text">Apply on website</div>
-                    </a>
                   </div>
                 </div>
               </div>
