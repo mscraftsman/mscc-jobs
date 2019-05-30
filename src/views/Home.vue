@@ -6,6 +6,7 @@
       :locationValue="search.location"
       :locationLat="search.lat"
       :locationLng="search.lng"
+      :loading="loading"
     />
     <JobsListing
       :breadcrumbs="breadcrumbs"
