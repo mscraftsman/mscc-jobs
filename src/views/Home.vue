@@ -18,8 +18,8 @@
       :loading="loading"
       :keywordValue="search.keyword"
       :locationValue="search.location"
-      @removeKeyword="removeKeyword"
-      @removeLocation="removeLocation"
+      @removeKeyword="removeParams"
+      @removeLocation="removeParams"
     />
   </div>
 </template>
@@ -234,16 +234,38 @@ export default {
         this.fetchData();
       }
     },
-    removeKeyword() {
-      this.search.keyword = null;
-      this.$router.replace({ keyword: null });
-      this.checkURL();
-    },
-    removeLocation() {
-      this.search.location = null;
-      this.search.lng = 0.0;
-      this.search.lat = 0.0;
-      this.$router.replace({ location: null, lat: null, lng: null });
+    removeParams(val) {
+      let queryObj = {
+        keyword: null,
+        location: null,
+        lat: null,
+        lng: null
+      };
+
+      // Remove only keyword
+      if (val === "keyword") {
+        queryObj.keyword = null;
+        this.search.keyword = null;
+
+        if (this.search.location !== null) {
+          queryObj.location = this.search.location;
+          queryObj.lat = this.search.lat;
+          queryObj.lng = this.search.lng;
+        }
+      }
+
+      // Remove only location
+      if (val === "location") {
+        this.search.location = null;
+        this.search.lat = null;
+        this.search.lng = null;
+
+        if (this.search.keyword !== null) {
+          queryObj.keyword = this.search.keyword;
+        }
+      }
+
+      this.$router.push({ name: "home", query: queryObj });
       this.checkURL();
     }
   },

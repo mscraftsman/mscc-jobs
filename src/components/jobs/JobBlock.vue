@@ -58,10 +58,7 @@
         <ul>
           <template v-if="!isPreview && tags">
             <li v-for="(tag, index) in tags" :key="index">
-              <router-link
-                class="tag"
-                :to="{ name: 'jobs', query: { keyword: encodeURIComponent(tag) } }"
-              >
+              <router-link class="tag" :to="{ name: 'jobs', query: { keyword: tag } }">
                 {{
                 tag
                 }}

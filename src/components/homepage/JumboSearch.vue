@@ -183,37 +183,29 @@ export default {
   watch: {
     keywordValue: {
       handler(val) {
-        if (val) {
-          this.title = val;
-        }
+        this.title = val;
       },
       deep: true,
       immediate: true
     },
     locationValue: {
       handler(val) {
-        if (val) {
-          this.location.formatted_address = val;
-          this.locationDisplayValue = val;
-        }
+        this.location.formatted_address = val;
+        this.locationDisplayValue = val;
       },
       deep: true,
       immediate: true
     },
     locationLat: {
       handler(val) {
-        if (val) {
-          this.location.lat = val;
-        }
+        this.location.lat = val;
       },
       deep: true,
       immediate: true
     },
     locationLng: {
       handler(val) {
-        if (val) {
-          this.location.lng = val;
-        }
+        this.location.lng = val;
       },
       deep: true,
       immediate: true

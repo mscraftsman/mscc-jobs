@@ -175,10 +175,10 @@ export default {
       }
     },
     removeKeyword() {
-      this.$emit("removeKeyword", true);
+      this.$emit("removeKeyword", "keyword");
     },
     removeLocation() {
-      this.$emit("removeLocation", true);
+      this.$emit("removeLocation", "location");
     }
   },
   watch: {
