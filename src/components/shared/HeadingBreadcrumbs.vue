@@ -51,7 +51,7 @@
             <img src="/img/utils/close.svg" alt>
           </button>
 
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores maxime nesciunt cupiditate facere blanditiis est unde deleniti ea...</p>
+          <p>To receive email notifications whenever a new job opportunity becomes availailable, please fill in the form below and hit subscribe.</p>
 
           <form @submit.prevent="subscribeUser()">
             <div class="form__field">
@@ -94,7 +94,7 @@
                   <label
                     class="checkbox__text"
                     for="accept__job__conditions"
-                  >GDPR compliance text goes here</label>
+                  >I agree to receive notifications through the email address provided above.</label>
                 </div>
               </div>
 
@@ -157,8 +157,10 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 import InputText from "@/components/forms/InputText";
 import InputEmail from "@/components/forms/InputEmail";
+import { SITE_ID, SUBSCRIBE_ENDPOINT } from "@/store/constants";
 
 export default {
   components: {
@@ -205,20 +207,28 @@ export default {
     subscribeUser() {
       this.$validator.validateAll().then(result => {
         if (result) {
-          alert("TODO: send data");
+          axios
+            .post(
+              SUBSCRIBE_ENDPOINT,
+              (firstname = this.subscribeData.firstName),
+              (lastname = this.subscribeData.lastName),
+              (email = this.subscribeData.email)
+            )
+            .then(function(response) {
+              console.log(response.data);
+              this.submitStatus.success = true;
+              this.submitStatus.error = false;
+            })
+            .catch(function(error) {
+              this.submitStatus.success = false;
+              this.submitStatus.error = true;
+            })
+            .then(function() {
+              // always executed
+            });
 
-          // TODO: send data
-
-          console.log(this.subscribeData);
-
-          // Set submit status
-          this.submitStatus.success = true;
-          this.submitStatus.error = false;
           return;
         }
-
-        alert("Correct the errors!");
-        this.submitStatus.error = true;
       });
     }
   }
