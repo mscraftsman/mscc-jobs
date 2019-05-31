@@ -608,15 +608,15 @@ import { UPLOAD_ENDPOINT, SITE_ID, CHECKOUT_KEY } from "../store/constants";
 let CheckoutTag = `
 <script>
   window.onload = () => {
-  window.CKOConfig = {
-    publicKey: CHECKOUT_KEY,
-    value: 100,
-    currency: "MUR",
-    paymentMode: "cards",
-    cardFormMode: "cardTokenisation",
-    cardTokenised: event => {
-      console.log(event.data.cardToken);
-    }
+    window.CKOConfig = {
+      publicKey: CHECKOUT_KEY,
+      value: 100,
+      currency: "MUR",
+      paymentMode: "cards",
+      cardFormMode: "cardTokenisation",
+      cardTokenised: event => {
+        console.log(event.data.cardToken);
+      }
   };
 <\/script>
 <script src="https://cdn.checkout.com/sandbox/js/checkout.js" async><\/script>
@@ -868,8 +868,6 @@ export default {
         if (val.extraTags && val.extraTags !== null) {
           tags = tags + "," + val.extraTags;
         }
-
-        console.log(tags);
 
         this.job = {
           colour: backgroundColour,
