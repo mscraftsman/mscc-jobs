@@ -292,22 +292,16 @@ export default {
       { name: "og:title", content: "Home | Jobs in Tech" },
       { name: "og:url", content: "" },
       { name: "og:description", content: "Jobs in Tech Description" },
-      {
-        name: "og:image",
-        content: "https://www.jobintech.mscc.mu/assets/image/og-home.jpg"
-      },
+      { name: "og:image", content: "https://jobs.mscc.mu/assets/image/og-home.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@MSCraftsman" },
       { name: "twitter:creator", content: "@MSCraftsman" },
       { name: "twitter:title", content: "Home | Jobs in Tech" },
-      { name: "twitter:url", content: "https://www.jobintech.mscc.mu" },
+      { name: "twitter:url", content: "https://jobs.mscc.mu" },
       { name: "twitter:description", content: "Jobs in Tech Description" },
-      {
-        name: "twitter:image",
-        content: "https://www.jobintech.mscc.mu/assets/image/og-home.jpg"
-      }
+      { name: "twitter:image", content: "https://jobs.mscc.mu/assets/image/og-home.jpg" }
     ],
-    link: [{ rel: "canonical", href: "https://www.jobintech.mscc.mu" }]
+    link: [{ rel: "canonical", href: "https://jobs.mscc.mu" }]
   }
 };
 </script>

@@ -326,7 +326,7 @@
                         <div class="icon">
                           <img src="@/assets/img/payment-lock.svg" alt>
                         </div>
-                        <div class="text">Secure payment guaranteed by XXXXXX over HTTPS</div>
+                        <div class="text">Secure payment guaranteed by Checkout.com over HTTPS</div>
                       </div>
 
                       <div class="note">
@@ -533,7 +533,7 @@
                 </div>
               </div>
             </form>
-            <form class="payment-form" method="POST" action="http://localhost:8080/submit-job"></form>
+            <form class="payment-form" method="POST" action="/submit-job"></form>
           </div>
           <!-- SUBMIT JOB -->
           <!-- SIDEBAR -->
@@ -541,7 +541,7 @@
             <div class="block__content style__content">
               <div class="body__content centered__content">
                 <a
-                  href="http://mscc.mu"
+                  href="https://mscc.mu"
                   class="go__to__button button__global blue override__visbility"
                 >
                   <img class="icon" src="@/assets/img/external-link-light.svg" alt>
