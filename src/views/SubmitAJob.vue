@@ -1,6 +1,5 @@
 <template>
   <div class="body__container submit__a__job__view">
-    <VueScriptComponent :script="checkoutTag"/>
     <section class="submit__a__job">
       <HeadingBreadcrumbs :breadcrumbs="breadcrumbs" pageTitle="Submit a job" :alertStatus="false"/>
 
@@ -336,6 +335,9 @@
                         </div>
                         <div class="text">Card is only charged when you press "Submit your Job"</div>
                       </div>
+
+                      <div id="checkouttag"></div>
+
                     </div>
                   </div>
                 </div>
@@ -578,6 +580,7 @@
 
 
 <script>
+import postscribe from 'postscribe'
 import JobBlock from "@/components/jobs/JobBlock";
 import { VueEditor } from "vue2-editor";
 import ButtonComponent from "@/components/shared/ButtonComponent";
@@ -601,25 +604,23 @@ import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
 
 // vue-script-component
-import VueScriptComponent from "vue-script-component";
 import { mapGetters } from "vuex";
 import { UPLOAD_ENDPOINT, SITE_ID, CHECKOUT_KEY } from "../store/constants";
 
 let CheckoutTag = `
-<script>
-  window.onload = () => {
+  <script>
     window.CKOConfig = {
-      publicKey: CHECKOUT_KEY,
+      publicKey: 'CHECKOUTKEY',
       value: 100,
-      currency: "MUR",
-      paymentMode: "cards",
-      cardFormMode: "cardTokenisation",
-      cardTokenised: event => {
+      currency: 'MUR',
+      paymentMode: 'cards',
+      cardFormMode: 'cardTokenisation',
+      cardTokenised: function(event) {
         console.log(event.data.cardToken);
       }
-  };
-<\/script>
-<script src="https://cdn.checkout.com/sandbox/js/checkout.js" async><\/script>
+    };
+  <\/script>
+  <script src='https://cdn.checkout.com/sandbox/js/checkout.js' async><\/script>
 `;
 
 export default {
@@ -639,8 +640,7 @@ export default {
     InputDate,
     HeadingBreadcrumbs,
     vueDropzone: vue2Dropzone,
-    InputMultiSelect,
-    VueScriptComponent
+    InputMultiSelect
   },
   computed: {
     ...mapGetters({
@@ -774,8 +774,13 @@ export default {
     job: {}
   }),
   beforeMount() {},
-  mounted() {},
+  mounted() {
+    postscribe('#checkouttag', this.getCheckoutScript())
+  },
   methods: {
+    getCheckoutScript () {
+      return (this.checkoutTag).replace('CHECKOUTKEY', CHECKOUT_KEY)
+    },
     validateSubmission() {
       // TODO: Check if file has been uploaded
 
