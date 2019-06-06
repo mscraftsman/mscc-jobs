@@ -209,10 +209,10 @@ export default {
         if (result) {
           axios
             .post(
-              SUBSCRIBE_ENDPOINT,
-              (Name = this.subscribeData.firstName + '' + this.subscribeData.lastName)
-              (EmailAddress = this.subscribeData.email)
-            )
+              SUBSCRIBE_ENDPOINT,{
+              name: this.subscribeData.firstName + ' ' + this.subscribeData.lastName,
+              emailAddress: this.subscribeData.email
+              })
             .then(function(response) {
               console.log(response.data);
               this.submitStatus.success = true;
