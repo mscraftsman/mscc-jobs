@@ -210,9 +210,8 @@ export default {
           axios
             .post(
               SUBSCRIBE_ENDPOINT,
-              (firstname = this.subscribeData.firstName),
-              (lastname = this.subscribeData.lastName),
-              (email = this.subscribeData.email)
+              (Name = this.subscribeData.firstName + '' + this.subscribeData.lastName)
+              (EmailAddress = this.subscribeData.email)
             )
             .then(function(response) {
               console.log(response.data);
