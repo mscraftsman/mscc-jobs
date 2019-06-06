@@ -205,25 +205,43 @@ export default {
       this.$modal.hide("subscribe");
     },
     subscribeUser() {
+      let self = this;
       this.$validator.validateAll().then(result => {
         if (result) {
           axios
-            .post(
-              SUBSCRIBE_ENDPOINT,{
-              name: this.subscribeData.firstName + ' ' + this.subscribeData.lastName,
-              emailAddress: this.subscribeData.email
-              })
+            .post(SUBSCRIBE_ENDPOINT, {
+              name:
+                this.subscribeData.firstName +
+                " " +
+                this.subscribeData.lastName,
+              emailAddress: this.subscribeData.email,
+              password: null,
+              live: 0,
+              jobtype: 3,
+              contracttype: 2,
+              radius: 50,
+              siteid: SITE_ID.replace("/sites/", ""),
+              keywords:
+                "Dev, Engineer, Javascript, React, Full Stack, Senior, Backend, Python, Web Dev, PHP, Front End, Angular, Architecture",
+              Locations: [
+                {
+                  name: "Mauritius",
+                  Latitude: -20.348404,
+                  Longitude: 57.55215200000001,
+                  iscountry: true
+                }
+              ]
+            })
             .then(function(response) {
-              console.log(response.data);
-              this.submitStatus.success = true;
-              this.submitStatus.error = false;
+              self.submitStatus.success = true;
+              self.submitStatus.error = false;
             })
             .catch(function(error) {
-              this.submitStatus.success = false;
-              this.submitStatus.error = true;
+              self.submitStatus.success = false;
+              self.submitStatus.error = true;
             })
             .then(function() {
-              // always executed
+              console.log(self.responseCode);
             });
 
           return;
