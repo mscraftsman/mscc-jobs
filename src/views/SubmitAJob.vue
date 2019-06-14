@@ -14,22 +14,101 @@
                   <InputText
                     label="Position"
                     name="position"
-                    v-model="submitJobData.position"
+                    v-model="listing.JobTitle"
                     v-validate="'required'"
                     :full="true"
                     :message="errors.first('position')"
                   />
 
+                  <InputSelect
+                    label="Employment Type"
+                    name="employmentType"
+                    v-model="submitJobData.type"
+                    :values="jobTypes"
+                    optionValue="name"
+                    optionText="name"
+                    :full="true"
+                    v-validate="'required'"
+                    :message="errors.first('employmentType')"
+                  />
+
+                  <InputSelect
+                    label="Seniority Level"
+                    name="seniorityLevel"
+                    :values="seniorityLevel"
+                    optionValue="name"
+                    optionText="name"
+                    v-model="submitJobData.seniorityLevel"
+                    v-validate="'required'"
+                    :full="true"
+                    :message="errors.first('seniorityLevel')"
+                  />
+
                   <InputText
+                    label="Keywords"
+                    name="Keywords"
+                    v-model="listing.ChrKeywords"
+                    v-validate
+                    :full="true"
+                    :message="errors.first('Keywords')"
+                    helpText="Use tags like industry and tech stack, and separate multiple tags by comma"
+                  />
+
+                  <InputText
+                    label="Location Text"
+                    name="locationText"
+                    v-model="listing.ChrLocationTxt"
+                    v-validate
+                    :full="true"
+                    :message="errors.first('locationText')"
+                  />
+
+                  <InputEditor
+                    label="Job Description"
+                    name="description"
+                    :full="true"
+                    v-model="listing.chrDescription"
+                    v-validate="'required'"
+                    :message="errors.first('description')"
+                  />
+
+                  <InputEditor
+                    label="Qualification"
+                    name="qualification"
+                    :full="true"
+                    v-model="listing.Qualifications"
+                    v-validate="'required'"
+                    :message="errors.first('qualification')"
+                  />
+
+                  <InputText
+                    label="Salary"
+                    name="salary"
+                    v-model="listing.Salary"
+                    v-validate="'required'"
+                    :full="true"
+                    :message="errors.first('salary')"
+                  />
+
+                  <InputText
+                    label="Benefits"
+                    name="benefits"
+                    v-model="listing.Benefits"
+                    v-validate="'required'"
+                    :full="true"
+                    :message="errors.first('benefits')"
+                  />
+
+                  <!-- <InputText
                     label="Company Name"
                     name="companyName"
                     v-model="submitJobData.companyName"
                     v-validate="'required'"
                     :full="true"
                     :message="errors.first('companyName')"
-                  />
+                  />-->
 
-                  <div class="if__remote__job">
+                  <!-- <div class="if__remote__job">
                     <div class="checkbox__styled">
                       <div class="checkbox__accept">
                         <input
@@ -54,9 +133,9 @@
                         />
                       </label>
                     </div>
-                  </div>
+                  </div>-->
 
-                  <InputSelect
+                  <!-- <InputSelect
                     label="Type"
                     name="type"
                     v-model="submitJobData.type"
@@ -75,9 +154,9 @@
                     v-validate="'required'"
                     :full="true"
                     :message="errors.first('seniorityLevel')"
-                  />
+                  />-->
 
-                  <InputText
+                  <!-- <InputText
                     label="Functions"
                     name="functions"
                     v-model="submitJobData.functions"
@@ -85,9 +164,9 @@
                     :full="true"
                     :message="errors.first('functions')"
                     helpText="Use comma to separate the job functions"
-                  />
+                  />-->
 
-                  <InputSelect
+                  <!-- <InputSelect
                     label="Primary tag"
                     name="primaryTag"
                     v-model="submitJobData.primaryTag"
@@ -98,9 +177,9 @@
                     v-validate="'required'"
                     :message="errors.first('primaryTag')"
                     helpText="This primary tag shows first and increases visibility in the main sections"
-                  />
+                  />-->
 
-                  <InputText
+                  <!-- <InputText
                     label="Extra tags"
                     name="extraTags"
                     v-model="submitJobData.extraTags"
@@ -108,9 +187,9 @@
                     :full="true"
                     :message="errors.first('extraTags')"
                     helpText="Use tags like industry and tech stack, and separate multiple tags by comma"
-                  />
+                  />-->
 
-                  <InputMultiSelect
+                  <!-- <InputMultiSelect
                     label="Tech Stack"
                     name="techStack"
                     v-model="submitJobData.techStack"
@@ -121,18 +200,18 @@
                     v-validate="'required'"
                     :message="errors.first('techStack')"
                     helpText="The Tech Stack"
-                  />
+                  />-->
 
-                  <InputEditor
+                  <!-- <InputEditor
                     label="Job Summary"
                     name="summary"
                     :full="true"
                     v-model="submitJobData.summary"
                     v-validate="'required'"
                     :message="errors.first('summary')"
-                  />
+                  />-->
 
-                  <InputEditor
+                  <!-- <InputEditor
                     label="Job Description"
                     name="description"
                     :full="true"
@@ -148,9 +227,9 @@
                     v-model="submitJobData.responsibilities"
                     v-validate="'required'"
                     :message="errors.first('responsibilities')"
-                  />
+                  />-->
 
-                  <InputEditor
+                  <!-- <InputEditor
                     label="Job Requirements"
                     name="requirements"
                     :full="true"
@@ -175,7 +254,7 @@
                     v-model="submitJobData.howToApply"
                     v-validate="'required'"
                     :message="errors.first('howToApply')"
-                  />
+                  />-->
 
                   <div class="apply__instructions">
                     <InputUrl
@@ -224,6 +303,52 @@
               <div class="block__content submit__job__block">
                 <h3>Company information</h3>
                 <div class="body__content submit__grid__layout">
+                  <InputEmail
+                    label="Company Email"
+                    name="email"
+                    v-model="customer.email"
+                    v-validate="'required|email'"
+                    :full="true"
+                    :message="errors.first('email')"
+                    helpText="Make sure this email is accessible by you! We use this to send the invoice and edit link. We can not and do not manually resend it!"
+                  />
+
+                  <InputText
+                    label="First Name"
+                    name="firstName"
+                    v-model="customer.firstName"
+                    v-validate="'required'"
+                    :full="true"
+                    :message="errors.first('firstName')"
+                  />
+
+                  <InputText
+                    label="Last Name"
+                    name="lastName"
+                    v-model="customer.lastName"
+                    v-validate="'required'"
+                    :full="true"
+                    :message="errors.first('lastName')"
+                  />
+
+                  <InputText
+                    label="Profile Title"
+                    name="profileTitle"
+                    v-model="profile.title"
+                    v-validate="'required'"
+                    :full="true"
+                    :message="errors.first('profileTitle')"
+                  />
+
+                  <InputEditor
+                    label="About"
+                    name="about"
+                    :full="true"
+                    v-model="profile.content"
+                    v-validate="'required'"
+                    :message="errors.first('about')"
+                  />
+
                   <div class="company__logo">
                     <div class="input__block full">
                       <div class="dropzone__company__logo">
@@ -252,7 +377,7 @@
                     </div>
                   </div>
 
-                  <InputUrl
+                  <!-- <InputUrl
                     label="Company Twitter"
                     name="socialTwitter"
                     v-model="submitJobData.socialTwitter"
@@ -277,9 +402,9 @@
                     v-validate="{url: {require_protocol: true }}"
                     :full="true"
                     :message="errors.first('socialLinkedIn')"
-                  />
+                  />-->
 
-                  <InputEmail
+                  <!-- <InputEmail
                     label="Company Email"
                     name="email"
                     v-model="submitJobData.email"
@@ -287,9 +412,9 @@
                     :full="true"
                     :message="errors.first('email')"
                     helpText="Make sure this email is accessible by you! We use this to send the invoice and edit link. We can not and do not manually resend it!"
-                  />
+                  />-->
 
-                  <div class="payment__card__info">
+                  <!-- <div class="payment__card__info">
                     <div class="card__number">
                       <InputCreditCard
                         label="Company Card"
@@ -336,17 +461,26 @@
                         <div class="text">Card is only charged when you press "Submit your Job"</div>
                       </div>
 
-                      <div id="checkouttag"></div>
+                     <div id="checkouttag"></div>
+                    </div>
+                  </div>-->
+                </div>
+              </div>
 
+              <div class="block__content submit__job__block">
+                <h3>Pay Now</h3>
+                <div class="body__content submit__grid__layout">
+                  <div class="payment__card__info">
+                    <div class="card__notes">
+                      <div id="checkouttag"></div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="block__content submit__job__block">
+              <!-- <div class="block__content submit__job__block">
                 <h3>Get more leads</h3>
                 <div class="body__content submit__grid__layout">
-                  <!-- Show company logo -->
                   <div :class="['input__block', 'full']">
                     <div class="checkbox__styled">
                       <div class="checkbox__accept">
@@ -366,7 +500,6 @@
                     </div>
                   </div>
 
-                  <!-- Featured yellow bar or background colour -->
                   <div :class="['input__block', 'full']">
                     <div class="checkbox__styled">
                       <div class="checkbox__accept">
@@ -447,12 +580,11 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>-->
 
-              <div class="block__content submit__job__block">
+              <!-- <div class="block__content submit__job__block">
                 <h3>Save money & buy a package</h3>
                 <div class="body__content submit__grid__layout">
-                  <!-- Show company logo -->
                   <div
                     :class="['input__block', 'full']"
                     v-for="(item, index) in packageInformation"
@@ -480,7 +612,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>-->
 
               <div :class="['input__block', 'full', 'submit__buttons']">
                 <button
@@ -580,7 +712,8 @@
 
 
 <script>
-import postscribe from 'postscribe'
+import axios from "axios";
+import postscribe from "postscribe";
 import JobBlock from "@/components/jobs/JobBlock";
 import { VueEditor } from "vue2-editor";
 import ButtonComponent from "@/components/shared/ButtonComponent";
@@ -605,22 +738,29 @@ import "vue2-dropzone/dist/vue2Dropzone.min.css";
 
 // vue-script-component
 import { mapGetters } from "vuex";
-import { UPLOAD_ENDPOINT, SITE_ID, CHECKOUT_KEY } from "../store/constants";
+import {
+  UPLOAD_ENDPOINT,
+  SITE_ID,
+  CHECKOUT_KEY,
+  CHECKOUT_API,
+  PURCHASE_ENDPOINT
+} from "../store/constants";
 
 let CheckoutTag = `
   <script>
+    var token= null;
     window.CKOConfig = {
       publicKey: 'CHECKOUTKEY',
-      value: 100,
+      value: 399900,
       currency: 'MUR',
       paymentMode: 'cards',
       cardFormMode: 'cardTokenisation',
       cardTokenised: function(event) {
-        console.log(event.data.cardToken);
+        token= event.data.cardToken;
       }
     };
   <\/script>
-  <script src='https://cdn.checkout.com/sandbox/js/checkout.js' async><\/script>
+  <script src='CHECKOUT_API' async><\/script>
 `;
 
 export default {
@@ -669,36 +809,21 @@ export default {
         value: "Freelance"
       }
     ],
-    primaryTags: [
+    seniorityLevel: [
       {
-        name: "Software Development",
-        value: "Software Development"
+        name: "Temporary",
+        value: "Temporary"
       },
       {
-        name: "Customer Support",
-        value: "Customer Support"
+        name: "Permanent",
+        value: "Permanent"
       },
       {
-        name: "Marketing",
-        value: "Marketing"
-      },
-      {
-        name: "Design",
-        value: "Design"
-      },
-      {
-        name: "Front End",
-        value: "Front End"
-      },
-      {
-        name: "Back End",
-        value: "Back End"
-      },
-      {
-        name: "Non Tech",
-        value: "Non Tech"
+        name: "Nocontract",
+        value: "Nocontract"
       }
     ],
+
     submitStatus: {
       submitted: false,
       error: false,
@@ -707,6 +832,99 @@ export default {
     companyInformation: {
       logoFileName: null,
       logoSrc: null
+    },
+
+    listing: {
+      advertId: 0,
+      site_id: 0,
+      intType_id: 7,
+      ProfileId: 12,
+      chrDate: null,
+      chrDescription: null,
+      JobTitle: "Software developer",
+      intAgeMin: 0,
+      intAgeMax: 0,
+      Residential: 0,
+      NonResidential: 0,
+      Url: null,
+      ChrKeywords: null,
+      ChrLocationTxt: null,
+      ChrRequestInfo: null,
+      DtStartDate: "2019-06-13 14:38:03.823",
+      DtEndDate: "2019-06-13 14:38:03.823",
+      Logo: null,
+      IsActive: 0,
+      StatusID: 1,
+      Hide: 0,
+
+      Live: 1,
+      jobType: 0,
+      Benefits: null,
+      Salary: null,
+      Qualifications: null,
+      StartDate: "2019-06-13 14:38:03.823",
+      EndDate: "2019-06-13 14:38:03.823",
+      EmployerName: "Kaveer",
+      ApplyType: 0,
+      ApplyUrl: null,
+      StartText: null,
+      EndText: null,
+      ApplyEmail: null,
+      ContractType: 2,
+      CvRequiredField: 0,
+      Reference: null,
+      VenueId: 0,
+      AppFormId: 4,
+      RefFormId: 0,
+      InfoFormId: 0,
+      PostCode: null,
+      Programmes: [],
+      Sites: [
+        {
+          AdvertId: 0,
+          classId: SITE_ID.replace("/sites/", "")
+        }
+      ],
+      Facebook: null,
+      Markers: []
+    },
+    customer: {
+      customerId: 0,
+      email: "kaveer.rajcoomar@gmail.com",
+      firstName: "Kaveer",
+      lastName: "Rajcoomar",
+      customerGroupId: 1,
+      mandateId: 0,
+      exportTypes: null,
+      status: 1
+    },
+    profile: {
+      profileId: 0,
+      content: null,
+      type: 2,
+      url: null,
+      frameHeight: 0,
+      title: null,
+      keywords: null,
+      active: 1,
+      friendlyUrl: null,
+      image: null,
+      largeImage: null,
+      secondaryImage: null,
+      youtube: null,
+      slideImages: null
+    },
+    purchase: {
+      id: 0,
+      IsCustomerNotified: false
+    },
+    checkout: {
+      Amount: 3999,
+      Currency: "MUR",
+      DoThreeDS: false,
+      CardToken: null,
+      Capture: false,
+      Reference: null
     },
     submitJobData: {
       colour: "#ffffff",
@@ -775,33 +993,110 @@ export default {
   }),
   beforeMount() {},
   mounted() {
-    postscribe('#checkouttag', this.getCheckoutScript())
+    postscribe("#checkouttag", this.getCheckoutScript());
   },
   methods: {
-    getCheckoutScript () {
-      return (this.checkoutTag).replace('CHECKOUTKEY', CHECKOUT_KEY)
+    getCheckoutScript() {
+      return this.checkoutTag
+        .replace("CHECKOUTKEY", CHECKOUT_KEY)
+        .replace("CHECKOUT_API", CHECKOUT_API);
+    },
+    SetSeniorityLevel() {
+      switch (this.submitJobData.seniorityLevel) {
+        case "Temporary":
+          this.listing.ContractType = 1;
+          break;
+        case "Permanent":
+          this.listing.ContractType = 2;
+          break;
+        default:
+          this.listing.ContractType = 3;
+      }
+    },
+    SetJobType() {
+      switch (this.submitJobData.type) {
+        case "Full Time":
+          this.listing.jobType = 1;
+          break;
+        case "Part Time":
+          this.listing.jobType = 2;
+          break;
+        default:
+          this.listing.jobType = 3;
+      }
+    },
+    SetApplyType() {
+      switch (this.submitJobData.applyMode) {
+        case "applyEmail":
+          this.listing.ApplyType = 2;
+          this.listing.ApplyEmail = this.submitJobData.applyEmail;
+          break;
+        case "applyUrl":
+          this.listing.ApplyType = 1;
+          this.listing.ApplyUrl = this.submitJobData.applyUrl;
+          break;
+        default:
+          this.listing.ApplyType = 1;
+      }
+    },
+    SetTokenFromCheckout() {
+      console.log(token);
+      if (token != null) {
+        this.checkout.CardToken = token;
+      }
+    },
+    SubmitJobCall() {
+      let jsonObject= {
+        Braintree: {
+          ClientToken: null,
+          Nonce: null
+        },
+        Checkout: this.checkout,
+        Purchase: this.purchase,
+        Customer: this.customer,
+        Profile: this.profile,
+        Listing: this.listing
+      };
+
+      axios
+        .post(PURCHASE_ENDPOINT, jsonObject)
+        .then(function(response) {
+          
+        })
+        .catch(function(error) {
+          
+        })
+        .then(function() {
+          
+        });
     },
     validateSubmission() {
+      this.SetSeniorityLevel();
+      this.SetJobType();
+      this.SetApplyType();
+      this.SetTokenFromCheckout();
+
+      this.SubmitJobCall();
+
       // TODO: Check if file has been uploaded
 
-      this.submitStatus.submitted = true;
+      // this.submitStatus.submitted = true;
 
-      this.$validator.validateAll().then(result => {
-        if (result) {
-          alert("TODO: send data");
+      // this.$validator.validateAll().then(result => {
+      //   if (result) {
+      //     alert("TODO: send data");
 
-          // TODO: send data
+      //     // TODO: send data
+      //     console.log(this.submitJobData);
 
-          console.log(this.submitJobData);
-
-          // Set submit status
-          this.submitStatus.success = true;
-          return;
-        }
-
-        alert("Correct the errors!");
-        this.submitStatus.error = true;
-      });
+      //     // Set submit status
+      //     this.submitStatus.success = true;
+      //     return;
+      //   } else {
+      //     alert("Correct the errors!");
+      //     this.submitStatus.error = true;
+      //   }
+      // });
     },
     resetForm() {},
     applyUrlIsFocused(val) {
