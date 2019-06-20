@@ -763,8 +763,6 @@ let CheckoutTag = `
   <script src='CHECKOUT_API' async><\/script>
 `;
 
-
-
 export default {
   components: {
     JobBlock,
@@ -844,7 +842,7 @@ export default {
       ProfileId: 12,
       chrDate: null,
       chrDescription: null,
-      JobTitle: "Software developer",
+      JobTitle: null,
       intAgeMin: 0,
       intAgeMax: 0,
       Residential: 0,
@@ -853,8 +851,8 @@ export default {
       ChrKeywords: null,
       ChrLocationTxt: null,
       ChrRequestInfo: null,
-      DtStartDate: "2019-06-13 14:38:03.823",
-      DtEndDate: "2019-06-13 14:38:03.823",
+      DtStartDate: null,
+      DtEndDate: null,
       Logo: null,
       IsActive: 0,
       StatusID: 1,
@@ -865,9 +863,9 @@ export default {
       Benefits: null,
       Salary: null,
       Qualifications: null,
-      StartDate: "2019-06-13 14:38:03.823",
-      EndDate: "2019-06-13 14:38:03.823",
-      EmployerName: "Kaveer",
+      StartDate: null,
+      EndDate: null,
+      EmployerName: null,
       ApplyType: 0,
       ApplyUrl: null,
       StartText: null,
@@ -893,9 +891,9 @@ export default {
     },
     customer: {
       customerId: 0,
-      email: "kaveer.rajcoomar@gmail.com",
-      firstName: "Kaveer",
-      lastName: "Rajcoomar",
+      email: null,
+      firstName: null,
+      lastName: null,
       customerGroupId: 1,
       mandateId: 0,
       exportTypes: null,
@@ -1042,6 +1040,19 @@ export default {
           this.listing.ApplyType = 1;
       }
     },
+    GetDate(month) {
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, "0");
+      var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+      var yyyy = today.getFullYear();
+
+      if (month > 0) {
+        mm = String(today.getMonth() + (1 + month) )
+      }
+
+      today = mm + "/" + dd + "/" + yyyy;
+      return today;
+    },
     SubmitJobCall() {
       let jsonObject = {
         Braintree: {
@@ -1059,14 +1070,24 @@ export default {
         .post(PURCHASE_ENDPOINT, jsonObject)
         .then(function(response) {})
         .catch(function(error) {
-          this.submitStatus.error= true;
+          this.submitStatus.error = true;
         })
         .then(function() {});
     },
-    validateSubmission() {
+    SanitizeModel() {
       this.SetSeniorityLevel();
       this.SetJobType();
       this.SetApplyType();
+
+      this.listing.StartDate = this.GetDate(0);
+      this.listing.DtStartDate = this.GetDate(0);
+
+      // need to change the hard corded value
+      this.listing. DtEndDate = this.GetDate(3);
+      this.listing.EndDate = this.GetDate(3)
+    },
+    validateSubmission() {
+      this.SanitizeModel();
 
       if (token != null) {
         // this.checkout.CardToken = token;
