@@ -763,6 +763,8 @@ let CheckoutTag = `
   <script src='CHECKOUT_API' async><\/script>
 `;
 
+
+
 export default {
   components: {
     JobBlock,
@@ -788,6 +790,7 @@ export default {
     })
   },
   data: () => ({
+    tprice: 40000,
     checkoutTag: CheckoutTag,
     breadcrumbs: [
       {
@@ -1039,14 +1042,8 @@ export default {
           this.listing.ApplyType = 1;
       }
     },
-    SetTokenFromCheckout() {
-      console.log(token);
-      if (token != null) {
-        this.checkout.CardToken = token;
-      }
-    },
     SubmitJobCall() {
-      let jsonObject= {
+      let jsonObject = {
         Braintree: {
           ClientToken: null,
           Nonce: null
@@ -1060,23 +1057,25 @@ export default {
 
       axios
         .post(PURCHASE_ENDPOINT, jsonObject)
-        .then(function(response) {
-          
-        })
+        .then(function(response) {})
         .catch(function(error) {
-          
+          this.submitStatus.error= true;
         })
-        .then(function() {
-          
-        });
+        .then(function() {});
     },
     validateSubmission() {
       this.SetSeniorityLevel();
       this.SetJobType();
       this.SetApplyType();
-      this.SetTokenFromCheckout();
 
-      this.SubmitJobCall();
+      if (token != null) {
+        // this.checkout.CardToken = token;
+        // this.submitStatus.error = false;
+        // this.SubmitJobCall();
+        console.log(token);
+      } else {
+        this.submitStatus.error = true;
+      }
 
       // TODO: Check if file has been uploaded
 
