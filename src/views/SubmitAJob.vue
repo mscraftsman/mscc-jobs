@@ -894,7 +894,7 @@ export default {
       email: null,
       firstName: null,
       lastName: null,
-      customerGroupId: 1,
+      Type: 1,
       mandateId: 0,
       exportTypes: null,
       status: 1
@@ -917,7 +917,9 @@ export default {
     },
     purchase: {
       id: 0,
-      IsCustomerNotified: false
+      Quantity: 0,
+      IsCustomerNotified: false,
+      PaymentGateway: 0
     },
     checkout: {
       Amount: 3999,
@@ -1047,13 +1049,14 @@ export default {
       var yyyy = today.getFullYear();
 
       if (month > 0) {
-        mm = String(today.getMonth() + (1 + month) )
+        mm = String(today.getMonth() + (1 + month));
       }
 
       today = mm + "/" + dd + "/" + yyyy;
       return today;
     },
     SubmitJobCall() {
+      let self = this;
       let jsonObject = {
         Braintree: {
           ClientToken: null,
@@ -1068,9 +1071,11 @@ export default {
 
       axios
         .post(PURCHASE_ENDPOINT, jsonObject)
-        .then(function(response) {})
+        .then(function(response) {
+          self.submitStatus.success = true;
+        })
         .catch(function(error) {
-          this.submitStatus.error = true;
+          self.submitStatus.error = true;
         })
         .then(function() {});
     },
@@ -1083,40 +1088,36 @@ export default {
       this.listing.DtStartDate = this.GetDate(0);
 
       // need to change the hard corded value
-      this.listing. DtEndDate = this.GetDate(3);
-      this.listing.EndDate = this.GetDate(3)
+      this.listing.DtEndDate = this.GetDate(3);
+      this.listing.EndDate = this.GetDate(3);
+
+      this.listing.EmployerName = this.customer.firstName + ' ' + this.customer.lastName;
+      this.purchase.Quantity = 1;
+      this.purchase.PaymentGateway = 3;
     },
     validateSubmission() {
       this.SanitizeModel();
 
-      if (token != null) {
-        // this.checkout.CardToken = token;
-        // this.submitStatus.error = false;
-        // this.SubmitJobCall();
-        console.log(token);
-      } else {
-        this.submitStatus.error = true;
-      }
-
       // TODO: Check if file has been uploaded
 
-      // this.submitStatus.submitted = true;
+      this.submitStatus.submitted = true;
 
-      // this.$validator.validateAll().then(result => {
-      //   if (result) {
-      //     alert("TODO: send data");
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          if (token != null) {
+            this.checkout.CardToken = token;
+            this.submitStatus.error = false;
+            this.SubmitJobCall();
+          } else {
+            this.submitStatus.error = true;
+          }
+          // Set submit status
 
-      //     // TODO: send data
-      //     console.log(this.submitJobData);
-
-      //     // Set submit status
-      //     this.submitStatus.success = true;
-      //     return;
-      //   } else {
-      //     alert("Correct the errors!");
-      //     this.submitStatus.error = true;
-      //   }
-      // });
+          return;
+        } else {
+          this.submitStatus.error = true;
+        }
+      });
     },
     resetForm() {},
     applyUrlIsFocused(val) {
