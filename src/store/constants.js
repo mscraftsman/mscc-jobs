@@ -3,6 +3,9 @@ const ROOT_ENDPOINT = "https://api.agilemedia.mu/v1/public";
 const SITE_ID = "1";
 const ROOT_ENDPOINT_SITE_ID = ROOT_ENDPOINT + "/sites/" + SITE_ID;
 const DEFAULT_RADIUS_MILES = 25;
+const CHECKOUT_API = "https://cdn.checkout.com/sandbox/js/checkout.js";
+// const CHECKOUT_API = "https://cdn.checkout.com/js/checkout.js";
+
 
 // GET
 
@@ -27,6 +30,7 @@ const APPLY_ENDPOINT = ROOT_ENDPOINT + "/apply";
 const ARTICLE_ENDPOINT = ROOT_ENDPOINT + "/articles/filter";
 const UPLOAD_ENDPOINT = ROOT_ENDPOINT + "/upload";
 const SUBSCRIBE_ENDPOINT = ROOT_ENDPOINT + "/subscribe";
+const PURCHASE_ENDPOINT = ROOT_ENDPOINT + "/purchase/listing";
 
 // API Keys
 const GOOGLEMAPS_KEY = "AIzaSyDXeL4nVhBIVIjuWX9eaPh0ILzCuhIZxCs";
@@ -54,5 +58,7 @@ export {
   ONEDRIVE_CLIENT_ID,
   DEFAULT_RADIUS_MILES,
   CHECKOUT_KEY,
-  SUBSCRIBE_ENDPOINT
+  SUBSCRIBE_ENDPOINT,
+  CHECKOUT_API,
+  PURCHASE_ENDPOINT
 };
