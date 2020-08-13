@@ -1,7 +1,7 @@
 <template>
   <div class="body__container generic__view">
     <transition name="fade" mode="out-in">
-      <LoaderComponent v-if="loading"/>
+      <LoaderComponent v-if="loading" />
       <div v-else>
         <HeadingBreadcrumbs
           :breadcrumbs="breadcrumbs"
