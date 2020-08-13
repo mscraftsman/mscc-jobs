@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --dest dist",
     "modern": "vue-cli-service build --modern",
     "lint": "vue-cli-service lint",
-    "test:e2e": "vue-cli-service test:e2e"
+    "test:e2e": "vue-cli-service test:e2e",
+    "ghbuild": "NODE_ENV=ghpages vue-cli-service build --dest docs"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -42,7 +43,6 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
-    "fibers": "^3.1.1",
     "sass": "^1.16.0",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.21"
