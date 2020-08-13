@@ -79,7 +79,7 @@ export default {
             this.loading = false;
           })
           .catch(error => {
-            console.error(error);
+            // console.error(error);
             this.$router.push({ name: "notFound" });
           });
       } else {
@@ -89,7 +89,7 @@ export default {
       }
     },
     prepareBreadcrumbs(data) {
-      console.log(data);
+      // console.log(data);
       this.breadcrumbs = [{ path: data.slug, name: data.title }];
     }
   },

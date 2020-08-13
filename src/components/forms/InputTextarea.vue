@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     input() {
-      console.log(this.local);
+      // console.log(this.local);
       this.$emit("input", this.local);
     }
   },

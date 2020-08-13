@@ -53,11 +53,11 @@ export default {
   },
   methods: {
     input() {
-      console.log(this.local);
+      // console.log(this.local);
       this.$emit("input", this.local);
     },
     isFocused() {
-      console.log("is focused");
+      // console.log("is focused");
       this.$emit("isFocused", true);
     }
   },

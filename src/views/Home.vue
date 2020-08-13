@@ -159,7 +159,7 @@ export default {
               this.listingPageTitle = "Displaying results for:";
             })
             .catch(error => {
-              console.error(error);
+              // console.error(error);
             });
         }
       }
@@ -173,7 +173,7 @@ export default {
           this.isSearch = false;
         })
         .catch(error => {
-          console.error(error);
+          // console.error(error);
         });
     },
     sanitizeModel() {

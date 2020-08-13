@@ -241,7 +241,7 @@ export default {
               self.submitStatus.error = true;
             })
             .then(function() {
-              console.log(self.responseCode);
+              // console.log(self.responseCode);
             });
 
           return;

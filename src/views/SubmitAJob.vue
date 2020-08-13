@@ -1129,14 +1129,14 @@ export default {
       this.submitJobData.applyMode = "applyEmail";
     },
     companyLogoUploadSuccess(file, response) {
-      console.log(file);
-      console.log(response);
+      // console.log(file);
+      // console.log(response);
 
       let fileSrc = file.dataURL;
       this.companyInformation.logoSrc = fileSrc;
     },
     companyLogoUploadSending(file, xhr, formData) {
-      console.log(formData);
+      // console.log(formData);
       formData.append(
         "type",
         encodeURIComponent(

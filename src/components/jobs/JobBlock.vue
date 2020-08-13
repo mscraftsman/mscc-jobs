@@ -59,9 +59,7 @@
           <template v-if="!isPreview && tags">
             <li v-for="(tag, index) in tags" :key="index">
               <router-link class="tag" :to="{ name: 'jobs', query: { keyword: tag } }">
-                {{
-                tag
-                }}
+                {{ tag }}
               </router-link>
             </li>
           </template>
@@ -76,10 +74,10 @@
       </div>
       <div class="time">
         <template v-if="!isPreview">
-          <timeago :datetime="posted"></timeago>
+          <timeago :datetime="posted" />
         </template>
         <template v-else>
-          <timeago :datetime="previewData.datePosted"></timeago>
+          <timeago :datetime="previewData.datePosted" />
         </template>
       </div>
       <div class="apply__button">
@@ -143,9 +141,7 @@
                   <li v-for="(tag, index) in tags" :key="index">
                     <template v-if="!isPreview">
                       <router-link class="tag" :to="{ name: 'jobs', query: { tag: tag } }">
-                        {{
-                        tag
-                        }}
+                        {{ tag }}
                       </router-link>
                     </template>
                     <template v-else>
@@ -335,6 +331,7 @@ export default {
       if (this.job.datePosted) {
         return Date.parse(this.job.datePosted);
       }
+      return "";
     }
   },
   methods: {
@@ -402,7 +399,7 @@ export default {
             this.loadingStatus = false; // Set loading to false after data is obtained
           })
           .catch(error => {
-            console.log(error);
+            // console.log(error);
             this.loadingStatus = true;
           });
       } else {
@@ -419,7 +416,7 @@ export default {
             this.profileData = response;
           })
           .catch(error => {
-            console.log(error);
+            // console.log(error);
           });
       } else {
         this.profileData = this.profile;
@@ -454,7 +451,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss" scoped>
 .job__block {

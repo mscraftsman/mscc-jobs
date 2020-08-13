@@ -212,7 +212,7 @@ export default {
             value: this.profileId
           })
           .then(response => {
-            console.log(response);
+            // console.log(response);
 
             this.company = response;
             if(this.company.listings.length > 0){
@@ -223,11 +223,11 @@ export default {
                   this.lng = marker.longitude;
                 }
             }
-            console.log(this.company);
+            // console.log(this.company);
             this.loading = false;
           })
           .catch(error => {
-            console.error(error);
+            // console.error(error);
             this.$router.push({ name: "notFound" });
           });
       } else {

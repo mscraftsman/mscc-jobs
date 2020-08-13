@@ -639,7 +639,7 @@ export default {
                     }
                   })
                   .catch(error => {
-                    console.error(error);
+                    // console.error(error);
                   });
               } else {
                 this.company = this.getProfileData;
@@ -665,7 +665,7 @@ export default {
           //   }
           // })
           .catch(error => {
-            console.error(error);
+            // console.error(error);
             this.$router.push({ name: "notFound" });
           });
       } else {
@@ -690,7 +690,7 @@ export default {
               }
             })
             .catch(e => {
-              console.error(e);
+              // console.error(e);
               alert("Correct the errors!");
               this.submitStatus.error = true;
               this.submitStatus.success = false;
@@ -759,7 +759,7 @@ export default {
           }
         })
         .catch(e => {
-          console.log(e);
+          // console.log(e);
         });
     },
     resetForm() {
