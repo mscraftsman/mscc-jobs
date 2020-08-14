@@ -221,7 +221,10 @@
 
                         <!-- CV upload -->
                         <div :class="['input__block', 'full']">
-                          <label>Upload your curriculum vitae (.doc, .docx, .pdf or .rtf )</label>
+                          <label
+                            >Upload your curriculum vitae (.doc, .docx, .pdf or
+                            .rtf )</label
+                          >
 
                           <div class="upload__options">
                             <div class="upload__cv__button">
@@ -230,12 +233,17 @@
                                 type="file"
                                 ref="cv_upload"
                                 @change="handleCVUpload()"
-                              >
+                              />
                               <label
                                 for="cv_upload"
                                 class="upload__pc__button button__global blue override__visbility not__block"
                               >
-                                <img src="@/assets/img/pc.svg" class="icon">
+                                <img
+                                  src="@/assets/img/pc.svg"
+                                  class="icon"
+                                  alt="Choose a document from your machine"
+                                  title="Choose a document from your machine"
+                                />
                                 <span class="text">From Device</span>
                               </label>
                             </div>
@@ -251,18 +259,30 @@
                             <button
                               type="button"
                               class="upload__pc__button button__global blue override__visbility"
+                              aria-label="Choose a document from OneDrive"
                               @click="openOneDrivePicker()"
                             >
-                              <img src="@/assets/img/onedrive.svg" class="icon">
-                              <span class="text">One Drive</span>
+                              <img
+                                src="@/assets/img/onedrive.svg"
+                                class="icon"
+                                alt="Choose a document from OneDrive"
+                                title="Choose a document from OneDrive"
+                              />
+                              <span class="text">OneDrive</span>
                             </button>
 
                             <button
                               type="button"
                               class="upload__pc__button button__global blue override__visbility"
+                              aria-label="Choose a document from Dropbox"
                               @click="openDropboxChooser()"
                             >
-                              <img src="@/assets/img/dropbox.svg" class="icon">
+                              <img
+                                src="@/assets/img/dropbox.svg"
+                                class="icon"
+                                alt="Choose a document from Dropbox"
+                                title="Choose a document from Dropbox"
+                              />
                               <span class="text">Dropbox</span>
                             </button>
                           </div>
@@ -311,7 +331,9 @@
                             <label
                               class="checkbox__text"
                               for="accept__job__conditions"
-                            >I accept that my data is being transmitted etc..</label>
+                              >I accept that my data is being transmitted
+                              etc..</label
+                            >
                           </div>
                         </div>
 
@@ -319,6 +341,7 @@
                           <button
                             type="button"
                             class="submit__application__button button__global green override__visbility"
+                            aria-label="Submit your application"
                             @click="validateJobApplication()"
                             :disabled="applicationData.agree === false"
                           >
@@ -331,6 +354,7 @@
                           <button
                             type="reset"
                             class="reset__application__button button__global yellow override__visbility"
+                            aria-label="Reset the application form"
                             @click="resetForm()"
                           >
                             <span class="text">Reset</span>
@@ -343,7 +367,10 @@
                         >
                           <div class="icon__wrapper">
                             <div class="icon">
-                              <img src="@/assets/img/success.svg" alt>
+                              <img
+                                src="@/assets/img/success.svg"
+                                alt="Success"
+                              />
                             </div>
                           </div>
                           <div class="message">
@@ -358,7 +385,10 @@
                         >
                           <div class="icon__wrapper">
                             <div class="icon">
-                              <img src="@/assets/img/error_white.svg" alt>
+                              <img
+                                src="@/assets/img/error_white.svg"
+                                alt="Error"
+                              />
                             </div>
                           </div>
                           <div class="message">
@@ -379,7 +409,12 @@
                         rel="noopener noreferer"
                         class="submit__job__button button__global blue override__visbility"
                       >
-                        <img class="icon" src="@/assets/img/external-link-light.svg" alt>
+                        <img
+                          class="icon"
+                          src="@/assets/img/external-link-light.svg"
+                          alt="Apply on our website"
+                          title="Apply on our website"
+                        />
                         <div class="text">Apply on website</div>
                       </a>
                     </div>
@@ -388,11 +423,12 @@
                 <div v-else>
                   <div class="block__content">
                     <h3>Application closed</h3>
-                    <div
-                      class="body__content styled__content"
-                     
-                    >
-                      <p>Applications for this job listing are now closed. We thank you for your interest and invite you to look up other job opportunities.</p>
+                    <div class="body__content styled__content">
+                      <p>
+                        Applications for this job listing are now closed. We
+                        thank you for your interest and invite you to look up
+                        other job opportunities.
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -409,8 +445,13 @@
                         v-for="(tech, index) in jobData.tech_stack"
                         :key="index"
                       >
-                        <img :src="'/img/techstack/' + tech.logo" class="icon">
-                        <div class="text">{{tech.text}}</div>
+                        <img
+                          :src="'/img/techstack/' + tech.logo"
+                          class="icon"
+                          :alt="tech.text"
+                          :title="tech.text"
+                        />
+                        <div class="text">{{ tech.text }}</div>
                       </div>
                     </div>
                   </div>
@@ -428,7 +469,8 @@
                         <router-link
                           :to="{ name: 'jobsSingle', params: { id: job.id } }"
                           class="title"
-                        >{{ job.name }}</router-link>
+                          >{{ job.name }}</router-link
+                        >
                       </div>
                     </div>
                   </div>
@@ -437,7 +479,10 @@
                 <div class="block__content" v-if="this.jobByProfile.length > 0">
                   <h3>Share this opening</h3>
                   <div class="body__content">
-                    <SocialSharingComponent :url="url" :title="jobData.jobTitle"/>
+                    <SocialSharingComponent
+                      :url="url"
+                      :title="jobData.jobTitle"
+                    />
                   </div>
                 </div>
               </div>
@@ -449,7 +494,6 @@
     </transition>
   </div>
 </template>
-
 
 <script>
 import SocialSharingComponent from "@/components/shared/SocialSharingComponent";
@@ -1154,4 +1198,3 @@ h2 {
   }
 }
 </style>
-

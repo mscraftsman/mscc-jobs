@@ -618,6 +618,7 @@
                 <button
                   type="button"
                   class="submit__job__button button__global green override__visbility"
+                  aria-label="Submit your job offering"
                   @click="validateSubmission()"
                 >
                   <div class="icon">
@@ -629,6 +630,7 @@
                 <button
                   type="reset"
                   class="reset__submission__button button__global yellow override__visbility"
+                  aria-label="Reset the submission form"
                   @click="resetForm()"
                 >
                   <span class="text">Reset</span>
@@ -641,7 +643,7 @@
               >
                 <div class="icon__wrapper">
                   <div class="icon">
-                    <img src="@/assets/img/success.svg" alt>
+                    <img src="@/assets/img/success.svg" alt="Success" />
                   </div>
                 </div>
                 <div class="message">
@@ -656,7 +658,7 @@
               >
                 <div class="icon__wrapper">
                   <div class="icon">
-                    <img src="@/assets/img/error_white.svg" alt>
+                    <img src="@/assets/img/error_white.svg" alt="Error" />
                   </div>
                 </div>
                 <div class="message">
@@ -689,8 +691,16 @@
       <modal name="job-preview" :adaptive="true" height="auto" :scrollable="true" width="1400px">
         <div class="job__preview__modal modal">
           <h3>Preview</h3>
-          <button class="close__modal" @click="hidePreview()">
-            <img src="/img/utils/close.svg" alt>
+          <button
+            class="close__modal"
+            aria-label="Close the preview"
+            @click="hidePreview()"
+          >
+            <img
+              src="/img/utils/close.svg"
+              alt="Close the preview"
+              title="Close the preview"
+            />
           </button>
 
           <JobBlock :jobData="job" :isPreview="true" :previewData="job"/>
@@ -701,6 +711,7 @@
         <button
           type="button"
           class="submit__job__button button__global green override__visbility"
+          aria-label="Preview the job offering"
           @click="showPreview()"
         >
           <span class="text">Preview</span>
@@ -709,7 +720,6 @@
     </section>
   </div>
 </template>
-
 
 <script>
 import axios from "axios";
@@ -1495,4 +1505,3 @@ export default {
 @media (max-width: 450px) {
 }
 </style>
-

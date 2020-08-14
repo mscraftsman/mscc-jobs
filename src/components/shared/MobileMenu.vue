@@ -1,15 +1,21 @@
 <template>
-  <div :class="['mobile__menu', { active: menu } ]">
+  <div :class="['mobile__menu', { active: menu }]">
     <div class="close__button">
-      <button class="close" @click="setMenu">
-        <img src="@/assets/img/close.svg" alt>
+      <button class="close" aria-label="Close the menu" @click="setMenu">
+        <img
+          src="@/assets/img/close.svg"
+          alt="Close the menu"
+          title="Close the menu"
+        />
       </button>
     </div>
     <div class="menu">
       <nav>
         <ul>
           <li v-for="(item, index) in items" :key="index">
-            <router-link :class="item.class" :to="{ name: item.path }">{{item.name}}</router-link>
+            <router-link :class="item.class" :to="{ name: item.path }">{{
+              item.name
+            }}</router-link>
           </li>
         </ul>
       </nav>
@@ -114,4 +120,3 @@ export default {
   }
 }
 </style>
-

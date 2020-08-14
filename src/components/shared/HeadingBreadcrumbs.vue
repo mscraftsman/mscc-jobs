@@ -29,8 +29,11 @@
             <h3>Do you want to be notified?</h3>
             <button
               class="submit__job__button button__global blue"
+              aria-label="Submit your email address to receive job offers"
               @click="showSubscribeModal()"
-            >Subscribe</button>
+            >
+              Subscribe
+            </button>
           </div>
         </div>
       </div>
@@ -45,13 +48,26 @@
       >
         <div class="subscribe__modal modal">
           <h3>
-            <img src="@/assets/img/enveloppe.svg" class="subcribe__icon"> Subscribe to this job alert
+            <img src="@/assets/img/enveloppe.svg" class="subcribe__icon" />
+            Subscribe to this job alert
           </h3>
-          <button class="close__modal" @click="hideSubscribeModal()">
-            <img src="/img/utils/close.svg" alt>
+          <button
+            class="close__modal"
+            aria-label="Close the dialog"
+            @click="hideSubscribeModal()"
+          >
+            <img
+              src="/img/utils/close.svg"
+              alt="Close the dialog"
+              title="Close the dialog"
+            />
           </button>
 
-          <p>To receive email notifications whenever a new job opportunity becomes availailable, please fill in the form below and hit subscribe.</p>
+          <p>
+            To receive email notifications whenever a new job opportunity
+            becomes availailable, please fill in the form below and hit
+            subscribe.
+          </p>
 
           <form @submit.prevent="subscribeUser()">
             <div class="form__field">
@@ -91,10 +107,10 @@
                       <span></span>
                     </label>
                   </div>
-                  <label
-                    class="checkbox__text"
-                    for="accept__job__conditions"
-                  >I agree to receive notifications through the email address provided above.</label>
+                  <label class="checkbox__text" for="accept__job__conditions"
+                    >I agree to receive notifications through the email address
+                    provided above.</label
+                  >
                 </div>
               </div>
 
@@ -104,7 +120,7 @@
               >
                 <div class="icon__wrapper">
                   <div class="icon">
-                    <img src="@/assets/img/success.svg" alt>
+                    <img src="@/assets/img/success.svg" alt="Success" />
                   </div>
                 </div>
                 <div class="message">
@@ -119,7 +135,7 @@
               >
                 <div class="icon__wrapper">
                   <div class="icon">
-                    <img src="@/assets/img/error_white.svg" alt>
+                    <img src="@/assets/img/error_white.svg" alt="Error" />
                   </div>
                 </div>
                 <div class="message">
@@ -156,6 +172,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import axios from "axios";
 import InputText from "@/components/forms/InputText";

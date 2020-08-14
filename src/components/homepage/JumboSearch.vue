@@ -8,7 +8,7 @@
         <div class="search__criterion">
           <div class="field__jobtitle">
             <div class="icon">
-              <img src="@/assets/img/binoc.svg" alt>
+              <img src="@/assets/img/binoc.svg" alt="Search for Jobs in Tech" title="Search for Jobs in Tech">
             </div>
             <div class="field">
               <input
@@ -40,12 +40,13 @@
           <div class="search__button">
             <button
               :class="['search', {'loading' : loading}]"
+              aria-label="Search for Jobs in Tech"
               @click="execSearch"
               :disabled="loading === true"
             >
               <transition name="fade" mode="out-in">
-                <img src="@/assets/img/binoc.svg" v-if="!loading">
-                <LoaderComponent :tiny="true" v-else key="loader"/>
+                <img src="@/assets/img/binoc.svg" v-if="!loading" />
+                <LoaderComponent :tiny="true" v-else key="loader" />
               </transition>
             </button>
           </div>

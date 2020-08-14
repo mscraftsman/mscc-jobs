@@ -11,20 +11,38 @@
         <div class="heading">
           <span v-if="keywordValue" class="keyword__search">
             Keyword:
-            <button class="search__button" alt="Remove" @click="removeKeyword()">
-              {{keywordValue}}
+            <button
+              class="search__button"
+              alt="Remove"
+              aria-label="Remove the keyword"
+              @click="removeKeyword()"
+            >
+              {{ keywordValue }}
               <span class="remove__icon">
-                <img src="@/assets/img/close.svg" alt>
+                <img
+                  src="@/assets/img/close.svg"
+                  alt="Remove the keyword"
+                  title="Remove the keyword"
+                />
               </span>
             </button>
           </span>
 
           <span v-if="locationValue">
             Location:
-            <button class="search__button" alt="Remove" @click="removeLocation()">
-              {{locationValue}}
+            <button
+              class="search__button"
+              alt="Remove"
+              aria-label="Remove the location"
+              @click="removeLocation()"
+            >
+              {{ locationValue }}
               <span class="remove__icon">
-                <img src="@/assets/img/close.svg" alt>
+                <img
+                  src="@/assets/img/close.svg"
+                  alt="Remove the location"
+                  title="Remove the location"
+                />
               </span>
             </button>
           </span>
@@ -53,7 +71,9 @@
                   <button
                     class="load_more__button button__global outline blue"
                     @click="addJobs()"
-                  >Load more</button>
+                  >
+                    Load more
+                  </button>
                 </div>
               </template>
               <template v-else>
@@ -76,6 +96,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import HeadingBreadcrumbs from "@/components/shared/HeadingBreadcrumbs";
 import JobBlock from "@/components/jobs/JobBlock";
@@ -285,4 +306,3 @@ export default {
   }
 }
 </style>
-

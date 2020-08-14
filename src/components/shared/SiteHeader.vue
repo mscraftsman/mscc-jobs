@@ -9,8 +9,16 @@
             }}</router-link>
           </li>
         </ul>
-        <button class="mobile__menu__button" @click="activateMobileMenu">
-          <img src="@/assets/img/menu.svg" alt />
+        <button
+          class="mobile__menu__button"
+          aria-label="Open the navigation menu"
+          @click="activateMobileMenu"
+        >
+          <img
+            src="@/assets/img/menu.svg"
+            alt="Open the navigation menu"
+            title="Open the navigation menu"
+          />
         </button>
       </nav>
       <div class="logo">
