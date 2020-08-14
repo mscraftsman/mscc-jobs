@@ -78,7 +78,7 @@
             </svg>
           </a>
           <a
-            href="https://www.youtube.com/channel/UCeLiAZ5TlJla_uDj8_KndyA"
+            href="https://www.youtube.com/MauritiusSoftwareCraftsmanshipCommunity"
             class="icon"
             target="_blank"
             rel="noreferrer"
