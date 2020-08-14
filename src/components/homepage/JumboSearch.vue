@@ -8,7 +8,11 @@
         <div class="search__criterion">
           <div class="field__jobtitle">
             <div class="icon">
-              <img src="@/assets/img/binoc.svg" alt="Search for Jobs in Tech" title="Search for Jobs in Tech">
+              <img
+                src="@/assets/img/binoc.svg"
+                alt="Search for Jobs in Tech"
+                title="Search for Jobs in Tech"
+              />
             </div>
             <div class="field">
               <input
