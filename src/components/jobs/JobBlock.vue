@@ -11,36 +11,36 @@
             :to="{ name: 'profileSingle', params: { id: job.profile || this.profile || this.jobData.profileId} }"
           >
             <div class="logo__outer">
-              <img v-if="job && job.logo" :src="job.logo" alt class="company__logo">
+              <img
+                v-if="job && job.logo"
+                :src="job.logo"
+                alt
+                class="company__logo"
+              />
               <div class="company__initial" v-else>
-                <span v-if="job && job.company">{{ getCompanyInitial(job.company) }}</span>
+                <span v-if="job && job.company">{{
+                  getCompanyInitial(job.company)
+                }}</span>
               </div>
             </div>
           </router-link>
         </template>
         <template v-else>
           <div class="logo__outer">
-            <img alt v-if="previewData && previewData.company.logo" :src="previewData.company.logo">
+            <img
+              alt
+              v-if="previewData && previewData.company.logo"
+              :src="previewData.company.logo"
+            />
             <div class="company__initial" v-else>
-              <span
-                v-if="previewData && previewData.company.name"
-              >{{ getCompanyInitial(previewData.company.name) }}</span>
+              <span v-if="previewData && previewData.company.name">{{
+                getCompanyInitial(previewData.company.name)
+              }}</span>
             </div>
           </div>
         </template>
       </div>
       <div class="title__company">
-        <div>
-          <template v-if="!isPreview">
-            <router-link
-              :to="{ name: 'jobsSingle', params: { id: job.id || jobCompanyData.id ||  this.jobData.advertId } }"
-              class="title"
-            >{{ job.title || jobCompanyData.jobTitle }}</router-link>
-          </template>
-          <template v-else>
-            <div class="title" v-if="previewData.title">{{ previewData.title }}</div>
-          </template>
-        </div>
         <div>
           <template v-if="!isPreview">
             <router-link
@@ -51,6 +51,17 @@
           </template>
           <template v-else>
             <div class="company" v-if="previewData.company.name">{{ previewData.company.name }}</div>
+          </template>
+        </div>
+        <div>
+          <template v-if="!isPreview">
+            <router-link
+              :to="{ name: 'jobsSingle', params: { id: job.id || jobCompanyData.id ||  this.jobData.advertId } }"
+              class="title"
+            >{{ job.title || jobCompanyData.jobTitle }}</router-link>
+          </template>
+          <template v-else>
+            <div class="title" v-if="previewData.title">{{ previewData.title }}</div>
           </template>
         </div>
       </div>
