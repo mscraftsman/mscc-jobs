@@ -49,7 +49,12 @@
               :disabled="loading === true"
             >
               <transition name="fade" mode="out-in">
-                <img src="@/assets/img/binoc.svg" v-if="!loading" />
+                <img
+                  src="@/assets/img/binoc.svg"
+                  alt="Search for Jobs in Tech"
+                  title="Search for Jobs in Tech"
+                  v-if="!loading"
+                />
                 <LoaderComponent :tiny="true" v-else key="loader" />
               </transition>
             </button>
