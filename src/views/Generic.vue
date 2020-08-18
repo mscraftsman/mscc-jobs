@@ -12,12 +12,11 @@
         <div class="container__fw">
           <div class="block__content styled__content">
             <div class="body__content">
-              <div v-if="contentData.introText">
-                <span v-html="contentData.introText" />
-              </div>
-              <div v-if="contentData.article">
-                <span v-html="contentData.article" />
-              </div>
+              <div
+                v-if="contentData.introText"
+                v-html="contentData.introText"
+              />
+              <div v-if="contentData.article" v-html="contentData.article" />
             </div>
           </div>
         </div>
