@@ -12,9 +12,12 @@
         <div class="container__fw">
           <div class="block__content styled__content">
             <div class="body__content">
-              <h2 v-if="contentData.title">{{ contentData.title }}</h2>
-
-              <p>content goes here</p>
+              <div v-if="contentData.introText">
+                <span v-html="contentData.introText" />
+              </div>
+              <div v-if="contentData.article">
+                <span v-html="contentData.article" />
+              </div>
             </div>
           </div>
         </div>
