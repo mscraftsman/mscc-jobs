@@ -105,7 +105,7 @@
                 </div>
               </div>
 
-              <div class="location">
+              <div class="location" v-if="this.lat && this.lng">
                 <div class="block__content">
                   <h3>Location</h3>
                   <div class="body__content">
