@@ -1,6 +1,8 @@
-# mscc-jobs
+# Jobs in Tech
 
-This project is the front-end client for the MSCC Job Portal, built using vue-cli3.
+[![Build Status](https://dev.azure.com/iosltd/Jobs-in-Tech/_apis/build/status/Jobs-in-Tech-Site?branchName=master)](https://dev.azure.com/iosltd/Jobs-in-Tech/_build/latest?definitionId=5&branchName=master)  
+
+This project is the front-end client for the MSCC Job Portal - Jobs in Tech -, built using vue-cli3. The job portal is specialised for open positions in IT in Mauritius and operated at https://jobs.mscc.mu/ 
 
 ![logo](https://raw.githubusercontent.com/mscraftsman/mscc-jobs/master/src/assets/img/logo.svg)
 
