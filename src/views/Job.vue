@@ -126,7 +126,8 @@
                   ></div>
                 </div>
 
-                <div v-if="jobData.applyStatus">
+                <!-- <div v-if="jobData.applyStatus"> -->
+                <div>
                   <div class="block__content" v-if="jobData.applyOnUrl === false">
                     <h3 id="apply">Apply for this job</h3>
                     <form @submit.prevent="validateJobApplication" autocomplete="off">
