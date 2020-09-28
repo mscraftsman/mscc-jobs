@@ -34,7 +34,7 @@ export default {
   methods: {},
   metaInfo: {
     title: "Home",
-    titleTemplate: "%s | Jobs In Tech",
+    titleTemplate: "Jobs In Tech: %s",
     htmlAttrs: {
       lang: "en"
     }

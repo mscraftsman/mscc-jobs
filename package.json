@@ -1,7 +1,22 @@
 {
   "name": "mscc-jobs",
-  "version": "0.2.0",
-  "private": true,
+  "description": "MSCC Jobs in Tech portal - front-end development",
+  "demo": "https://jobs.mscc.mu/",
+  "version": "0.9.0",
+  "license": "MIT",
+  "author": {
+    "name": "Mauritius Software Craftsmanship Community",
+    "email": "hello@mscc.mu",
+    "url": "https://www.mscc.mu"
+  },
+  "contributors": [
+    "https://github.com/mscraftsman/mscc-jobs/graphs/contributors"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mscraftsman/mscc-jobs.git"
+  },
+  "bugs": "https://github.com/mscraftsman/mscc-jobs/issues",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --dest dist",

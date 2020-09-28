@@ -14,11 +14,6 @@ export default new Router({
       component: () => import("./views/Home.vue")
     },
     {
-      path: "/about", // Generic
-      name: "about",
-      component: () => import("./views/About.vue")
-    },
-    {
       path: "/jobs",
       name: "jobs",
       component: () => import("./views/Jobs.vue")
@@ -37,21 +32,6 @@ export default new Router({
       path: "/submit-job",
       name: "submitJob",
       component: () => import("./views/SubmitAJob.vue")
-    },
-    {
-      path: "/privacy", // Generic
-      name: "privacy",
-      component: () => import("./views/Generic.vue")
-    },
-    {
-      path: "/terms", // Generic
-      name: "terms",
-      component: () => import("./views/Generic.vue")
-    },
-    {
-      path: "/contact", // Generic
-      name: "contact",
-      component: () => import("./views/Generic.vue")
     },
     {
       path: "/404",
