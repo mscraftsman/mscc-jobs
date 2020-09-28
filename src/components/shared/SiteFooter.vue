@@ -149,24 +149,16 @@ export default {
   data() {
     return {
       items: [
-        // {
-        //   path: { name: "about" },
-        //   text: "About"
-        // },
-        // {
-        //   path: { name: "jobs" },
-        //   text: "Jobs"
-        // },
         {
-          path: { name: "privacy" },
+          path: "privacy",
           text: "Privacy Policy"
         },
         {
-          path: { name: "terms" },
+          path: "terms",
           text: "Terms of Use"
         },
         {
-          path: { name: "contact" },
+          path: "contact",
           text: "Contact"
         }
       ]
