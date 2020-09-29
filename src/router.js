@@ -34,6 +34,21 @@ export default new Router({
       component: () => import("./views/SubmitAJob.vue")
     },
     {
+      path: "/privacy",
+      name: "privacy",
+      component: () => import("./views/Generic.vue")
+    },
+    {
+      path: "/terms",
+      name: "terms",
+      component: () => import("./views/Generic.vue")
+    },
+    {
+      path: "/contact",
+      name: "contact",
+      component: () => import("./views/Generic.vue")
+    },
+    {
       path: "/404",
       name: "notFound",
       component: () => import("./views/NotFound.vue")
