@@ -26,7 +26,7 @@
     "ghbuild": "NODE_ENV=ghpages vue-cli-service build --dest docs"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "document-ready": "^2.0.2",
     "i": "^0.3.6",
     "lodash": "^4.17.11",
