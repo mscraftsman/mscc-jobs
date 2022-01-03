@@ -1,7 +1,7 @@
 <template>
   <div class="body__container job-single__view">
     <transition name="fade" mode="out-in">
-      <LoaderComponent v-if="loading"/>
+      <LoaderComponent v-if="loading" />
       <div v-else>
         <section class="job__single">
           <div class="container__fw">
@@ -11,16 +11,21 @@
                 <div class="block__content">
                   <div class="body__content job__details__logo">
                     <div class="job__details">
-                      <h2 v-if="jobData.jobTitle">{{jobData.jobTitle}}</h2>
+                      <h2 v-if="jobData.jobTitle">{{ jobData.jobTitle }}</h2>
 
                       <div class="data__cell">
                         <div class="title__company">
                           <template v-if="jobData.employerName">
                             <router-link
-                              v-if="(jobData && jobData.profileId)"
-                              :to="{ name: 'profileSingle', params: { id: jobData.profileId } }"
+                              v-if="jobData && jobData.profileId"
+                              :to="{
+                                name: 'profileSingle',
+                                params: { id: jobData.profileId }
+                              }"
                               class="company"
-                            >{{ jobData.employerName }}</router-link>
+                            >
+                              {{ jobData.employerName }}
+                            </router-link>
                           </template>
                         </div>
                       </div>
@@ -28,33 +33,43 @@
                       <div class="row-1">
                         <div class="data__cell">
                           <label>Type</label>
-                          <div class="data__content" v-if="jobData.type">{{jobData.type}}</div>
+                          <div class="data__content" v-if="jobData.type">
+                            {{ jobData.type }}
+                          </div>
                         </div>
                         <div class="data__cell">
                           <label>Pay (Monthly)</label>
-                          <div class="data__content" v-if="jobData.salary">{{jobData.salary}}</div>
+                          <div class="data__content" v-if="jobData.salary">
+                            {{ jobData.salary }}
+                          </div>
                         </div>
                         <div class="data__cell">
                           <label>Seniority Level</label>
                           <div
                             class="data__content"
                             v-if="jobData.seniority_level"
-                          >{{jobData.seniority_level}}</div>
+                          >
+                            {{ jobData.seniority_level }}
+                          </div>
                         </div>
                         <!-- <div class="data__cell">
                           <label>Job Functions</label>
-                          <div class="data__content" v-if="jobData.functions">{{jobData.functions}}</div>
+                          <div class="data__content" v-if="jobData.functions">{{ jobData.functions }}</div>
                         </div>-->
                         <div class="data__cell">
                           <label>Start</label>
-                          <div class="data__content" v-if="jobData.startDesc">{{jobData.startDesc}}</div>
+                          <div class="data__content" v-if="jobData.startDesc">
+                            {{ jobData.startDesc }}
+                          </div>
                         </div>
                         <div class="data__cell">
                           <label>Duration</label>
                           <div
                             class="data__content"
                             v-if="jobData.durationDesc"
-                          >{{jobData.durationDesc}}</div>
+                          >
+                            {{ jobData.durationDesc }}
+                          </div>
                         </div>
                       </div>
 
@@ -64,8 +79,10 @@
                             <li v-for="(tag, index) in tags" :key="index">
                               <router-link
                                 class="tag"
-                                :to="{ name: 'jobs', query: {tag: tag}}"
-                              >{{tag}}</router-link>
+                                :to="{ name: 'jobs', query: { tag: tag } }"
+                              >
+                                {{ tag }}
+                              </router-link>
                             </li>
                           </ul>
                         </div>
@@ -74,14 +91,23 @@
                     <div class="company__logo" v-if="jobData.customerId">
                       <div v-if="jobData.logo">
                         <router-link
-                          :to="{ name: 'profileSingle', params: { id: this.jobData.profileId } }"
+                          :to="{
+                            name: 'profileSingle',
+                            params: { id: this.jobData.profileId }
+                          }"
                         >
                           <div class="logo__outer">
-                            <img v-if="jobData && jobData.logo" :src="jobData.logo" alt>
+                            <img
+                              v-if="jobData && jobData.logo"
+                              :src="jobData.logo"
+                              :alt="
+                                'Company profile of ' + jobData.employerName
+                              "
+                            />
                             <div class="company__initial" v-else>
-                              <span
-                                v-if="jobData && job.employerName"
-                              >{{ getCompanyInitial(job.employerName) }}</span>
+                              <span v-if="jobData && job.employerName">
+                                {{ getCompanyInitial(job.employerName) }}
+                              </span>
                             </div>
                           </div>
                         </router-link>
@@ -96,7 +122,7 @@
                     class="body__content styled__content"
                     v-if="jobData.jobDesc"
                     v-html="jobData.jobDesc"
-                  ></div>
+                  />
                 </div>
 
                 <!-- <div class="block__content">
@@ -114,7 +140,7 @@
                     class="body__content styled__content"
                     v-if="jobData.requirements"
                     v-html="jobData.requirements"
-                  ></div>
+                  />
                 </div>
 
                 <div class="block__content">
@@ -123,14 +149,22 @@
                     class="body__content styled__content"
                     v-if="jobData.benefits"
                     v-html="jobData.benefits"
-                  ></div>
+                  />
                 </div>
 
                 <!-- <div v-if="jobData.applyStatus"> -->
                 <div>
-                  <div class="block__content" v-if="jobData.applyOnUrl === false">
-                    <h3 id="apply">Apply for this job</h3>
-                    <form @submit.prevent="validateJobApplication" autocomplete="off">
+                  <div
+                    class="block__content"
+                    v-if="jobData.applyOnUrl === false"
+                  >
+                    <h3 id="apply">
+                      Apply for this job - {{ jobData.jobTitle }}
+                    </h3>
+                    <form
+                      @submit.prevent="validateJobApplication"
+                      autocomplete="off"
+                    >
                       <div class="body__content apply__grid__layout">
                         <InputText
                           label="First Name"
@@ -187,7 +221,7 @@
                           v-validate="'required|numeric'"
                           :message="errors.first('postalcode')"
                         />
-                        <br>
+                        <br />
 
                         <InputSelect
                           label="Country"
@@ -288,30 +322,41 @@
                             </button>
                           </div>
 
-                          <div class="file__name" v-if="CVInformation.fileName !== null">
+                          <div
+                            class="file__name"
+                            v-if="CVInformation.fileName !== null"
+                          >
                             File name:
-                            <span>{{CVInformation.fileName}}</span>
+                            <span>{{ CVInformation.fileName }}</span>
                           </div>
 
-                          <div class="upload__in__progress" v-if="CVUploadStatus.uploading">
+                          <div
+                            class="upload__in__progress"
+                            v-if="CVUploadStatus.uploading"
+                          >
                             <div class="icon">
-                              <div class="loading"></div>
+                              <div class="loading" />
                             </div>
                             <div class="text">Upload in progress</div>
                           </div>
 
                           <div
-                            :class="['input__block', 'full', 'response__message', 'error__upload__wrapper']"
+                            :class="[
+                              'input__block',
+                              'full',
+                              'response__message',
+                              'error__upload__wrapper'
+                            ]"
                             v-if="this.CVUploadStatus.error"
                           >
                             <div class="icon__wrapper">
                               <div class="icon">
-                                <img src="@/assets/img/error_white.svg" alt>
+                                <img src="@/assets/img/error_white.svg" alt />
                               </div>
                             </div>
                             <div class="message">
                               <h4>Upload Error</h4>
-                              <p>{{this.CVUploadStatus.error}}</p>
+                              <p>{{ this.CVUploadStatus.error }}</p>
                             </div>
                           </div>
                         </div>
@@ -324,21 +369,30 @@
                                 required
                                 id="accept__job__conditions"
                                 v-model="applicationData.agree"
-                              >
+                              />
                               <label for="accept__job__conditions">
-                                <span></span>
+                                <span />
                               </label>
                             </div>
                             <label
                               class="checkbox__text"
                               for="accept__job__conditions"
-                              >I accept that my data is being transmitted
-                              etc..</label
                             >
+                              By pressing <i>Submit Application</i>, you consent
+                              to your application being transmitted to
+                              {{ jobData.employerName }} and being processed in
+                              accordance with {{ jobData.employerName }}'s
+                              privacy practices and Jobs In Tech's
+                              <router-link to="privacy">
+                                Privacy Policy</router-link
+                              >.
+                            </label>
                           </div>
                         </div>
 
-                        <div :class="['input__block', 'full', 'submit__buttons']">
+                        <div
+                          :class="['input__block', 'full', 'submit__buttons']"
+                        >
                           <button
                             type="button"
                             class="submit__application__button button__global green override__visbility"
@@ -347,7 +401,7 @@
                             :disabled="applicationData.agree === false"
                           >
                             <div class="icon">
-                              <div class="loading"></div>
+                              <div class="loading" />
                             </div>
                             <span class="text">Submit Application</span>
                           </button>
@@ -363,7 +417,12 @@
                         </div>
 
                         <div
-                          :class="['input__block', 'full', 'response__message', 'success']"
+                          :class="[
+                            'input__block',
+                            'full',
+                            'response__message',
+                            'success'
+                          ]"
                           v-if="submitStatus.success"
                         >
                           <div class="icon__wrapper">
@@ -381,7 +440,12 @@
                         </div>
 
                         <div
-                          :class="['input__block', 'full', 'response__message', 'error']"
+                          :class="[
+                            'input__block',
+                            'full',
+                            'response__message',
+                            'error'
+                          ]"
                           v-if="submitStatus.error"
                         >
                           <div class="icon__wrapper">
@@ -401,7 +465,10 @@
                     </form>
                   </div>
 
-                  <div class="block__content" v-if="jobData.applyOnUrl === true">
+                  <div
+                    v-if="jobData.applyOnUrl === true"
+                    class="block__content"
+                  >
                     <h3>Apply for this job</h3>
                     <div class="body__content">
                       <a
@@ -420,9 +487,10 @@
                       </a>
                     </div>
                   </div>
-                </div>
-                <div v-else>
-                  <div class="block__content">
+                  <div
+                    v-if="jobData.applyOnUrl !== true"
+                    class="block__content"
+                  >
                     <h3>Application closed</h3>
                     <div class="body__content styled__content">
                       <p>
@@ -437,13 +505,13 @@
               <!-- JOB -->
               <!-- SIDEBAR -->
               <div class="sidebar__block">
-                <div class="block__content">
+                <div class="block__content" v-if="jobData.techStack">
                   <h3>Tech Stack</h3>
                   <div class="body__content">
                     <div class="tech__stack__icons">
                       <div
                         class="tech__block"
-                        v-for="(tech, index) in jobData.tech_stack"
+                        v-for="(tech, index) in jobData.techStack"
                         :key="index"
                       >
                         <img
@@ -501,8 +569,6 @@ import SocialSharingComponent from "@/components/shared/SocialSharingComponent";
 import JobBlock from "@/components/jobs/JobBlock";
 import { mapGetters } from "vuex";
 import LoaderComponent from "@/components/shared/LoaderComponent";
-import { VueEditor } from "vue2-editor";
-import ButtonComponent from "@/components/shared/ButtonComponent";
 import RecentJobs from "@/components/jobs/RecentJobs.vue";
 
 import axios from "axios";
