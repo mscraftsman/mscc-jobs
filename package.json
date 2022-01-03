@@ -32,7 +32,7 @@
     "lodash": "^4.17.11",
     "normalize-css": "^2.3.1",
     "normalize.css": "^8.0.1",
-    "npm": "^6.9.0",
+    "npm": "^8.3.0",
     "postscribe": "^2.0.8",
     "register-service-worker": "^1.7.2",
     "vee-validate": "^2.2.0",
