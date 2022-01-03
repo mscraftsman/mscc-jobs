@@ -469,7 +469,9 @@
                     v-if="jobData.applyOnUrl === true"
                     class="block__content"
                   >
-                    <h3>Apply for this job</h3>
+                    <h3 id="apply">
+                      Apply for this job - {{ jobData.jobTitle }}
+                    </h3>
                     <div class="body__content">
                       <a
                         :href="jobData.applyUrl"
@@ -487,11 +489,11 @@
                       </a>
                     </div>
                   </div>
-                  <div
-                    v-if="jobData.applyOnUrl !== true"
-                    class="block__content"
-                  >
-                    <h3>Application closed</h3>
+
+                  <div v-if="jobData.expired === true" class="block__content">
+                    <h3 id="apply">
+                      Application closed
+                    </h3>
                     <div class="body__content styled__content">
                       <p>
                         Applications for this job listing are now closed. We
@@ -527,7 +529,7 @@
                 </div>
 
                 <div class="block__content" v-if="this.jobByProfile.length > 0">
-                  <h3>More Jobs</h3>
+                  <h3>More Jobs by {{ jobData.employerName }}</h3>
                   <div class="body__content">
                     <div class="recent__jobs">
                       <div
