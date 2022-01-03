@@ -2,11 +2,20 @@
   <router-link :to="url" :class="['button__global', classStyle, color]">
     <img
       :src="icon"
-      :class="['icon', {'on__desktop_only': iconOnDesktop}, {'on__mobile_only': iconOnMobile}]"
-    >
+      :class="[
+        'icon',
+        { on__desktop_only: iconOnDesktop },
+        { on__mobile_only: iconOnMobile }
+      ]"
+    />
     <span
-      :class="['text', {'on__desktop_only': textOnDesktop}, {'on__mobile_only': textOnMobile}]"
-    >{{text}}</span>
+      :class="[
+        'text',
+        { on__desktop_only: textOnDesktop },
+        { on__mobile_only: textOnMobile }
+      ]"
+      >{{ text }}</span
+    >
   </router-link>
 </template>
 
@@ -55,5 +64,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

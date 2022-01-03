@@ -1,9 +1,20 @@
 <template>
   <div
-    :class="['input__block', 'multi__select', {'full': full}, {'error': errors.has(name) || message !== null }]"
+    :class="[
+      'input__block',
+      'multi__select',
+      { full: full },
+      { error: errors.has(name) || message !== null }
+    ]"
   >
-    <label v-if="label">{{label}}</label>
-    <input class="input__text hidden" @keyup="input()" type="text" :name="name" v-model="local">
+    <label v-if="label">{{ label }}</label>
+    <input
+      class="input__text hidden"
+      @keyup="input()"
+      type="text"
+      :name="name"
+      v-model="local"
+    />
     <div>
       <template v-if="values && values.length">
         <multi-list-select
@@ -16,8 +27,8 @@
           :selected-items="items"
           placeholder="Search technologies"
           @select="onSelect"
-        ></multi-list-select>
-        <small>{{helpText}}</small>
+        />
+        <small>{{ helpText }}</small>
       </template>
       <div v-show="message !== null" class="error">{{ message }}</div>
     </div>

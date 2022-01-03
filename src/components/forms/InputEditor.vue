@@ -1,16 +1,27 @@
 <template>
   <div
-    :class="['input__block', {'full': full}, {'error': errors.has(name) }, {'error': message !== null }]"
+    :class="[
+      'input__block',
+      { full: full },
+      { error: errors.has(name) },
+      { error: message !== null }
+    ]"
   >
-    <label v-if="label">{{label}}</label>
-    <input class="input__text hidden" @keyup="input()" type="text" :name="name" v-model="local">
+    <label v-if="label">{{ label }}</label>
+    <input
+      class="input__text hidden"
+      @keyup="input()"
+      type="text"
+      :name="name"
+      v-model="local"
+    />
     <vue-editor
       @text-change="input()"
       @blur="input()"
       id="editor"
       v-model="local"
       :editorToolbar="customToolbar"
-    ></vue-editor>
+    />
     <div>
       <div v-show="message !== null" class="error">{{ message }}</div>
     </div>

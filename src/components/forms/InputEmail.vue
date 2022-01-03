@@ -1,6 +1,12 @@
 <template>
-  <div :class="['input__block', {'full': full}, {'error': errors.has(name) || message !== null }]">
-    <label v-if="label">{{label}}</label>
+  <div
+    :class="[
+      'input__block',
+      { full: full },
+      { error: errors.has(name) || message !== null }
+    ]"
+  >
+    <label v-if="label">{{ label }}</label>
     <input
       class="input__text"
       @keyup="input()"
@@ -8,8 +14,8 @@
       :name="name"
       v-model="local"
       @focus="isFocused()"
-    >
-    <small>{{helpText}}</small>
+    />
+    <small>{{ helpText }}</small>
     <div>
       <div v-show="message !== null" class="error">{{ message }}</div>
     </div>
@@ -83,5 +89,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

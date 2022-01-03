@@ -2,7 +2,7 @@
   "name": "mscc-jobs",
   "description": "MSCC Jobs in Tech portal - front-end development",
   "demo": "https://jobs.mscc.mu/",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "license": "MIT",
   "author": {
     "name": "Mauritius Software Craftsmanship Community",

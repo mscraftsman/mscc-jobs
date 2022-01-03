@@ -55,14 +55,14 @@ export default {
           name: "Jobs In Tech",
           path: "home",
           class: "home"
-        // },
-        // {
-        //   name: "About",
-        //   path: "about"
-        // },
-        // {
-        //   name: "Jobs",
-        //   path: "jobs"
+          // },
+          // {
+          //   name: "About",
+          //   path: "about"
+          // },
+          // {
+          //   name: "Jobs",
+          //   path: "jobs"
         }
       ]
     };

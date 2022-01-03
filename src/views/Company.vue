@@ -101,7 +101,7 @@
                     class="body__content"
                     v-if="company.profile.content"
                     v-html="company.profile.content"
-                  ></div>
+                  />
                 </div>
               </div>
 
@@ -117,7 +117,7 @@
                       :zoom="15"
                       map-type-id="roadmap"
                       style="width: 100%; height: 300px"
-                    ></GmapMap>
+                    />
                     <a
                       class="open__maps"
                       :href="getMapsURL(company.profile.location)"
@@ -424,5 +424,3 @@ export default {
   }
 }
 </style>
-</style>
-

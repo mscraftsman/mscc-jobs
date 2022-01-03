@@ -21,12 +21,12 @@
                 placeholder="job title, keyword"
                 v-model="title"
                 v-on:keyup.enter="execSearch()"
-              >
+              />
             </div>
           </div>
           <div class="field__location">
             <div class="icon">
-              <img src="@/assets/img/location.svg" alt>
+              <img src="@/assets/img/location.svg" alt />
             </div>
             <div class="field">
               <!-- <input type="text" class="input" placeholder="location" v-model="location"> -->
@@ -38,12 +38,12 @@
                 :value="locationDisplayValue"
                 ref="locationAutocomplete"
                 v-on:keyup.enter="execSearch()"
-              ></gmap-autocomplete>
+              />
             </div>
           </div>
           <div class="search__button">
             <button
-              :class="['search', {'loading' : loading}]"
+              :class="['search', { loading: loading }]"
               aria-label="Search for Jobs in Tech"
               @click="execSearch"
               :disabled="loading === true"

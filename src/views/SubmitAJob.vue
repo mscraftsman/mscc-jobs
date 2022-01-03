@@ -1,7 +1,11 @@
 <template>
   <div class="body__container submit__a__job__view">
     <section class="submit__a__job">
-      <HeadingBreadcrumbs :breadcrumbs="breadcrumbs" pageTitle="Submit a job" :alertStatus="false"/>
+      <HeadingBreadcrumbs
+        :breadcrumbs="breadcrumbs"
+        pageTitle="Submit a job"
+        :alertStatus="false"
+      />
 
       <div class="container__fw">
         <div class="submit_job__sidebar">
@@ -261,7 +265,11 @@
                       label="Apply URL"
                       name="applyUrl"
                       v-model="submitJobData.applyUrl"
-                      v-validate="submitJobData.applyMode === 'applyUrl' ? {url: {require_protocol: true }} : ''"
+                      v-validate="
+                        submitJobData.applyMode === 'applyUrl'
+                          ? { url: { require_protocol: true } }
+                          : ''
+                      "
                       :full="true"
                       :message="errors.first('applyUrl')"
                       @isFocused="applyUrlIsFocused"
@@ -275,7 +283,11 @@
                       label="Apply Email"
                       name="applyEmail"
                       v-model="submitJobData.applyEmail"
-                      v-validate="submitJobData.applyMode === 'applyEmail' ? 'required|email' : ''"
+                      v-validate="
+                        submitJobData.applyMode === 'applyEmail'
+                          ? 'required|email'
+                          : ''
+                      "
                       :full="true"
                       :message="errors.first('applyEmail')"
                       @isFocused="applyEmailIsFocused"
@@ -283,12 +295,21 @@
                     />
 
                     <div
-                      :class="['input__block', 'full', 'response__message', 'error__apply__wrapper']"
-                      v-if="submitStatus.submitted && !submitJobData.applyEmail && !submitJobData.applyUrl"
+                      :class="[
+                        'input__block',
+                        'full',
+                        'response__message',
+                        'error__apply__wrapper'
+                      ]"
+                      v-if="
+                        submitStatus.submitted &&
+                          !submitJobData.applyEmail &&
+                          !submitJobData.applyUrl
+                      "
                     >
                       <div class="icon__wrapper">
                         <div class="icon">
-                          <img src="@/assets/img/error_white.svg" alt>
+                          <img src="@/assets/img/error_white.svg" alt />
                         </div>
                       </div>
                       <div class="message">
@@ -363,7 +384,7 @@
                             @vdropzone-sending="companyLogoUploadSending"
                           >
                             <div class="dropzone__content">
-                              <img src="/img/utils/upload.svg" class="icon">
+                              <img src="/img/utils/upload.svg" class="icon" />
                               <div class="text">Upload your logo</div>
                             </div>
                           </vue-dropzone>
@@ -371,7 +392,11 @@
 
                         <div class="preview__wrapper">
                           <label>Preview</label>
-                          <img class="logo" :src="companyInformation.logoSrc" alt>
+                          <img
+                            class="logo"
+                            :src="companyInformation.logoSrc"
+                            alt
+                          />
                         </div>
                       </div>
                     </div>
@@ -472,7 +497,7 @@
                 <div class="body__content submit__grid__layout">
                   <div class="payment__card__info">
                     <div class="card__notes">
-                      <div id="checkouttag"></div>
+                      <div id="checkouttag" />
                     </div>
                   </div>
                 </div>
@@ -622,7 +647,7 @@
                   @click="validateSubmission()"
                 >
                   <div class="icon">
-                    <div class="loading"></div>
+                    <div class="loading" />
                   </div>
                   <span class="text">Submit job</span>
                 </button>
@@ -638,7 +663,12 @@
               </div>
 
               <div
-                :class="['input__block', 'full', 'response__message', 'success']"
+                :class="[
+                  'input__block',
+                  'full',
+                  'response__message',
+                  'success'
+                ]"
                 v-if="submitStatus.success"
               >
                 <div class="icon__wrapper">
@@ -667,7 +697,7 @@
                 </div>
               </div>
             </form>
-            <form class="payment-form" method="POST" action="/submit-job"></form>
+            <form class="payment-form" method="POST" action="/submit-job" />
           </div>
           <!-- SUBMIT JOB -->
           <!-- SIDEBAR -->
@@ -678,7 +708,11 @@
                   href="https://mscc.mu"
                   class="go__to__button button__global blue override__visbility"
                 >
-                  <img class="icon" src="@/assets/img/external-link-light.svg" alt>
+                  <img
+                    class="icon"
+                    src="@/assets/img/external-link-light.svg"
+                    alt
+                  />
                   <div class="text">Visit Website</div>
                 </a>
               </div>
@@ -688,7 +722,13 @@
         </div>
       </div>
 
-      <modal name="job-preview" :adaptive="true" height="auto" :scrollable="true" width="1400px">
+      <modal
+        name="job-preview"
+        :adaptive="true"
+        height="auto"
+        :scrollable="true"
+        width="1400px"
+      >
         <div class="job__preview__modal modal">
           <h3>Preview</h3>
           <button
@@ -703,7 +743,7 @@
             />
           </button>
 
-          <JobBlock :jobData="job" :isPreview="true" :previewData="job"/>
+          <JobBlock :jobData="job" :isPreview="true" :previewData="job" />
         </div>
       </modal>
 
@@ -1101,7 +1141,8 @@ export default {
       this.listing.DtEndDate = this.GetDate(3);
       this.listing.EndDate = this.GetDate(3);
 
-      this.listing.EmployerName = this.customer.firstName + ' ' + this.customer.lastName;
+      this.listing.EmployerName =
+        this.customer.firstName + " " + this.customer.lastName;
       this.purchase.Quantity = 1;
       this.purchase.PaymentGateway = 3;
     },

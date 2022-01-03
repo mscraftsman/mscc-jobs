@@ -10,9 +10,7 @@
               </li>
               <li v-for="(item, index) in breadcrumbs" :key="index">
                 <router-link v-if="item" :to="{ name: item.path }">
-                  {{
-                  item.name
-                  }}
+                  {{ item.name }}
                 </router-link>
               </li>
             </ul>
@@ -23,7 +21,7 @@
         </div>
         <div class="alert__wrapper" v-if="alertStatus">
           <div class="icon">
-            <img src="@/assets/img/enveloppe.svg" alt>
+            <img src="@/assets/img/enveloppe.svg" alt />
           </div>
           <div class="text">
             <h3>Do you want to be notified?</h3>
@@ -102,9 +100,9 @@
                       required
                       id="accept__job__conditions"
                       v-model="subscribeData.agree"
-                    >
+                    />
                     <label for="accept__job__conditions">
-                      <span></span>
+                      <span />
                     </label>
                   </div>
                   <label class="checkbox__text" for="accept__job__conditions"
@@ -115,7 +113,12 @@
               </div>
 
               <div
-                :class="['input__block', 'full', 'response__message', 'success']"
+                :class="[
+                  'input__block',
+                  'full',
+                  'response__message',
+                  'success'
+                ]"
                 v-if="submitStatus.success"
               >
                 <div class="icon__wrapper">
@@ -160,7 +163,7 @@
                   :disabled="subscribeData.agree === false"
                 >
                   <div class="icon">
-                    <div class="loading"></div>
+                    <div class="loading" />
                   </div>
                   <span class="text">Subscribe</span>
                 </button>
@@ -268,8 +271,6 @@ export default {
   }
 };
 </script>
-
-
 
 <style lang="scss" scoped>
 .breadcrumbs__title__container {

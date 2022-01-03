@@ -1,11 +1,18 @@
 <template>
   <div class="body__container generic__view">
-    <HeadingBreadcrumbs :breadcrumbs="breadcrumbs" pageTitle="Not Found" :alertStatus="false"/>
+    <HeadingBreadcrumbs
+      :breadcrumbs="breadcrumbs"
+      pageTitle="Not Found"
+      :alertStatus="false"
+    />
 
     <div class="container__fw">
       <div class="block__content styled__content">
         <div class="body__content">
-          <router-link :to="{name: 'home'}" class="button__global blue override__visbility">
+          <router-link
+            :to="{ name: 'home' }"
+            class="button__global blue override__visbility"
+          >
             <div class="text">Return to home</div>
           </router-link>
         </div>
@@ -36,5 +43,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
