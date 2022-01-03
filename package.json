@@ -26,7 +26,7 @@
     "ghbuild": "NODE_ENV=ghpages vue-cli-service build --dest docs"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.24.0",
     "document-ready": "^2.0.2",
     "i": "^0.3.6",
     "lodash": "^4.17.11",
@@ -35,7 +35,7 @@
     "npm": "^8.3.0",
     "postscribe": "^2.0.8",
     "register-service-worker": "^1.7.2",
-    "vee-validate": "^3.4.14",
+    "vee-validate": "^2.2.15",
     "vue": "^2.6.14",
     "vue-js-modal": "^2.0.1",
     "vue-meta": "^2.4.0",
