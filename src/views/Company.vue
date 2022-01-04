@@ -41,7 +41,7 @@
                 <div class="data">
                   <label>Industry</label>
                   <div class="data__content" v-if="company.profile.industry">
-                    >{{ company.profile.industry }}
+                    {{ company.profile.industry }}
                   </div>
                 </div>
 
@@ -52,6 +52,7 @@
                       v-if="company.profile.website"
                       :href="company.profile.website"
                       target="_blank"
+                      rel="noopener"
                     >
                       {{ company.profile.website }}
                       <img
@@ -66,7 +67,7 @@
                 <div class="data">
                   <label>Address</label>
                   <div class="data__content" v-if="company.profile.address">
-                    >{{ company.profile.address }}
+                    {{ company.profile.address }}
                   </div>
                 </div>
 
@@ -120,6 +121,7 @@
                       class="open__maps"
                       :href="getMapsURL(company.profile.location)"
                       target="_blank"
+                      rel="noreferrer"
                     >
                       Open in Google Maps
                       <img

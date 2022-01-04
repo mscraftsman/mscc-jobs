@@ -1,17 +1,17 @@
 <template>
   <div class="social__icons">
     <div class="icon facebook" v-if="facebook">
-      <a :href="facebook" target="_blank">
+      <a :href="facebook" target="_blank" rel="noopener">
         <img src="@/assets/img/social-facebook.svg" alt />
       </a>
     </div>
     <div class="icon twitter" v-if="twitter">
-      <a :href="twitter" target="_blank">
+      <a :href="twitter" target="_blank" rel="noopener">
         <img src="@/assets/img/social-twitter.svg" alt />
       </a>
     </div>
     <div class="icon linkedin" v-if="linkedin">
-      <a :href="linkedin" target="_blank">
+      <a :href="linkedin" target="_blank" rel="noopener">
         <img src="@/assets/img/social-linkedin.svg" alt />
       </a>
     </div>

@@ -476,7 +476,7 @@
                       <a
                         :href="jobData.applyUrl"
                         target="_blank"
-                        rel="noopener noreferer"
+                        rel="noopener"
                         class="submit__job__button button__global blue override__visbility"
                       >
                         <img
