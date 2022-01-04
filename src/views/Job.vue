@@ -984,7 +984,9 @@ export default {
   },
   metaInfo() {
     let title =
-      this.jobData && this.jobData.jobTitle ? this.jobData.jobTitle : "";
+      this.jobData && this.jobData.jobTitle
+        ? this.jobData.jobTitle + " at " + this.jobData.employerName
+        : "";
     return {
       title: title
     };
