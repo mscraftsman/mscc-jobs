@@ -1,15 +1,11 @@
 <template>
   <div class="body__container company-profile__view">
     <transition name="fade" mode="out-in">
-      <LoaderComponent v-if="loading"/>
+      <LoaderComponent v-if="loading" />
       <div v-else>
         <div
           class="header__section"
-          :style="
-            'background: url(' +
-              company.profile.backgroundImage +
-              ')'
-          "
+          :style="'background: url(' + company.profile.backgroundImage + ')'"
         >
           <div class="container__fw">
             <h2 v-if="company.employerName">{{ company.employerName }}</h2>
@@ -19,7 +15,7 @@
           <div class="container__fw">
             <div class="block__content">
               <div class="company__logo">
-                <img :src="company.profile.image" alt class="logo">
+                <img :src="company.profile.image" alt class="logo" />
               </div>
               <div class="company__details">
                 <!-- <div class="data">
@@ -32,10 +28,9 @@
 
                 <div class="data">
                   <label>Phone</label>
-                  <div
-                    class="data__content"
-                    v-if="company.profile.phone"
-                  >{{ company.profile.phone }}</div>
+                  <div class="data__content" v-if="company.profile.phone">
+                    {{ company.profile.phone }}
+                  </div>
                 </div>
 
                 <!-- <div class="data">
@@ -45,10 +40,9 @@
 
                 <div class="data">
                   <label>Industry</label>
-                  <div
-                    class="data__content"
-                    v-if="company.profile.industry"
-                  >{{ company.profile.industry }}</div>
+                  <div class="data__content" v-if="company.profile.industry">
+                    {{ company.profile.industry }}
+                  </div>
                 </div>
 
                 <div class="data">
@@ -58,26 +52,33 @@
                       v-if="company.profile.website"
                       :href="company.profile.website"
                       target="_blank"
+                      rel="noopener"
                     >
                       {{ company.profile.website }}
                       <img
                         src="@/assets/img/external-link.svg"
                         alt
                         class="logo"
-                      >
+                      />
                     </a>
                   </div>
                 </div>
 
                 <div class="data">
                   <label>Address</label>
-                  <div
-                    class="data__content"
-                    v-if="company.profile.address"
-                  >{{ company.profile.address }}</div>
+                  <div class="data__content" v-if="company.profile.address">
+                    {{ company.profile.address }}
+                  </div>
                 </div>
 
-                <div class="data" v-if="company.profile.facebook || company.profile.twitter || company.profile.linkedin">
+                <div
+                  class="data"
+                  v-if="
+                    company.profile.facebook ||
+                      company.profile.twitter ||
+                      company.profile.linkedin
+                  "
+                >
                   <label>Social</label>
                   <div class="data__content">
                     <SocialComponent
@@ -101,7 +102,7 @@
                     class="body__content"
                     v-if="company.profile.content"
                     v-html="company.profile.content"
-                  ></div>
+                  />
                 </div>
               </div>
 
@@ -110,25 +111,24 @@
                   <h3>Location</h3>
                   <div class="body__content">
                     <GmapMap
-                      v-if="
-                        this.lat && this.lng
-                      "
-                      :center="{lat: this.lat, lng: this.lng}"
+                      v-if="this.lat && this.lng"
+                      :center="{ lat: this.lat, lng: this.lng }"
                       :zoom="15"
                       map-type-id="roadmap"
                       style="width: 100%; height: 300px"
-                    ></GmapMap>
+                    />
                     <a
                       class="open__maps"
                       :href="getMapsURL(company.profile.location)"
                       target="_blank"
+                      rel="noreferrer"
                     >
                       Open in Google Maps
                       <img
                         class="icon"
                         src="@/assets/img/external-link-dark.svg"
                         alt
-                      >
+                      />
                     </a>
                   </div>
                 </div>
@@ -142,9 +142,7 @@
 
             <div
               class="jobs__by-company"
-              v-if="
-                company && company.listings.length
-              "
+              v-if="company && company.listings.length"
             >
               <template v-for="(job, index) in company.listings">
                 <JobBlock
@@ -166,7 +164,6 @@
     </transition>
   </div>
 </template>
-
 
 <script>
 import SocialComponent from "@/components/shared/SocialComponent";
@@ -215,13 +212,13 @@ export default {
             // console.log(response);
 
             this.company = response;
-            if(this.company.listings.length > 0){
-                var listing = this.company.listings[0];
-                if(listing.markers.length > 0){
-                  var marker = listing.markers[0];
-                  this.lat = marker.latitude;
-                  this.lng = marker.longitude;
-                }
+            if (this.company.listings.length > 0) {
+              var listing = this.company.listings[0];
+              if (listing.markers.length > 0) {
+                var marker = listing.markers[0];
+                this.lat = marker.latitude;
+                this.lng = marker.longitude;
+              }
             }
             // console.log(this.company);
             this.loading = false;
@@ -424,5 +421,3 @@ export default {
   }
 }
 </style>
-</style>
-

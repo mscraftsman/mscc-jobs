@@ -18,6 +18,12 @@
       "@/": "${workspaceRoot}/web/src/"
     },
     "editor.minimap.maxColumn": 400,
-    "vetur.format.defaultFormatter.html": "prettier"
+    "vetur.format.defaultFormatter.html": "prettier",
+    "markdownlint.config": {
+      "MD028": false,
+      "MD025": {
+        "front_matter_title": ""
+      }
+    }
   }
 }

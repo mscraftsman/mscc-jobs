@@ -1,12 +1,12 @@
 <template>
   <div id="app" :class="[theme, 'app']">
-    <SiteHeader/>
+    <SiteHeader />
     <div class="view">
       <transition name="fade__page" mode="out-in">
-        <router-view :key="$route.path"/>
+        <router-view :key="$route.path" />
       </transition>
     </div>
-    <SiteFooter/>
+    <SiteFooter />
     <!-- <div class="theme-switcher" @click="switchTheme()">{{ themes[currentTheme] }}</div> -->
   </div>
 </template>
@@ -56,7 +56,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss">
 .app {

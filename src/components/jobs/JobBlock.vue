@@ -1,5 +1,9 @@
 <template>
-  <div class="job__block" :data-featured="job.featured" :data-palette="lightOrDark(job.colour)">
+  <div
+    class="job__block"
+    :data-featured="job.featured"
+    :data-palette="lightOrDark(job.colour)"
+  >
     <div
       class="upper__section"
       :style="'background-color:' + backgroundColor + ';'"
@@ -8,7 +12,12 @@
       <div class="logo">
         <template v-if="!isPreview">
           <router-link
-            :to="{ name: 'profileSingle', params: { id: job.profile || this.profile || this.jobData.profileId} }"
+            :to="{
+              name: 'profileSingle',
+              params: {
+                id: job.profile || this.profile || this.jobData.profileId
+              }
+            }"
           >
             <div class="logo__outer">
               <img
@@ -44,24 +53,44 @@
         <div>
           <template v-if="!isPreview">
             <router-link
-              v-if="(job && job.company) || (this.jobData && this.jobData.profileId) "
-              :to="{ name: 'profileSingle', params: { id: job.profile || this.profile || this.jobData.profileId } }"
+              v-if="
+                (job && job.company) || (this.jobData && this.jobData.profileId)
+              "
+              :to="{
+                name: 'profileSingle',
+                params: {
+                  id: job.profile || this.profile || this.jobData.profileId
+                }
+              }"
               class="company"
-            >{{ job.employerName || job.company || jobCompanyData.jobTitle }}</router-link>
+              >{{
+                job.employerName || job.company || jobCompanyData.jobTitle
+              }}</router-link
+            >
           </template>
           <template v-else>
-            <div class="company" v-if="previewData.company.name">{{ previewData.company.name }}</div>
+            <div class="company" v-if="previewData.company.name">
+              {{ previewData.company.name }}
+            </div>
           </template>
         </div>
         <div>
           <template v-if="!isPreview">
             <router-link
-              :to="{ name: 'jobsSingle', params: { id: job.id || jobCompanyData.id ||  this.jobData.advertId } }"
+              :to="{
+                name: 'jobsSingle',
+                params: {
+                  id: job.id || jobCompanyData.id || this.jobData.advertId
+                }
+              }"
               class="title"
-            >{{ job.title || jobCompanyData.jobTitle }}</router-link>
+              >{{ job.title || jobCompanyData.jobTitle }}</router-link
+            >
           </template>
           <template v-else>
-            <div class="title" v-if="previewData.title">{{ previewData.title }}</div>
+            <div class="title" v-if="previewData.title">
+              {{ previewData.title }}
+            </div>
           </template>
         </div>
       </div>
@@ -69,14 +98,25 @@
         <ul>
           <template v-if="!isPreview && tags">
             <li v-for="(tag, index) in tags" :key="index">
-              <router-link class="tag" :to="{ name: 'jobs', query: { keyword: tag } }">
+              <router-link
+                class="tag"
+                :to="{ name: 'jobs', query: { keyword: tag } }"
+              >
                 {{ tag }}
               </router-link>
             </li>
           </template>
           <template v-else>
-            <template v-if="previewData.tags !== 'null' && tagsPreview(previewData.tags).length">
-              <li v-for="(tag, index) in tagsPreview(previewData.tags)" :key="index">
+            <template
+              v-if="
+                previewData.tags !== 'null' &&
+                  tagsPreview(previewData.tags).length
+              "
+            >
+              <li
+                v-for="(tag, index) in tagsPreview(previewData.tags)"
+                :key="index"
+              >
                 <span class="tag">{{ tag }}</span>
               </li>
             </template>
@@ -94,7 +134,13 @@
       <div class="apply__button">
         <template v-if="!isPreview">
           <ButtonComponent
-            :url="{ name: 'jobsSingle', params: { id: job.id || this.jobCompanyData.id || this.jobData.advertId}, hash: '#apply' }"
+            :url="{
+              name: 'jobsSingle',
+              params: {
+                id: job.id || this.jobCompanyData.id || this.jobData.advertId
+              },
+              hash: '#apply'
+            }"
             color="yellow"
             classStyle="apply__job__button"
             text="Apply"
@@ -118,7 +164,7 @@
     <div :class="['lower__section', { active: state }]">
       <template v-if="!isPreview">
         <template v-if="loadingStatus">
-          <LoaderComponent :small="true"/>
+          <LoaderComponent :small="true" />
         </template>
         <template v-else>
           <div class="row-1">
@@ -142,7 +188,7 @@
           <div class="row-2">
             <div class="data__cell">
               <label>About this job</label>
-              <div class="data__content" v-html="fullView.jobDesc"></div>
+              <div class="data__content" v-html="fullView.jobDesc" />
             </div>
           </div>
           <div class="row-3" v-if="false">
@@ -151,7 +197,10 @@
                 <ul>
                   <li v-for="(tag, index) in tags" :key="index">
                     <template v-if="!isPreview">
-                      <router-link class="tag" :to="{ name: 'jobs', query: { tag: tag } }">
+                      <router-link
+                        class="tag"
+                        :to="{ name: 'jobs', query: { tag: tag } }"
+                      >
                         {{ tag }}
                       </router-link>
                     </template>
@@ -168,7 +217,11 @@
               <div class="apply__button">
                 <template v-if="!isPreview">
                   <ButtonComponent
-                    :url="{ name: 'jobsSingle', params: { id: job.id || this.jobCompanyData.id }, hash: '#apply' }"
+                    :url="{
+                      name: 'jobsSingle',
+                      params: { id: job.id || this.jobCompanyData.id },
+                      hash: '#apply'
+                    }"
                     color="yellow"
                     classStyle="apply__job__button"
                     text="Apply"
@@ -215,12 +268,15 @@
         <div class="row-2">
           <div class="data__cell">
             <label>About this job</label>
-            <div class="data__content" v-html="previewData.jobDesc"></div>
+            <div class="data__content" v-html="previewData.jobDesc" />
           </div>
           <div class="data__cell">
             <div class="tags white__bg">
               <ul>
-                <li v-for="(tag, index) in tagsPreview(previewData.tags)" :key="index">
+                <li
+                  v-for="(tag, index) in tagsPreview(previewData.tags)"
+                  :key="index"
+                >
                   <span class="tag">{{ tag }}</span>
                 </li>
               </ul>
@@ -230,7 +286,10 @@
             <div class="apply__button">
               <template>
                 <ButtonComponent
-                  :url="{ name: 'jobsSingle', params: { id: job.advertId || this.jobCompanyData.id } }"
+                  :url="{
+                    name: 'jobsSingle',
+                    params: { id: job.advertId || this.jobCompanyData.id }
+                  }"
                   color="yellow"
                   classStyle="apply__job__button"
                   text="Apply"

@@ -1,16 +1,16 @@
 <template>
   <div class="showbox">
-    <div :class="['loader', {'small': small}, {'tiny': tiny}]">
+    <div :class="['loader', { small: small }, { tiny: tiny }]">
       <svg class="circular" viewBox="25 25 50 50">
         <circle
-          :class="['path', {'tiny': tiny}]"
+          :class="['path', { tiny: tiny }]"
           cx="50"
           cy="50"
           r="20"
           fill="none"
           :stroke-width="!tiny ? 2 : 4"
           stroke-miterlimit="10"
-        ></circle>
+        />
       </svg>
     </div>
   </div>

@@ -8,7 +8,6 @@
   </div>
 </template>
 
-
 <script>
 import JobsListing from "@/components/jobs/JobsListing";
 
@@ -29,14 +28,11 @@ export default {
     };
   },
   mounted() {},
-  beforeMount() {
-
-  },
+  beforeMount() {},
   metaInfo: {
     title: "Jobs"
   }
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -1,7 +1,19 @@
 <template>
-  <div :class="['input__block', {'full': full}, {'error': errors.has(name) || message !== null }]">
-    <label v-if="label">{{label}}</label>
-    <input class="input__text hidden" @keyup="input()" type="text" :name="name" v-model="local">
+  <div
+    :class="[
+      'input__block',
+      { full: full },
+      { error: errors.has(name) || message !== null }
+    ]"
+  >
+    <label v-if="label">{{ label }}</label>
+    <input
+      class="input__text hidden"
+      @keyup="input()"
+      type="text"
+      :name="name"
+      v-model="local"
+    />
     <div>
       <template v-if="values && values.length">
         <model-list-select
@@ -10,8 +22,8 @@
           :option-value="optionValue"
           :option-text="optionText"
           :placeholder="placeholderText"
-        ></model-list-select>
-        <small>{{helpText}}</small>
+        />
+        <small>{{ helpText }}</small>
       </template>
       <div v-show="message !== null" class="error">{{ message }}</div>
     </div>

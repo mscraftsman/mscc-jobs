@@ -1,6 +1,12 @@
 <template>
-  <div :class="['input__block', {'full': full}, {'error': errors.has(name) || message !== null }]">
-    <label v-if="label">{{label}}</label>
+  <div
+    :class="[
+      'input__block',
+      { full: full },
+      { error: errors.has(name) || message !== null }
+    ]"
+  >
+    <label v-if="label">{{ label }}</label>
     <textarea
       class="input__textarea"
       rows="5"
@@ -74,5 +80,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

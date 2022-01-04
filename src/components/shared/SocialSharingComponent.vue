@@ -1,7 +1,12 @@
 <template>
   <div class="social__icons">
     <div class="icon twitter">
-      <a :href="shareTwitter()" target="_blank">
+      <a
+        :href="shareTwitter()"
+        target="_blank"
+        rel="noreferrer"
+        title="Share this job listing on Twitter"
+      >
         <svg
           width="18"
           height="15"
@@ -17,7 +22,12 @@
       </a>
     </div>
     <div class="icon facebook">
-      <a :href="shareFacebook()" target="_blank">
+      <a
+        :href="shareFacebook()"
+        target="_blank"
+        rel="noreferrer"
+        title="Share this job listing on Facebook"
+      >
         <svg
           width="8"
           height="15"
@@ -33,7 +43,12 @@
       </a>
     </div>
     <div class="icon linkedin">
-      <a :href="shareLinkedIn()" target="_blank">
+      <a
+        :href="shareLinkedIn()"
+        target="_blank"
+        rel="noreferrer"
+        title="Share this job listing on LinkedIn"
+      >
         <svg
           width="17"
           height="15"
@@ -49,7 +64,12 @@
       </a>
     </div>
     <div class="icon email">
-      <a :href="shareEmail()" target="_blank">
+      <a
+        :href="shareEmail()"
+        target="_blank"
+        rel="noreferrer"
+        title="Send this job listing via email"
+      >
         <svg
           width="19"
           height="14"

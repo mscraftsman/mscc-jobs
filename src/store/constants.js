@@ -6,7 +6,6 @@ const DEFAULT_RADIUS_MILES = 25;
 const CHECKOUT_API = "https://cdn.checkout.com/sandbox/js/checkout.js";
 // const CHECKOUT_API = "https://cdn.checkout.com/js/checkout.js";
 
-
 // GET
 
 const LATEST_JOBS_ENDPOINT = ROOT_ENDPOINT_SITE_ID + "/latest";

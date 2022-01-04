@@ -52,15 +52,21 @@
       <div class="jobs__listing">
         <div class="jobs">
           <transition name="fade" mode="out-in">
-            <LoaderComponent v-if="loading" key="loader"/>
+            <LoaderComponent v-if="loading" key="loader" />
 
             <div key="search-results" v-else>
               <template
-                v-if="isSearch === false ? (jobs && jobs.length > 0) : false || isSearch === true ? (searchResults && searchResults.length > 0) : false"
+                v-if="
+                  isSearch === false
+                    ? jobs && jobs.length > 0
+                    : false || isSearch === true
+                    ? searchResults && searchResults.length > 0
+                    : false
+                "
               >
                 <transition-group name="addjobblock">
                   <JobBlock
-                    v-for="(job, index) in (!isSearch ? jobs : searchResults)"
+                    v-for="(job, index) in !isSearch ? jobs : searchResults"
                     v-if="index <= limit"
                     :jobData="job"
                     :key="index"
@@ -89,7 +95,7 @@
         </div>
         <div class="sidebar">
           <div class="sidebar__block">
-            <div class="sidebar__wrapper"></div>
+            <div class="sidebar__wrapper" />
           </div>
         </div>
       </div>
