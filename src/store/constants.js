@@ -34,7 +34,7 @@ const PURCHASE_ENDPOINT = ROOT_ENDPOINT + "/purchase/listing";
 // API Keys
 const GOOGLEMAPS_KEY = "AIzaSyDXeL4nVhBIVIjuWX9eaPh0ILzCuhIZxCs";
 const DROPBOX_APP_KEY = "1rdh07gbhk409va";
-const ONEDRIVE_CLIENT_ID = "e02f0289-d4d5-470e-a584-3aa83a1b2ea6";
+const ONEDRIVE_CLIENT_ID = "7551acf3-062c-441b-bfbf-1d456b929930";
 const CHECKOUT_KEY = "pk_test_dcefa1b7-7aca-4513-bb05-04d6c9a5c687";
 
 export {
