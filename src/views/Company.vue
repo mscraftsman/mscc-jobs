@@ -29,7 +29,7 @@
                 <div class="data">
                   <label>Phone</label>
                   <div class="data__content" v-if="company.profile.phone">
-                    >{{ company.profile.phone }}
+                    {{ company.profile.phone }}
                   </div>
                 </div>
 
