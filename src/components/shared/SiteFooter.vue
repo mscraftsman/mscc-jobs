@@ -160,15 +160,15 @@ export default {
     return {
       items: [
         {
-          path: "privacy",
+          path: "/privacy",
           text: "Privacy Policy"
         },
         {
-          path: "terms",
+          path: "/terms",
           text: "Terms of Use"
         },
         {
-          path: "contact",
+          path: "/contact",
           text: "Contact"
         }
       ]

@@ -383,7 +383,7 @@
                               {{ jobData.employerName }} and being processed in
                               accordance with {{ jobData.employerName }}'s
                               privacy practices and Jobs In Tech's
-                              <router-link to="privacy">
+                              <router-link to="/privacy">
                                 Privacy Policy</router-link
                               >.
                             </label>
