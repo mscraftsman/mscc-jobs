@@ -2,17 +2,26 @@
   <div class="social__icons">
     <div class="icon facebook" v-if="facebook">
       <a :href="facebook" target="_blank" rel="noopener">
-        <img src="@/assets/img/social-facebook.svg" alt />
+        <img src="@/assets/img/social-facebook.svg" 
+          alt="Find us on Facebook"
+          title="Find us on Facebook"
+          loading="lazy" />
       </a>
     </div>
     <div class="icon twitter" v-if="twitter">
       <a :href="twitter" target="_blank" rel="noopener">
-        <img src="@/assets/img/social-twitter.svg" alt />
+        <img src="@/assets/img/social-twitter.svg" 
+          alt="Find us on Twitter"
+          title="Find us on Twitter"
+          loading="lazy" />
       </a>
     </div>
     <div class="icon linkedin" v-if="linkedin">
       <a :href="linkedin" target="_blank" rel="noopener">
-        <img src="@/assets/img/social-linkedin.svg" alt />
+        <img src="@/assets/img/social-linkedin.svg" 
+          alt="Find us on LinkedIn"
+          title="Find us on LinkedIn"
+          loading="lazy" />
       </a>
     </div>
   </div>

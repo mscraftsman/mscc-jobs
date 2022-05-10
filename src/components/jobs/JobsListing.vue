@@ -23,6 +23,7 @@
                   src="@/assets/img/close.svg"
                   alt="Remove the keyword"
                   title="Remove the keyword"
+                  loading="lazy"
                 />
               </span>
             </button>
@@ -42,6 +43,7 @@
                   src="@/assets/img/close.svg"
                   alt="Remove the location"
                   title="Remove the location"
+                  loading="lazy"
                 />
               </span>
             </button>

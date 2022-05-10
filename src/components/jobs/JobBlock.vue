@@ -25,6 +25,7 @@
                 :src="job.logo"
                 alt
                 class="company__logo"
+                loading="lazy"
               />
               <div class="company__initial" v-else>
                 <span v-if="job && job.company">{{
@@ -37,9 +38,11 @@
         <template v-else>
           <div class="logo__outer">
             <img
-              alt
+              alt="Logo of employer"
+              title="Logo of employer"
               v-if="previewData && previewData.company.logo"
               :src="previewData.company.logo"
+              loading="lazy"
             />
             <div class="company__initial" v-else>
               <span v-if="previewData && previewData.company.name">{{

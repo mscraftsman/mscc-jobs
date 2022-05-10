@@ -3,7 +3,7 @@
     <div class="views homepage__view">
       <div class="search__container">
         <div class="heading">
-          <h3>looking for a job ?</h3>
+          <h3>looking for a job?</h3>
         </div>
         <div class="search__criterion">
           <div class="field__jobtitle">
@@ -12,6 +12,7 @@
                 src="@/assets/img/binoc.svg"
                 alt="Search for Jobs in Tech"
                 title="Search for Jobs in Tech"
+                loading="lazy"
               />
             </div>
             <div class="field">
@@ -26,7 +27,11 @@
           </div>
           <div class="field__location">
             <div class="icon">
-              <img src="@/assets/img/location.svg" alt />
+              <img 
+                src="@/assets/img/location.svg" 
+                alt="Specify your preferred location"
+                title="Specify your preferred location"
+                loading="lazy" />
             </div>
             <div class="field">
               <!-- <input type="text" class="input" placeholder="location" v-model="location"> -->
@@ -53,6 +58,7 @@
                   src="@/assets/img/binoc.svg"
                   alt="Search for Jobs in Tech"
                   title="Search for Jobs in Tech"
+                  loading="lazy"
                   v-if="!loading"
                 />
                 <LoaderComponent :tiny="true" v-else key="loader" />

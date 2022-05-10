@@ -15,7 +15,15 @@
           <div class="container__fw">
             <div class="block__content">
               <div class="company__logo">
-                <img :src="company.profile.image" alt class="logo" />
+                <img :src="company.profile.image" 
+                  :alt="
+                    'Logo of ' + company.employerName
+                  "
+                  :title="
+                    'Logo of ' + company.employerName
+                  "
+                  class="logo"
+                  loading="lazy" />
               </div>
               <div class="company__details">
                 <!-- <div class="data">
@@ -57,8 +65,10 @@
                       {{ company.profile.website }}
                       <img
                         src="@/assets/img/external-link.svg"
-                        alt
+                        alt="Check their website"
+                        title="Check their website"
                         class="logo"
+                        loading="lazy"
                       />
                     </a>
                   </div>
@@ -127,7 +137,9 @@
                       <img
                         class="icon"
                         src="@/assets/img/external-link-dark.svg"
-                        alt
+                        alt="Open in Google Maps"
+                        title="Open in Google Maps"
+                        loading="lazy"
                       />
                     </a>
                   </div>

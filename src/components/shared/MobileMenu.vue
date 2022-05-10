@@ -6,6 +6,7 @@
           src="@/assets/img/close.svg"
           alt="Close the menu"
           title="Close the menu"
+          loading="lazy"
         />
       </button>
     </div>

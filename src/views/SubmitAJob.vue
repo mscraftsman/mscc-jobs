@@ -309,7 +309,7 @@
                     >
                       <div class="icon__wrapper">
                         <div class="icon">
-                          <img src="@/assets/img/error_white.svg" alt />
+                          <img src="@/assets/img/error_white.svg" alt="Error" loading="lazy" />
                         </div>
                       </div>
                       <div class="message">
@@ -384,7 +384,7 @@
                             @vdropzone-sending="companyLogoUploadSending"
                           >
                             <div class="dropzone__content">
-                              <img src="/img/utils/upload.svg" class="icon" />
+                              <img src="/img/utils/upload.svg" class="icon" loading="lazy" />
                               <div class="text">Upload your logo</div>
                             </div>
                           </vue-dropzone>
@@ -395,7 +395,9 @@
                           <img
                             class="logo"
                             :src="companyInformation.logoSrc"
-                            alt
+                            alt="Logo of employer"
+                            title="Logo of employer"
+                            loading="lazy"
                           />
                         </div>
                       </div>
@@ -474,14 +476,14 @@
                     <div class="card__notes">
                       <div class="note">
                         <div class="icon">
-                          <img src="@/assets/img/payment-lock.svg" alt>
+                          <img src="@/assets/img/payment-lock.svg" alt loading="lazy" />
                         </div>
                         <div class="text">Secure payment guaranteed by Checkout.com over HTTPS</div>
                       </div>
 
                       <div class="note">
                         <div class="icon">
-                          <img class="small" src="@/assets/img/payment-card.svg" alt>
+                          <img class="small" src="@/assets/img/payment-card.svg" alt loading="lazy" />
                         </div>
                         <div class="text">Card is only charged when you press "Submit your Job"</div>
                       </div>
@@ -673,7 +675,7 @@
               >
                 <div class="icon__wrapper">
                   <div class="icon">
-                    <img src="@/assets/img/success.svg" alt="Success" />
+                    <img src="@/assets/img/success.svg" alt="Success" loading="lazy" />
                   </div>
                 </div>
                 <div class="message">
@@ -688,7 +690,7 @@
               >
                 <div class="icon__wrapper">
                   <div class="icon">
-                    <img src="@/assets/img/error_white.svg" alt="Error" />
+                    <img src="@/assets/img/error_white.svg" alt="Error" loading="lazy" />
                   </div>
                 </div>
                 <div class="message">
@@ -711,7 +713,9 @@
                   <img
                     class="icon"
                     src="@/assets/img/external-link-light.svg"
-                    alt
+                    alt="Link to MSCC website"
+                    title="Link to MSCC website"
+                    loading="lazy"
                   />
                   <div class="text">Visit Website</div>
                 </a>
@@ -740,6 +744,7 @@
               src="/img/utils/close.svg"
               alt="Close the preview"
               title="Close the preview"
+              loading="lazy"
             />
           </button>
 

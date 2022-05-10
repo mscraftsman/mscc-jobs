@@ -21,7 +21,12 @@
         </div>
         <div class="alert__wrapper" v-if="alertStatus">
           <div class="icon">
-            <img src="@/assets/img/enveloppe.svg" alt />
+            <img 
+              src="@/assets/img/enveloppe.svg" 
+              alt="Subscribe to job notifications"
+              title="Subscribe to job notifications"
+              loading="lazy"
+             />
           </div>
           <div class="text">
             <h3>Do you want to be notified?</h3>
@@ -46,7 +51,11 @@
       >
         <div class="subscribe__modal modal">
           <h3>
-            <img src="@/assets/img/enveloppe.svg" class="subcribe__icon" />
+            <img 
+              src="@/assets/img/enveloppe.svg" 
+              class="subcribe__icon"
+              loading="lazy"
+             />
             Subscribe to this job alert
           </h3>
           <button
@@ -58,6 +67,7 @@
               src="/img/utils/close.svg"
               alt="Close the dialog"
               title="Close the dialog"
+              loading="lazy"
             />
           </button>
 
@@ -123,7 +133,7 @@
               >
                 <div class="icon__wrapper">
                   <div class="icon">
-                    <img src="@/assets/img/success.svg" alt="Success" />
+                    <img src="@/assets/img/success.svg" alt="Success" loading="lazy"/>
                   </div>
                 </div>
                 <div class="message">
@@ -138,7 +148,7 @@
               >
                 <div class="icon__wrapper">
                   <div class="icon">
-                    <img src="@/assets/img/error_white.svg" alt="Error" />
+                    <img src="@/assets/img/error_white.svg" alt="Error" loading="lazy"/>
                   </div>
                 </div>
                 <div class="message">

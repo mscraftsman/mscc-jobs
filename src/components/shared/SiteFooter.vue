@@ -3,7 +3,12 @@
     <div class="container__fw">
       <div class="upper__section">
         <div class="logo__wrapper">
-          <img src="@/assets/img/logo-white.svg" alt />
+          <img 
+            src="@/assets/img/logo-white.svg" 
+            alt="Logo of the Mauritius Software Craftsmanship Community"
+            title="Logo of the Mauritius Software Craftsmanship Community"
+            loading="lazy"
+          />
         </div>
         <div class="logo">
           <h3>Mauritius Software Craftsmanship Community</h3>

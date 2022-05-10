@@ -109,6 +109,7 @@
                               :alt="
                                 'Company profile of ' + jobData.employerName
                               "
+                              loading="lazy"
                             />
                             <div class="company__initial" v-else>
                               <span v-if="jobData && job.employerName">
@@ -284,6 +285,7 @@
                                   class="icon"
                                   alt="Choose a document from your machine"
                                   title="Choose a document from your machine"
+                                  loading="lazy"
                                 />
                                 <span class="text">From Device</span>
                               </label>
@@ -293,7 +295,7 @@
                             type="button"
                             class="upload__pc__button button__global blue override__visbility"
                           >
-                            <img src="@/assets/img/drive.svg" class="icon">
+                            <img src="@/assets/img/drive.svg" class="icon" loading="lazy">
                             <span class="text">Google Drive</span>
                             </button>-->
 
@@ -308,6 +310,7 @@
                                 class="icon"
                                 alt="Choose a document from OneDrive"
                                 title="Choose a document from OneDrive"
+                                loading="lazy"
                               />
                               <span class="text">OneDrive</span>
                             </button>
@@ -323,6 +326,7 @@
                                 class="icon"
                                 alt="Choose a document from Dropbox"
                                 title="Choose a document from Dropbox"
+                                loading="lazy"
                               />
                               <span class="text">Dropbox</span>
                             </button>
@@ -357,7 +361,7 @@
                           >
                             <div class="icon__wrapper">
                               <div class="icon">
-                                <img src="@/assets/img/error_white.svg" alt />
+                                <img src="@/assets/img/error_white.svg" alt="Error" loading="lazy" />
                               </div>
                             </div>
                             <div class="message">
@@ -436,6 +440,7 @@
                               <img
                                 src="@/assets/img/success.svg"
                                 alt="Success"
+                                loading="lazy"
                               />
                             </div>
                           </div>
@@ -459,6 +464,7 @@
                               <img
                                 src="@/assets/img/error_white.svg"
                                 alt="Error"
+                                loading="lazy"
                               />
                             </div>
                           </div>
@@ -490,6 +496,7 @@
                           src="@/assets/img/external-link-light.svg"
                           alt="Apply on our website"
                           title="Apply on our website"
+                          loading="lazy"
                         />
                         <div class="text">Apply on website</div>
                       </a>
@@ -527,6 +534,7 @@
                           class="icon"
                           :alt="tech.text"
                           :title="tech.text"
+                          loading="lazy"
                         />
                         <div class="text">{{ tech.text }}</div>
                       </div>

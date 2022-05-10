@@ -18,13 +18,14 @@
             src="@/assets/img/menu.svg"
             alt="Open the navigation menu"
             title="Open the navigation menu"
+            loading="lazy"
           />
         </button>
       </nav>
       <div class="logo">
         <router-link to="/" class="logo-img">
           <LogoComponent />
-          <!-- <img src="@/assets/img/logo.svg" alt="Jobs In Tech logo" /> -->
+          <!-- <img src="@/assets/img/logo.svg" alt="Jobs In Tech logo" loading="lazy" /> -->
         </router-link>
       </div>
       <div class="submit__job">

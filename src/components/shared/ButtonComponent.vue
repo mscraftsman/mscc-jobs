@@ -7,6 +7,7 @@
         { on__desktop_only: iconOnDesktop },
         { on__mobile_only: iconOnMobile }
       ]"
+      loading="lazy"
     />
     <span
       :class="[
