@@ -32,6 +32,12 @@
 
                       <div class="row-1">
                         <div class="data__cell">
+                          <label>Location</label>
+                          <div class="data__content" v-if="jobData.locationText">
+                            {{ jobData.locationText }}
+                          </div>
+                        </div>
+                        <div class="data__cell">
                           <label>Type</label>
                           <div class="data__content" v-if="jobData.type">
                             {{ jobData.type }}
@@ -43,7 +49,7 @@
                             {{ jobData.salary }}
                           </div>
                         </div>
-                        <div class="data__cell">
+                        <!-- <div class="data__cell">
                           <label>Seniority Level</label>
                           <div
                             class="data__content"
@@ -51,7 +57,7 @@
                           >
                             {{ jobData.seniority_level }}
                           </div>
-                        </div>
+                        </div> -->
                         <!-- <div class="data__cell">
                           <label>Job Functions</label>
                           <div class="data__content" v-if="jobData.functions">{{ jobData.functions }}</div>
