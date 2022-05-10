@@ -169,16 +169,16 @@
         <template v-else>
           <div class="row-1">
             <div class="data__cell">
-              <label>Location</label>
-              <div class="data__content">{{ fullView.locationText }}</div>
-            </div>
-            <div class="data__cell">
               <label>Type</label>
               <div class="data__content">{{ fullView.type }}</div>
             </div>
             <div class="data__cell">
               <label>Pay (Monthly)</label>
               <div class="data__content">{{ fullView.salary }}</div>
+            </div>
+            <div class="data__cell">
+              <label>Location</label>
+              <div class="data__content">{{ fullView.locationText }}</div>
             </div>
             <!-- <div class="data__cell">
               <label>Seniority Level</label>
@@ -257,10 +257,6 @@
       <template v-else>
         <div class="row-1">
           <div class="data__cell">
-            <label>Location</label>
-            <div class="data__content">{{ previewData.locationText }}</div>
-          </div>
-          <div class="data__cell">
             <label>Type</label>
             <div class="data__content">{{ previewData.type }}</div>
           </div>
@@ -269,9 +265,13 @@
             <div class="data__content">{{ previewData.salary }}</div>
           </div>
           <div class="data__cell">
+            <label>Location</label>
+            <div class="data__content">{{ previewData.locationText }}</div>
+          </div>
+          <!-- <div class="data__cell">
             <label>Seniority Level</label>
             <div class="data__content">{{ previewData.seniority_level }}</div>
-          </div>
+          </div> -->
           <!-- <div class="data__cell">
             <label>Job Functions</label>
             <div class="data__content">{{ previewData.functions }}</div>

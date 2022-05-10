@@ -32,12 +32,6 @@
 
                       <div class="row-1">
                         <div class="data__cell">
-                          <label>Location</label>
-                          <div class="data__content" v-if="jobData.locationText">
-                            {{ jobData.locationText }}
-                          </div>
-                        </div>
-                        <div class="data__cell">
                           <label>Type</label>
                           <div class="data__content" v-if="jobData.type">
                             {{ jobData.type }}
@@ -47,6 +41,12 @@
                           <label>Pay (Monthly)</label>
                           <div class="data__content" v-if="jobData.salary">
                             {{ jobData.salary }}
+                          </div>
+                        </div>
+                        <div class="data__cell">
+                          <label>Location</label>
+                          <div class="data__content" v-if="jobData.locationText">
+                            {{ jobData.locationText }}
                           </div>
                         </div>
                         <!-- <div class="data__cell">
