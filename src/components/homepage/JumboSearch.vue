@@ -232,7 +232,7 @@ export default {
 
 <style lang="scss" scoped>
 .homepage__view {
-  background: url("/img/utils/homepage.png");
+  background: url("/img/utils/homepage.avif");
   background-size: cover;
   height: 100vh;
   display: flex;
